@@ -4,9 +4,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
     }
 }
 apply plugin: 'android'
+apply plugin: 'android-apt'
 
 repositories {
     mavenCentral()
@@ -30,5 +32,20 @@ android {
     }
 }
 
+apt {
+    arguments {
+        androidManifestFile variant.processResources.manifestFile
+        resourcePackageName 'com.cse3310.phms'
+        logLevel 'INFO'
+    }
+}
+
+
+def AAVersion = '3.0.1'
+
 dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
 }
