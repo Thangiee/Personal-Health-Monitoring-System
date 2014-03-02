@@ -44,14 +44,10 @@ public class Info extends Model{
      *
      * @param firstName the first name
      * @param lastName the last name
-     * @param email the email
-     * @param phone the phone
      */
-    public Info(String firstName, String lastName, String email, String phone) {
+    public Info(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
     }
 
     /**
@@ -68,8 +64,9 @@ public class Info extends Model{
      *
      * @param firstName the first name
      */
-    public void setFirstName(String firstName) {
+    public Info setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     /**
@@ -86,8 +83,9 @@ public class Info extends Model{
      *
      * @param lastName the last name
      */
-    public void setLastName(String lastName) {
+    public Info setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     /**
@@ -104,8 +102,9 @@ public class Info extends Model{
      *
      * @param email the email
      */
-    public void setEmail(String email) {
+    public Info setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     /**
@@ -122,7 +121,8 @@ public class Info extends Model{
      *
      * @param phone the phone
      */
-    public void setPhone(String phone) {
+    public Info setPhone(String phone) {
         this.phone = phone;
+        return this;
     }
 }

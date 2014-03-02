@@ -21,23 +21,58 @@ import com.activeandroid.annotation.Table;
 
 @Table(name = "PersonalInfo")
 public class PersonalInfo extends Info{
-
     public enum Gender {MALE, FEMALE}
 
     @Column(name = "Gender")
     private String gender;
     @Column(name = "Age")
     private int age;
+    @Column(name = "weight")
+    private double weight;
+    @Column(name = "height")
+    private double height;
 
     public PersonalInfo() {
         super();
     }
 
-    public PersonalInfo(String firstName, String lastName, String email, String phone, Gender gender) {
-        super(firstName, lastName, email, phone);
-        this.gender = gender.toString();
+    public PersonalInfo(String firstName, String lastName) {
+        super(firstName, lastName);
     }
 
-    public static void main(String[] args) {
+    public Gender getGender() {
+        return Gender.valueOf(gender);
+    }
+
+    public PersonalInfo setGender(Gender gender) {
+        this.gender = gender.toString();
+        return this;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public PersonalInfo setAge(int age) {
+        this.age = age;
+        return this;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public PersonalInfo setWeight(double weight) {
+        this.weight = weight;
+        return this;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public PersonalInfo setHeight(double height) {
+        this.height = height;
+        return this;
     }
 }
