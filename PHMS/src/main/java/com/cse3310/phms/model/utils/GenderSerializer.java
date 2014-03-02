@@ -26,7 +26,7 @@ final public class GenderSerializer extends TypeSerializer {
 
     @Override
     public Class<?> getSerializedType() {
-        return null;
+        return String.class;
     }
 
 

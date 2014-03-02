@@ -18,16 +18,14 @@ package com.cse3310.phms.model;
 
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.cse3310.phms.model.utils.Gender;
-import com.cse3310.phms.model.utils.GenderSerializer;
 
 @Table(name = "PersonalInfo")
 public class PersonalInfo extends Info{
 
-    public Gender Gender;
+    public enum Gender {MALE, FEMALE}
 
     @Column(name = "Gender")
-    private GenderSerializer genderSerializer;
+    private String gender;
     @Column(name = "Age")
     private int age;
 
@@ -35,9 +33,11 @@ public class PersonalInfo extends Info{
         super();
     }
 
-    public PersonalInfo(String firstName, String lastName, String email, String phone) {
+    public PersonalInfo(String firstName, String lastName, String email, String phone, Gender gender) {
         super(firstName, lastName, email, phone);
+        this.gender = gender.toString();
     }
 
-
+    public static void main(String[] args) {
+    }
 }
