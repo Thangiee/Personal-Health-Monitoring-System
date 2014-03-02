@@ -21,13 +21,14 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = "User")
-public class User extends Model{
+public class User extends Model {
 
     @Column(name = "UserName")
     private String username;
-
     @Column(name = "Password")
     private String password;
+    @Column(name = "PersonalInfo")
+    private PersonalInfo personalInfo;
 
     public User() {
         super();
@@ -42,7 +43,26 @@ public class User extends Model{
         return username;
     }
 
+    public User setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public PersonalInfo getPersonalInfo() {
+        return personalInfo;
+    }
+
+    public User setPersonalInfo(PersonalInfo personalInfo) {
+        this.personalInfo = personalInfo;
+        return this;
     }
 }

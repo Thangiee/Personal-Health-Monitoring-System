@@ -125,4 +125,14 @@ public class Info extends Model{
         this.phone = phone;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Info{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }

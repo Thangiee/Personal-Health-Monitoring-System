@@ -128,4 +128,15 @@ public class PersonalInfo extends Info{
         this.height = height;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "PersonalInfo{" +
+                "gender='" + gender + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", height=" + height +
+                '}';
+    }
 }
