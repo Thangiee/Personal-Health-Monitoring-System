@@ -21,7 +21,7 @@ import com.activeandroid.annotation.Table;
 
 @Table(name = "PersonalInfo")
 public class PersonalInfo extends Info{
-    public enum Gender {MALE, FEMALE}
+    public enum Gender { MALE, FEMALE }
 
     @Column(name = "Gender")
     private String gender;
@@ -32,45 +32,98 @@ public class PersonalInfo extends Info{
     @Column(name = "height")
     private double height;
 
+    /**
+     * Instantiates a new Personal info.
+     */
     public PersonalInfo() {
         super();
     }
 
+    /**
+     * Instantiates a new Personal info.
+     *
+     * @param firstName the first name
+     * @param lastName the last name
+     */
     public PersonalInfo(String firstName, String lastName) {
         super(firstName, lastName);
     }
 
+    /**
+     * Gets gender.
+     *
+     * @return the gender
+     */
     public Gender getGender() {
         return Gender.valueOf(gender);
     }
 
+    /**
+     * Sets gender.
+     *
+     * @param gender the gender
+     * @return PersonalInfo object
+     */
     public PersonalInfo setGender(Gender gender) {
         this.gender = gender.toString();
         return this;
     }
 
+    /**
+     * Gets age.
+     *
+     * @return the age
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * Sets age.
+     *
+     * @param age the age
+     * @return PersonalInfo object
+     */
     public PersonalInfo setAge(int age) {
         this.age = age;
         return this;
     }
 
+    /**
+     * Gets weight.
+     *
+     * @return the weight
+     */
     public double getWeight() {
         return weight;
     }
 
+    /**
+     * Sets weight.
+     *
+     * @param weight the weight
+     * @return PersonalInfo object
+     */
     public PersonalInfo setWeight(double weight) {
         this.weight = weight;
         return this;
     }
 
+    /**
+     * Gets height.
+     *
+     * @return the height
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * Sets height.
+     *
+     * @param height the height
+     * @return PersonalInfo object
+     */
     public PersonalInfo setHeight(double height) {
         this.height = height;
         return this;
