@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2014 Personal-Health-Monitoring-System
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ 	http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:validate="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false">
+
+    <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout">
+        <com.andreabaccega.widget.FormEditText
+                validate:testType="alpha"
+                validate:emptyErrorString="Username can not be empty"
+                android:id="@+id/act_login_screen_et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Name"
+                android:singleLine="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="200dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"/>
+        <com.andreabaccega.widget.FormEditText
+                validate:testType="alpha"
+                validate:emptyErrorString="Password can not be empty"
+                android:id="@+id/act_login_screen_et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:password="true"
+                android:singleLine="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="50dp"
+                android:layout_alignLeft="@+id/act_login_screen_et_username"
+                android:layout_alignStart="@+id/act_login_screen_et_username"
+                android:layout_alignRight="@+id/act_login_screen_et_username"
+                android:layout_alignEnd="@+id/act_login_screen_et_username"/>
+        <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log In"
+                android:id="@+id/act_login_screen_btn_login"
+                android:layout_below="@+id/act_login_screen_et_password"
+                android:layout_alignLeft="@+id/act_login_screen_et_password"
+                android:layout_alignStart="@+id/act_login_screen_et_password"
+                android:layout_alignRight="@+id/act_login_screen_et_password"
+                android:layout_alignEnd="@+id/act_login_screen_et_password"
+                android:layout_marginTop="20dp"
+                android:textSize="@dimen/btn_text_size"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Sign Up for an Account"
+                android:id="@+id/act_login_screen_tv_sign_up"
+                android:background="@null"
+                android:layout_below="@+id/act_login_screen_btn_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -45,6 +45,7 @@ def AAVersion = '3.0.1'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.andreabaccega:android-form-edittext:1.0.5@aar'
 
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
