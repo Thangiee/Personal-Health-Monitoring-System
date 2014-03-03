@@ -17,7 +17,8 @@
 package com.cse3310.phms.model;
 
 import com.cse3310.phms.model.utils.BCrypt;
-import com.cse3310.phms.ui.utils.Database;
+import com.cse3310.phms.ui.utils.CurrentUserSingleton;
+import com.cse3310.phms.ui.utils.DatabaseHandler;
 
 public class LoginManager {
 
@@ -27,32 +28,41 @@ public class LoginManager {
         if (!isUserNameExists(userName)) {
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
+            // create new user
             personalInfo.save();
             User newUser = new User(userName, hashedPassword);
             newUser.setPersonalInfo(personalInfo);
-            newUser.save();
+            newUser.save(); // save user to database
+
+            // set current user to the new user
+            CurrentUserSingleton.getInstance().setCurrentUser(newUser);
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public static boolean login(String userName, String password) {
-        User user = Database.getUserByUserName(userName);
+        User user = DatabaseHandler.getUserByUserName(userName);
 
         // check if username is valid
         if (user == null) { return false; }
 
         // check if password is valid
-        return BCrypt.checkpw(password, user.getPassword());
+        if (BCrypt.checkpw(password, user.getPassword())) {
+            // Valid password! Set current user to the logging in user.
+            CurrentUserSingleton.getInstance().setCurrentUser(user);
+        }
+
+        return false;
     }
 
     public static void logOut() {
-        // todo: to be implemented
+        CurrentUserSingleton.getInstance().setCurrentUser(null);
     }
 
     private static boolean isUserNameExists(String userName) {
-        User user = Database.getUserByUserName(userName);
+        User user = DatabaseHandler.getUserByUserName(userName);
         return user != null;
     }
 }

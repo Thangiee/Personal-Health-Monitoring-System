@@ -21,10 +21,10 @@ import com.cse3310.phms.model.User;
 
 import java.util.List;
 
-public class Database {
+public class DatabaseHandler {
 
     // restrict instantiation of this class.
-    private Database() {}
+    private DatabaseHandler() {}
 
     public static List<User> getAllUser() {
         return new Select().all().from(User.class).execute();
