@@ -22,15 +22,15 @@ import com.cse3310.phms.model.User;
  * This Singleton(restricts instantiation to one object) class helps
  * keep track of the current user while the application is running.
  */
-public class CurrentUserSingleton {
-    private static CurrentUserSingleton mInstance = null;
+public class UserSingleton {
+    private static UserSingleton mInstance = null;
     private User mCurrentUser;
 
-    private CurrentUserSingleton() {}
+    private UserSingleton() {}
 
-    public static CurrentUserSingleton getInstance() {
+    public static UserSingleton getInstance() {
         if(mInstance == null) {
-            mInstance = new CurrentUserSingleton();
+            mInstance = new UserSingleton();
         }
         return mInstance;
     }

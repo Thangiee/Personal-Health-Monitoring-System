@@ -17,10 +17,68 @@
 package com.cse3310.phms.ui.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.widget.Button;
+import android.widget.Toast;
+import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.LoginManager;
+import com.cse3310.phms.model.PersonalInfo;
+import com.cse3310.phms.ui.utils.UserSingleton;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.act_login_screen)
 public class LoginActivity extends Activity {
 
+    @ViewById(R.id.act_login_screen_et_username)
+    FormEditText mUsernameEditText;
+
+    @ViewById(R.id.act_login_screen_et_password)
+    FormEditText mPasswordEditText;
+
+    @ViewById(R.id.act_login_screen_btn_login)
+    Button mLoginButton;
+
+    @Click(R.id.act_login_screen_btn_login)
+    void clickedLoginButton() {
+        String username = mUsernameEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+
+        if (LoginManager.login(username, password)) {
+            Toast.makeText(this, "Valid! Logging in....", Toast.LENGTH_SHORT).show();
+        } else {
+            alertLoginFailed();
+        }
+        Toast.makeText(this, "Current user: " + UserSingleton.getInstance().getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Click(R.id.act_login_screen_tv_sign_up)
+    void clickedSignUpTextView() {
+        String username = mUsernameEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+
+        if(LoginManager.register(username, password, new PersonalInfo("Thang", "Le"))) {
+            Toast.makeText(this, "Registering...", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Username is taken.", Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(this, "Current user: " + UserSingleton.getInstance().getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void alertLoginFailed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Login Error")
+                .setMessage("Incorrect username and password. Please try again.")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 }

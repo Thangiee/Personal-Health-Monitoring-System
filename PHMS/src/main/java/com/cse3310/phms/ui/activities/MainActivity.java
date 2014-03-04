@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.model.PersonalInfo;
-import com.cse3310.phms.ui.utils.CurrentUserSingleton;
+import com.cse3310.phms.ui.utils.UserSingleton;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 
     @AfterViews
     void onAfterViews() {
-//        textView.setText(CurrentUserSingleton.getInstance().getCurrentUser().getUsername());
+//        textView.setText(UserSingleton.getInstance().getCurrentUser().getUsername());
     }
 
     @Click(R.id.button)
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
             textView.setText("User name is taken.");
         } else {
 //            textView.setText("registering...\n" + DatabaseHandler.getUserByUserName("Thangiee").getPersonalInfo());
-            textView.setText(CurrentUserSingleton.getInstance().getCurrentUser().getUsername());
+            textView.setText(UserSingleton.getInstance().getCurrentUser().getUsername());
         }
     }
 }

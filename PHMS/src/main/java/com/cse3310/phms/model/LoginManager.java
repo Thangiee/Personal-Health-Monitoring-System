@@ -17,7 +17,7 @@
 package com.cse3310.phms.model;
 
 import com.cse3310.phms.model.utils.BCrypt;
-import com.cse3310.phms.ui.utils.CurrentUserSingleton;
+import com.cse3310.phms.ui.utils.UserSingleton;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 
 public class LoginManager {
@@ -35,7 +35,7 @@ public class LoginManager {
             newUser.save(); // save user to database
 
             // set current user to the new user
-            CurrentUserSingleton.getInstance().setCurrentUser(newUser);
+            UserSingleton.getInstance().setCurrentUser(newUser);
             return true;
         }
 
@@ -51,14 +51,14 @@ public class LoginManager {
         // check if password is valid
         if (BCrypt.checkpw(password, user.getPassword())) {
             // Valid password! Set current user to the logging in user.
-            CurrentUserSingleton.getInstance().setCurrentUser(user);
+            UserSingleton.getInstance().setCurrentUser(user);
         }
 
         return false;
     }
 
     public static void logOut() {
-        CurrentUserSingleton.getInstance().setCurrentUser(null);
+        UserSingleton.getInstance().setCurrentUser(null);
     }
 
     private static boolean isUserNameExists(String userName) {
