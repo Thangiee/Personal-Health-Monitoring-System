@@ -5,4 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="next">Next</string>
+    <string name="prev">Previous</string>
+    <string name="finish">Submit order</string>
+
+    <string name="submit_confirm_message">Place the order with the deli? You will receive an email
+        confirmation.</string>
+    <string name="submit_confirm_button">Place order</string>
 </resources>
