@@ -1,1 +1,2 @@
 include ':PHMS'
+include ':PHMS:libs:LibWizardPager'

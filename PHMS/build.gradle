@@ -51,4 +51,8 @@ dependencies {
     compile "org.androidannotations:androidannotations-api:$AAVersion"
 
     compile 'com.android.support:support-v4:13.0.0'
+
+    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+
+    compile project(':PHMS:libs:LibWizardPager')
 }
