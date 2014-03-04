@@ -55,6 +55,7 @@ public abstract class BaseWizardPagerActivity extends FragmentActivity implement
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_wizard_screen);
         onSetup();
 
 		if (savedInstanceState != null) {

@@ -33,14 +33,14 @@ public class PersonalInfo extends Info{
     private double height;
 
     /**
-     * Instantiates a new Personal info.
+     * Instantiates act_wizard_screen new Personal info.
      */
     public PersonalInfo() {
         super();
     }
 
     /**
-     * Instantiates a new Personal info.
+     * Instantiates act_wizard_screen new Personal info.
      *
      * @param firstName the first name
      * @param lastName the last name

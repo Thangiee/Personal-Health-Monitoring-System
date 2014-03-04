@@ -33,14 +33,14 @@ public class Info extends Model{
     private String phone;
 
     /**
-     * Instantiates a new Info.
+     * Instantiates act_wizard_screen new Info.
      */
     public Info() {
         super();
     }
 
     /**
-     * Instantiates a new Info.
+     * Instantiates act_wizard_screen new Info.
      *
      * @param firstName the first name
      * @param lastName the last name

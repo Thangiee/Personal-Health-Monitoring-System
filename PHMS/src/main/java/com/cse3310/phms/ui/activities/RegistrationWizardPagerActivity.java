@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.ui.widgets;
+package com.cse3310.phms.ui.activities;
 
-import android.content.Context;
-import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
-import co.juliansuarez.libwizardpager.wizard.model.PageList;
-import com.cse3310.phms.ui.widgets.pager.AccountPage;
+import android.widget.Toast;
+import com.cse3310.phms.ui.widgets.RegistrationWizardModel;
 
-public class RegistrationWizardModel extends AbstractWizardModel {
-    public RegistrationWizardModel(Context context) {
-        super(context);
+public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
+    @Override
+    public void onSetup() {
+        super.mWizardModel = new RegistrationWizardModel(this);
     }
 
     @Override
-    protected PageList onNewRootPageList() {
-        return new PageList(
-                new AccountPage(this, "Account").setRequired(true)
-        );
+    public void onSubmit() {
+        Toast.makeText(getBaseContext(), "Submitting", Toast.LENGTH_SHORT).show();
     }
 }
