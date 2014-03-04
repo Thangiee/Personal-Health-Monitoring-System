@@ -49,7 +49,7 @@ public class LoginManager {
         if (user == null) { return false; }
 
         // check if password is valid
-        if (BCrypt.checkpw(password, user.getPassword())) {
+        if (BCrypt.checkpw(password, user.getHashedPassword())) {
             // Valid password! Set current user to the logging in user.
             UserSingleton.getInstance().setCurrentUser(user);
         }

@@ -25,8 +25,8 @@ public class User extends Model {
 
     @Column(name = "UserName")
     private String username;
-    @Column(name = "Password")
-    private String password;
+    @Column(name = "HashedPassword")
+    private String hashedPassword;
     @Column(name = "PersonalInfo")
     private PersonalInfo personalInfo;
 
@@ -34,9 +34,9 @@ public class User extends Model {
         super();
     }
 
-    public User(String username, String password) {
+    public User(String username, String hashedPassword) {
         this.username = username;
-        this.password = password;
+        this.hashedPassword = hashedPassword;
     }
 
     public String getUsername() {
@@ -48,12 +48,12 @@ public class User extends Model {
         return this;
     }
 
-    public String getPassword() {
-        return password;
+    public String getHashedPassword() {
+        return hashedPassword;
     }
 
-    public User setPassword(String password) {
-        this.password = password;
+    public User setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
         return this;
     }
 
