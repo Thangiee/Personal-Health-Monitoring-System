@@ -16,10 +16,11 @@
 
 package com.cse3310.phms.ui.activities;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
@@ -32,18 +33,17 @@ import co.juliansuarez.libwizardpager.wizard.ui.PageFragmentCallbacks;
 import co.juliansuarez.libwizardpager.wizard.ui.ReviewFragment;
 import co.juliansuarez.libwizardpager.wizard.ui.StepPagerStrip;
 import com.cse3310.phms.R;
-import com.cse3310.phms.ui.widgets.RegistrationWizardModel;
 
 import java.util.List;
 
-public class BaseWizardPagerActivity extends FragmentActivity implements
+public abstract class BaseWizardPagerActivity extends FragmentActivity implements
 		PageFragmentCallbacks, ReviewFragment.Callbacks, ModelCallbacks {
 	private ViewPager mPager;
 	private MyPagerAdapter mPagerAdapter;
 
 	private boolean mEditingAfterReview;
 
-	private AbstractWizardModel mWizardModel = new RegistrationWizardModel(this);
+	protected AbstractWizardModel mWizardModel;
 
 	private boolean mConsumePageSelectedEvent;
 
@@ -55,85 +55,81 @@ public class BaseWizardPagerActivity extends FragmentActivity implements
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.a);
+        onSetup();
 
 		if (savedInstanceState != null) {
 			mWizardModel.load(savedInstanceState.getBundle("model"));
 		}
-
-		mWizardModel.registerListener(this);
-
-		mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-		mPager = (ViewPager) findViewById(R.id.pager);
-		mPager.setAdapter(mPagerAdapter);
-		mStepPagerStrip = (StepPagerStrip) findViewById(R.id.strip);
-		mStepPagerStrip
-				.setOnPageSelectedListener(new StepPagerStrip.OnPageSelectedListener() {
-					@Override
-					public void onPageStripSelected(int position) {
-						position = Math.min(mPagerAdapter.getCount() - 1,
-								position);
-						if (mPager.getCurrentItem() != position) {
-							mPager.setCurrentItem(position);
-						}
-					}
-				});
-
-		mNextButton = (Button) findViewById(R.id.next_button);
-		mPrevButton = (Button) findViewById(R.id.prev_button);
-
-		mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				mStepPagerStrip.setCurrentPage(position);
-
-				if (mConsumePageSelectedEvent) {
-					mConsumePageSelectedEvent = false;
-					return;
-				}
-
-				mEditingAfterReview = false;
-				updateBottomBar();
-			}
-		});
-
-		mNextButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (mPager.getCurrentItem() == mCurrentPageSequence.size()) {
-					DialogFragment dg = new DialogFragment() {
-						@Override
-						public Dialog onCreateDialog(Bundle savedInstanceState) {
-							return new AlertDialog.Builder(getActivity())
-									.setMessage(R.string.submit_confirm_message)
-									.setPositiveButton(
-											R.string.submit_confirm_button,
-											null)
-									.setNegativeButton(android.R.string.cancel,
-											null).create();
-						}
-					};
-					dg.show(getSupportFragmentManager(), "place_order_dialog");
-				} else {
-					if (mEditingAfterReview) {
-						mPager.setCurrentItem(mPagerAdapter.getCount() - 1);
-					} else {
-						mPager.setCurrentItem(mPager.getCurrentItem() + 1);
-					}
-				}
-			}
-		});
-
-		mPrevButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-			}
-		});
-
-		onPageTreeChanged();
-		updateBottomBar();
+        setupWizard();
 	}
+
+    //todo: add documentation
+    public abstract void onSetup();
+
+    public abstract void onSubmit();
+
+    private void setupWizard() {
+        mWizardModel.registerListener(this);
+
+        mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(mPagerAdapter);
+        mStepPagerStrip = (StepPagerStrip) findViewById(R.id.strip);
+        mStepPagerStrip
+                .setOnPageSelectedListener(new StepPagerStrip.OnPageSelectedListener() {
+                    @Override
+                    public void onPageStripSelected(int position) {
+                        position = Math.min(mPagerAdapter.getCount() - 1,
+                                position);
+                        if (mPager.getCurrentItem() != position) {
+                            mPager.setCurrentItem(position);
+                        }
+                    }
+                });
+
+        mNextButton = (Button) findViewById(R.id.next_button);
+        mPrevButton = (Button) findViewById(R.id.prev_button);
+
+        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                mStepPagerStrip.setCurrentPage(position);
+
+                if (mConsumePageSelectedEvent) {
+                    mConsumePageSelectedEvent = false;
+                    return;
+                }
+
+                mEditingAfterReview = false;
+                updateBottomBar();
+            }
+        });
+
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPager.getCurrentItem() == mCurrentPageSequence.size()) {
+                    onSubmit();
+                } else {
+                    if (mEditingAfterReview) {
+                        mPager.setCurrentItem(mPagerAdapter.getCount() - 1);
+                    } else {
+                        mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+                    }
+                }
+            }
+        });
+
+        mPrevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+            }
+        });
+
+        onPageTreeChanged();
+        updateBottomBar();
+    }
 
 	@Override
 	public void onPageTreeChanged() {
@@ -232,7 +228,7 @@ public class BaseWizardPagerActivity extends FragmentActivity implements
 		return false;
 	}
 
-	public class MyPagerAdapter extends FragmentStatePagerAdapter {
+    public class MyPagerAdapter extends FragmentStatePagerAdapter {
 		private int mCutOffPage;
 		private Fragment mPrimaryItem;
 
