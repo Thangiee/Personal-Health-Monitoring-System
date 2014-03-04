@@ -52,6 +52,7 @@ public class LoginManager {
         if (BCrypt.checkpw(password, user.getHashedPassword())) {
             // Valid password! Set current user to the logging in user.
             UserSingleton.getInstance().setCurrentUser(user);
+            return true;
         }
 
         return false;

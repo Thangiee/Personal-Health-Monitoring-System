@@ -71,7 +71,7 @@ public class LoginActivity extends Activity {
     private void alertLoginFailed() {
         new AlertDialog.Builder(this)
                 .setTitle("Login Error")
-                .setMessage("Incorrect username and password. Please try again.")
+                .setMessage("Incorrect username or password. Please try again.")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
