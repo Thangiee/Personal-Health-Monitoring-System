@@ -62,7 +62,7 @@ public class LoginManager {
         UserSingleton.getInstance().setCurrentUser(null);
     }
 
-    private static boolean isUserNameExists(String userName) {
+    public static boolean isUserNameExists(String userName) {
         User user = DatabaseHandler.getUserByUserName(userName);
         return user != null;
     }

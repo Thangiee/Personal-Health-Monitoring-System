@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright (c) 2014 Personal-Health-Monitoring-System
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ 	http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:validate="http://schemas.android.com/apk/res-auto"
+              style="@style/WizardPageContainer">
+
+    <TextView style="@style/WizardPageTitle"/>
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="Email"/>
+
+            <com.andreabaccega.widget.FormEditText
+                    android:id="@+id/frag_contact_info_sign_up_ed_email"
+                    validate:testType="email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:inputType="textEmailAddress"
+                    android:hint="Your email address"
+                    android:layout_marginBottom="16dp"/>
+
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="Phone number"/>
+
+            <com.andreabaccega.widget.FormEditText
+                    android:id="@+id/frag_contact_info_sign_up_ed_phone"
+                    validate:testType="phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:hint="Your phone number"
+                    android:inputType="phone"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

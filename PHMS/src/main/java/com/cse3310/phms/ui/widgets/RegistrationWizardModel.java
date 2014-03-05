@@ -20,6 +20,7 @@ import android.content.Context;
 import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
 import co.juliansuarez.libwizardpager.wizard.model.PageList;
 import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
+import com.cse3310.phms.ui.widgets.pager.ContactInfoPage;
 import com.cse3310.phms.ui.widgets.pager.PersonalInfoPage;
 
 public class RegistrationWizardModel extends AbstractWizardModel {
@@ -31,7 +32,8 @@ public class RegistrationWizardModel extends AbstractWizardModel {
     protected PageList onNewRootPageList() {
         return new PageList(
                 new AccountInfoPage(this, "Account Registration").setRequired(true),
-                new PersonalInfoPage(this, "Personal Info").setRequired(true)
+                new PersonalInfoPage(this, "Personal Info").setRequired(true),
+                new ContactInfoPage(this, "Contact Info").setRequired(true)
         );
     }
 }
