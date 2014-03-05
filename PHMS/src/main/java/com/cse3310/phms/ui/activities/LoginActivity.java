@@ -52,6 +52,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(this, "Valid! Logging in....", Toast.LENGTH_SHORT).show();
         } else {
             alertLoginFailed();
+            return;
         }
         Toast.makeText(this, "Current user: " + UserSingleton.getInstance().getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
     }
