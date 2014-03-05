@@ -19,6 +19,7 @@ package com.cse3310.phms.ui.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.Toast;
 import com.andreabaccega.widget.FormEditText;
@@ -57,15 +58,8 @@ public class LoginActivity extends Activity {
 
     @Click(R.id.act_login_screen_tv_sign_up)
     void clickedSignUpTextView() {
-        String username = mUsernameEditText.getText().toString();
-        String password = mPasswordEditText.getText().toString();
-
-        if(LoginManager.register(username, password, new PersonalInfo("Thang", "Le"))) {
-            Toast.makeText(this, "Registering...", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Username is taken.", Toast.LENGTH_SHORT).show();
-        }
-        Toast.makeText(this, "Current user: " + UserSingleton.getInstance().getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, RegistrationWizardPagerActivity.class);
+        startActivity(intent);
     }
 
     private void alertLoginFailed() {
