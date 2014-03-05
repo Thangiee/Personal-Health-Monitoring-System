@@ -80,13 +80,11 @@ public class RegPersonalInfoFragment extends Fragment {
         mLastName.setText(mPage.getData().getString(LAST_KEY));
 
         mAge = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_age);
-        mAge.setText(mPage.getData().getString(AGE_KEY));
 
         mGender = (RadioButton) rootView.findViewById(R.id.rb_gender_male);
         mPage.getData().putString(GENDER_KEY, PersonalInfo.Gender.MALE.name()); // default value
 
         mWeight = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_weight);
-        mWeight.setText(mPage.getData().getString(WEIGHT_KEY));
 
         mFeetSpinner = (Spinner) rootView.findViewById(R.id.frag_person_Info_sign_up_page_sp_ft);
         ArrayAdapter<CharSequence> ftAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.ft, android.R.layout.simple_spinner_item);
