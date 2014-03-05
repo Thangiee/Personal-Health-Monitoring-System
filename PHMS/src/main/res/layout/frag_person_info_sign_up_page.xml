@@ -36,7 +36,7 @@
 
             <com.andreabaccega.widget.FormEditText
                     android:id="@+id/frag_person_Info_sign_up_page_et_first_name"
-                    validate:testType="alphaNumeric"
+                    validate:testType="personName"
                     validate:emptyErrorString="@string/cant_be_empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
 
             <com.andreabaccega.widget.FormEditText
                     android:id="@+id/frag_person_Info_sign_up_page_et_last_name"
-                    validate:testType="alphaNumeric"
+                    validate:testType="personName"
                     validate:emptyErrorString="@string/cant_be_empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:text="MALE"
                         android:id="@+id/rb_gender_male"
-                        android:checked="false"
+                        android:checked="true"
                         android:layout_weight="1"/>
 
                 <RadioButton
@@ -106,7 +106,6 @@
 
             <com.andreabaccega.widget.FormEditText
                     android:id="@+id/frag_person_Info_sign_up_page_et_weight"
-                    validate:testType="numeric"
                     validate:emptyErrorString="@string/cant_be_empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

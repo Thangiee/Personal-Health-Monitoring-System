@@ -18,6 +18,8 @@ package com.cse3310.phms.ui.widgets.pager;
 
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 import co.juliansuarez.libwizardpager.wizard.model.ModelCallbacks;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.ReviewItem;
@@ -58,14 +60,21 @@ public class PersonalInfoPage extends Page{
     public boolean isCompleted() {
         return !TextUtils.isEmpty(mData.getString(FIRST_KEY))
                 && !TextUtils.isEmpty(mData.getString(LAST_KEY))
-                && !TextUtils.isEmpty(String.valueOf(mData.getInt(AGE_KEY)))
                 && !TextUtils.isEmpty(mData.getString(GENDER_KEY))
-                && !TextUtils.isEmpty(String.valueOf(mData.getDouble(WEIGHT_KEY)))
-                && !TextUtils.isEmpty(String.valueOf(mData.getInt(HEIGHT_KEY)));
+                && !isZero(mData.getDouble(WEIGHT_KEY))
+                && !isZero(mData.getInt(AGE_KEY));
     }
 
     public PersonalInfoPage setValue(String value) {
         mData.putString(SIMPLE_DATA_KEY, value);
         return this;
     }
-}
+
+    private boolean isZero(int value) {
+       return value == 0;
+    }
+
+    private boolean isZero(double value) {
+       return value == 0.0;
+    }
+ }

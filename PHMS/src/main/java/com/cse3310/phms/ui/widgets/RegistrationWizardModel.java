@@ -30,15 +30,8 @@ public class RegistrationWizardModel extends AbstractWizardModel {
     @Override
     protected PageList onNewRootPageList() {
         return new PageList(
-                new AccountInfoPage(this, "Account").setRequired(true),
+                new AccountInfoPage(this, "Account Registration").setRequired(true),
                 new PersonalInfoPage(this, "Personal Info").setRequired(true)
-//                new TextPage(this, "First Name").setRequired(true),
-//                new TextPage(this, "Last Name").setRequired(true),
-//                new NumberPage(this, "Age").setRequired(true),
-//                new SingleFixedChoicePage(this, "Gender")
-//                        .setChoices(PersonalInfo.Gender.MALE.name(), PersonalInfo.Gender.FEMALE.name()).setRequired(true),
-//                new NumberPage(this, "Height").setRequired(true),
-//                new NumberPage(this, "Weight").setRequired(true)
         );
     }
 }

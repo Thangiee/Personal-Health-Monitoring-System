@@ -31,6 +31,8 @@ import com.cse3310.phms.model.PersonalInfo;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.widgets.pager.PersonalInfoPage;
 
+import static com.cse3310.phms.ui.widgets.pager.PersonalInfoPage.*;
+
 public class RegPersonalInfoFragment extends Fragment {
     private static final String ARG_KEY = "key";
 
@@ -72,18 +74,19 @@ public class RegPersonalInfoFragment extends Fragment {
         ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
 
         mFirstName = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_first_name);
-        mFirstName.setText(mPage.getData().getString(PersonalInfoPage.FIRST_KEY));
+        mFirstName.setText(mPage.getData().getString(FIRST_KEY));
 
         mLastName = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_last_name);
-        mLastName.setText(mPage.getData().getString(PersonalInfoPage.LAST_KEY));
+        mLastName.setText(mPage.getData().getString(LAST_KEY));
 
         mAge = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_age);
-        mAge.setText(mPage.getData().getString(PersonalInfoPage.AGE_KEY));
+        mAge.setText(mPage.getData().getString(AGE_KEY));
 
         mGender = (RadioButton) rootView.findViewById(R.id.rb_gender_male);
+        mPage.getData().putString(GENDER_KEY, PersonalInfo.Gender.MALE.name()); // default value
 
         mWeight = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_weight);
-        mWeight.setText(mPage.getData().getString(PersonalInfoPage.WEIGHT_KEY));
+        mWeight.setText(mPage.getData().getString(WEIGHT_KEY));
 
         mFeetSpinner = (Spinner) rootView.findViewById(R.id.frag_person_Info_sign_up_page_sp_ft);
         ArrayAdapter<CharSequence> ftAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.ft, android.R.layout.simple_spinner_item);
@@ -121,7 +124,7 @@ public class RegPersonalInfoFragment extends Fragment {
         mFirstName.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
-                mPage.getData().putString(PersonalInfoPage.FIRST_KEY, mFirstName.getText().toString());
+                mPage.getData().putString(FIRST_KEY, mFirstName.getText().toString());
                 mPage.notifyDataChanged();
                 mFirstName.testValidity();
             }
@@ -130,7 +133,7 @@ public class RegPersonalInfoFragment extends Fragment {
         mLastName.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
-                mPage.getData().putString(PersonalInfoPage.LAST_KEY, mLastName.getText().toString());
+                mPage.getData().putString(LAST_KEY, mLastName.getText().toString());
                 mPage.notifyDataChanged();
                 mLastName.testValidity();
             }
@@ -139,13 +142,12 @@ public class RegPersonalInfoFragment extends Fragment {
         mAge.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
-                mAge.testValidity();
-                if (mAge.getText().toString().isEmpty()) {
-                    mAge.invalidate();
+                if (!mAge.testValidity()) {
+                    mPage.getData().putInt(AGE_KEY, 0);
                 } else {
-                    mPage.getData().putInt(PersonalInfoPage.AGE_KEY, Integer.parseInt(s.toString()));
-                    mPage.notifyDataChanged();
+                    mPage.getData().putInt(AGE_KEY, Integer.parseInt(s.toString()));
                 }
+                mPage.notifyDataChanged();
             }
         });
 
@@ -153,9 +155,9 @@ public class RegPersonalInfoFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    mPage.getData().putString(PersonalInfoPage.GENDER_KEY, PersonalInfo.Gender.MALE.name());
+                    mPage.getData().putString(GENDER_KEY, PersonalInfo.Gender.MALE.name());
                 } else {
-                    mPage.getData().putString(PersonalInfoPage.GENDER_KEY, PersonalInfo.Gender.FEMALE.name());
+                    mPage.getData().putString(GENDER_KEY, PersonalInfo.Gender.FEMALE.name());
                 }
                 mPage.notifyDataChanged();
             }
@@ -164,12 +166,12 @@ public class RegPersonalInfoFragment extends Fragment {
         mWeight.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (mWeight.getText().toString().isEmpty()) {
-                    mWeight.testValidity();
+                if (!mWeight.testValidity()) {
+                    mPage.getData().putDouble(WEIGHT_KEY, 0.0);
                 } else {
-                    mPage.getData().putDouble(PersonalInfoPage.WEIGHT_KEY, Double.parseDouble(s.toString()));
-                    mPage.notifyDataChanged();
+                    mPage.getData().putDouble(WEIGHT_KEY, Double.parseDouble(s.toString()));
                 }
+                mPage.notifyDataChanged();
             }
         });
 
@@ -179,7 +181,7 @@ public class RegPersonalInfoFragment extends Fragment {
                 int inches = Integer.parseInt(parent.getItemAtPosition(position).toString()) * 12;
                 inches += Integer.parseInt(mInchSpinner.getSelectedItem().toString());
 
-                mPage.getData().putInt(PersonalInfoPage.HEIGHT_KEY, inches);
+                mPage.getData().putInt(HEIGHT_KEY, inches);
                 mPage.notifyDataChanged();
             }
 
@@ -196,7 +198,7 @@ public class RegPersonalInfoFragment extends Fragment {
                 int inches = Integer.parseInt(parent.getItemAtPosition(position).toString());
                 inches += Integer.parseInt(mFeetSpinner.getSelectedItem().toString()) * 12;
 
-                mPage.getData().putInt(PersonalInfoPage.HEIGHT_KEY, inches);
+                mPage.getData().putInt(HEIGHT_KEY, inches);
                 mPage.notifyDataChanged();
             }
 
