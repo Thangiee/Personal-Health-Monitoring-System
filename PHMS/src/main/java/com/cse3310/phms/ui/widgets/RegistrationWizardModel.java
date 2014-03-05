@@ -19,7 +19,8 @@ package com.cse3310.phms.ui.widgets;
 import android.content.Context;
 import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
 import co.juliansuarez.libwizardpager.wizard.model.PageList;
-import com.cse3310.phms.ui.widgets.pager.AccountPage;
+import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
+import com.cse3310.phms.ui.widgets.pager.PersonalInfoPage;
 
 public class RegistrationWizardModel extends AbstractWizardModel {
     public RegistrationWizardModel(Context context) {
@@ -29,7 +30,15 @@ public class RegistrationWizardModel extends AbstractWizardModel {
     @Override
     protected PageList onNewRootPageList() {
         return new PageList(
-                new AccountPage(this, "Account").setRequired(true)
+                new AccountInfoPage(this, "Account").setRequired(true),
+                new PersonalInfoPage(this, "Personal Info").setRequired(true)
+//                new TextPage(this, "First Name").setRequired(true),
+//                new TextPage(this, "Last Name").setRequired(true),
+//                new NumberPage(this, "Age").setRequired(true),
+//                new SingleFixedChoicePage(this, "Gender")
+//                        .setChoices(PersonalInfo.Gender.MALE.name(), PersonalInfo.Gender.FEMALE.name()).setRequired(true),
+//                new NumberPage(this, "Height").setRequired(true),
+//                new NumberPage(this, "Weight").setRequired(true)
         );
     }
 }

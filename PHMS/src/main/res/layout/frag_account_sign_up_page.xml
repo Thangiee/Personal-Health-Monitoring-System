@@ -35,7 +35,7 @@
                     android:text="Username"/>
 
             <com.andreabaccega.widget.FormEditText
-                    android:id="@+id/your_name"
+                    android:id="@+id/frag_account_sign_up_page_et_username"
                     validate:testType="alpha"
                     validate:emptyErrorString="Username can not be empty"
                     android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:text="Password"/>
 
             <com.andreabaccega.widget.FormEditText
-                    android:id="@+id/your_email"
+                    android:id="@+id/frag_account_sign_up_page_et_password"
                     validate:testType="alpha"
                     validate:emptyErrorString="Password can not be empty"
                     android:password="true"

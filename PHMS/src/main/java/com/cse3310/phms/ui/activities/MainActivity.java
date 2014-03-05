@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 
     @AfterViews
     void onAfterViews() {
-//        textView.setText(UserSingleton.getInstance().getCurrentUser().getUsername());
+        textView.setText(UserSingleton.getInstance().getCurrentUser().getUsername());
     }
 
     @Click(R.id.button)

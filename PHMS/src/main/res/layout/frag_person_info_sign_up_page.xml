@@ -1,0 +1,152 @@
+<!--
+  ~ Copyright (c) 2014 Personal-Health-Monitoring-System
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ 	http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:validate="http://schemas.android.com/apk/res-auto"
+              style="@style/WizardPageContainer">
+
+    <TextView style="@style/WizardPageTitle"/>
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="First Name"/>
+
+            <com.andreabaccega.widget.FormEditText
+                    android:id="@+id/frag_person_Info_sign_up_page_et_first_name"
+                    validate:testType="alphaNumeric"
+                    validate:emptyErrorString="@string/cant_be_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:inputType="textCapWords"
+                    android:layout_marginBottom="16dp"/>
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="Last Name"/>
+
+            <com.andreabaccega.widget.FormEditText
+                    android:id="@+id/frag_person_Info_sign_up_page_et_last_name"
+                    validate:testType="alphaNumeric"
+                    validate:emptyErrorString="@string/cant_be_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:inputType="textCapWords"
+                    android:layout_marginBottom="16dp"/>
+
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="Age"/>
+
+            <com.andreabaccega.widget.FormEditText
+                    android:id="@+id/frag_person_Info_sign_up_page_et_age"
+                    validate:testType="numeric"
+                    validate:emptyErrorString="@string/cant_be_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:layout_marginBottom="16dp"/>
+
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="Gender"/>
+
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingBottom="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MALE"
+                        android:id="@+id/rb_gender_male"
+                        android:checked="false"
+                        android:layout_weight="1"/>
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FEMALE"
+                        android:layout_weight="1"
+                        android:id="@+id/rb_gender_female"
+                        />
+            </RadioGroup>
+
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="Weight"/>
+
+            <com.andreabaccega.widget.FormEditText
+                    android:id="@+id/frag_person_Info_sign_up_page_et_weight"
+                    validate:testType="numeric"
+                    validate:emptyErrorString="@string/cant_be_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:inputType="numberDecimal"
+                    android:hint="In pounds"
+                    android:layout_marginBottom="16dp"/>
+
+            <TextView
+                    style="@style/WizardFormLabel"
+                    android:text="Height"/>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frag_person_Info_sign_up_page_sp_ft"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="ft"
+                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frag_person_Info_sign_up_page_sp_in"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="in"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

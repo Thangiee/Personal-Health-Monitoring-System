@@ -21,14 +21,15 @@ import android.text.TextUtils;
 import co.juliansuarez.libwizardpager.wizard.model.ModelCallbacks;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.ReviewItem;
+import com.cse3310.phms.ui.fragments.AccountInfoFragment;
 
 import java.util.ArrayList;
 
-public class AccountPage extends Page{
+public class AccountInfoPage extends Page{
     public static final String USERNAME_KEY = "username";
     public static final String PASSWORD_KEY= "password";
 
-    public AccountPage(ModelCallbacks callbacks, String title) {
+    public AccountInfoPage(ModelCallbacks callbacks, String title) {
         super(callbacks, title);
     }
 
@@ -40,7 +41,6 @@ public class AccountPage extends Page{
     @Override
     public void getReviewItems(ArrayList<ReviewItem> dest) {
         dest.add(new ReviewItem("Username", mData.getString(USERNAME_KEY), getKey(), -1));
-//        dest.add(new ReviewItem("Password", mData.getString(PASSWORD_KEY), getKey(), -1));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class AccountPage extends Page{
                 && !TextUtils.isEmpty(mData.getString(PASSWORD_KEY));
     }
 
-    public AccountPage setValue(String value) {
+    public AccountInfoPage setValue(String value) {
         mData.putString(SIMPLE_DATA_KEY, value);
         return this;
     }

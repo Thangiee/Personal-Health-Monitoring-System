@@ -7,9 +7,34 @@
 
     <string name="next">Next</string>
     <string name="prev">Previous</string>
-    <string name="finish">Submit order</string>
+    <string name="finish">Submit</string>
 
     <string name="submit_confirm_message">Place the order with the deli? You will receive an email
         confirmation.</string>
     <string name="submit_confirm_button">Place order</string>
+    <string name="cant_be_empty">This field can not be empty.</string>
+
+    <string-array name="ft">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="in">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
 </resources>
