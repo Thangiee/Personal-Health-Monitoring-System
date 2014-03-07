@@ -30,37 +30,79 @@ public class User extends Model {
     @Column(name = "PersonalInfo")
     private PersonalInfo personalInfo;
 
+    /**
+     * Instantiates a new User.
+     */
     public User() {
         super();
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param username the username
+     * @param hashedPassword the hashed password
+     */
     public User(String username, String hashedPassword) {
         this.username = username;
         this.hashedPassword = hashedPassword;
     }
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     * @return the username
+     */
     public User setUsername(String username) {
         this.username = username;
         return this;
     }
 
+    /**
+     * Gets hashed password.
+     *
+     * @return the hashed password
+     */
     public String getHashedPassword() {
         return hashedPassword;
     }
 
+    /**
+     * Sets hashed password.
+     *
+     * @param hashedPassword the hashed password
+     * @return the hashed password
+     */
     public User setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
         return this;
     }
 
+    /**
+     * Gets personal info.
+     *
+     * @return the personal info
+     */
     public PersonalInfo getPersonalInfo() {
         return personalInfo;
     }
 
+    /**
+     * Sets personal info.
+     *
+     * @param personalInfo the personal info
+     * @return the personal info
+     */
     public User setPersonalInfo(PersonalInfo personalInfo) {
         this.personalInfo = personalInfo;
         return this;
