@@ -1,2 +1,3 @@
 include ':PHMS'
 include ':PHMS:libs:LibWizardPager'
+include ':PHMS:libs:SlidingMenu'

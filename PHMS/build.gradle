@@ -55,4 +55,5 @@ dependencies {
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
 
     compile project(':PHMS:libs:LibWizardPager')
+    compile project(':PHMS:libs:SlidingMenu')
 }
