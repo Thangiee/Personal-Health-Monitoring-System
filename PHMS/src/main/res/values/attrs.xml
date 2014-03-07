@@ -18,4 +18,6 @@
     <declare-styleable name="AppTheme">
         <attr name="textAppearanceFinish" format="reference" />
     </declare-styleable>
+    
+    <color name="slide_menu_background">#2B2B2B</color>
 </resources>

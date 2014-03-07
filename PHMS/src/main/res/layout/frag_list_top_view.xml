@@ -28,7 +28,7 @@
 
 
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
@@ -37,6 +37,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:background="@color/slide_menu_background"
             android:textSize="24sp"
             android:padding="6dp"/>
 

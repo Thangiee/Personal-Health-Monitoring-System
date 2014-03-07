@@ -29,15 +29,18 @@ import com.cse3310.phms.R;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
+    private List<String> topViewTitleList = new ArrayList<String>();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
+        for (int i = 0; i < 20; i++) {
+            topViewTitleList.add("Title " + i);
+        }
 
         BindDictionary<String> dict = new BindDictionary<String>();
         dict.addStringField(R.id.frag_list_top_view_title,
@@ -49,8 +52,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 });
 
         FunDapter<String> adapter = new FunDapter<String>(Cache.getContext(),
-                        new ArrayList<String>(Arrays.asList("Home", "Log Out")),
-                        R.layout.frag_list_top_view, dict);
+                topViewTitleList, R.layout.frag_list_top_view, dict);
 
         setListAdapter(adapter);
     }
