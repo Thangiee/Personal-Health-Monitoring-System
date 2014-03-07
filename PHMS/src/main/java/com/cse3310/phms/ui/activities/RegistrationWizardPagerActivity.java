@@ -18,13 +18,10 @@ package com.cse3310.phms.ui.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
+import android.content.Intent;
 import android.widget.Toast;
-import com.cse3310.phms.model.Info;
 import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.model.PersonalInfo;
-import com.cse3310.phms.model.User;
-import com.cse3310.phms.ui.utils.UserSingleton;
 import com.cse3310.phms.ui.widgets.RegistrationWizardModel;
 import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
 import com.cse3310.phms.ui.widgets.pager.ContactInfoPage;
@@ -59,6 +56,9 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
 
         LoginManager.register(username, password, info);
         Toast.makeText(getBaseContext(), "Success! Registering " + username + "...", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, SlidingMenuActivity.class);
+        startActivity(intent);
     }
 
     private void alertRegistrationFailed() {
