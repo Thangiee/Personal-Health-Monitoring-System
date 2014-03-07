@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.LoginManager;
-import com.cse3310.phms.model.PersonalInfo;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -50,6 +49,8 @@ public class LoginActivity extends Activity {
 
         if (LoginManager.login(username, password)) {
             Toast.makeText(this, "Valid! Logging in....", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, SlidingMenuActivity.class);
+            startActivity(intent);
         } else {
             alertLoginFailed();
             return;
