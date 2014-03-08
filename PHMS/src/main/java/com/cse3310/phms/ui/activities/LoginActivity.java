@@ -21,11 +21,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.Toast;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.LoginManager;
-import com.cse3310.phms.ui.utils.UserSingleton;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -48,14 +46,12 @@ public class LoginActivity extends Activity {
         String password = mPasswordEditText.getText().toString();
 
         if (LoginManager.login(username, password)) {
-            Toast.makeText(this, "Valid! Logging in....", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SlidingMenuActivity.class);
             startActivity(intent);
+            finish();
         } else {
             alertLoginFailed();
-            return;
         }
-        Toast.makeText(this, "Current user: " + UserSingleton.getInstance().getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
     }
 
     @Click(R.id.act_login_screen_tv_sign_up)
