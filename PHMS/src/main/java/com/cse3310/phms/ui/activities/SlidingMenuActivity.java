@@ -17,7 +17,9 @@
 package com.cse3310.phms.ui.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
@@ -33,6 +35,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class SlidingMenuActivity extends SlidingFragmentActivity{
     private int mTitleRes;
     protected SlideMenuListFragment mFrag;
+    private boolean doubleBackToExitPressedOnce = false;
 
     public SlidingMenuActivity() {
         super();
@@ -94,5 +97,21 @@ public class SlidingMenuActivity extends SlidingFragmentActivity{
         // create all the icons on the action bar
         getSupportMenuInflater().inflate(R.menu.action_bar_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Click BACK again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }
