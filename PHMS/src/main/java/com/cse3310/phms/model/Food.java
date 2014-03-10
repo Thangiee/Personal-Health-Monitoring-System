@@ -1,0 +1,191 @@
+/*
+ * Copyright (c) 2014 Personal-Health-Monitoring-System
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.cse3310.phms.model;
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table(name = "Food")
+public class Food extends Model{
+
+    @Column private String name;
+    @Column private double calories;
+    @Column private double servingSize;
+    @Column private double protein;
+    @Column private double fat;
+    @Column private double fiber;
+    @Column private double sugars;
+
+    /**
+     * Instantiates a new Food.
+     */
+    public Food() {
+        super();
+    }
+
+    /**
+     * Instantiates a new Food.
+     *
+     * @param name the name
+     */
+    public Food(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets calories in kcal.
+     *
+     * @return the calories
+     */
+    public double getCalories() {
+        return calories;
+    }
+
+    /**
+     * Sets calories in kcal.
+     *
+     * @param calories the calories
+     * @return the calories
+     */
+    public Food setCalories(double calories) {
+        this.calories = calories;
+        return this;
+    }
+
+    /**
+     * Gets sugars in grams.
+     *
+     * @return the sugars
+     */
+    public double getSugars() {
+        return sugars;
+    }
+
+    /**
+     * Sets sugars in grams.
+     *
+     * @param sugars the sugars
+     * @return the sugars
+     */
+    public Food setSugars(double sugars) {
+        this.sugars = sugars;
+        return this;
+    }
+
+    /**
+     * Gets serving size.
+     *
+     * @return the serving size
+     */
+    public double getServingSize() {
+        return servingSize;
+    }
+
+    /**
+     * Sets serving size.
+     *
+     * @param servingSize the serving size
+     * @return the serving size
+     */
+    public Food setServingSize(double servingSize) {
+        this.servingSize = servingSize;
+        return this;
+    }
+
+    /**
+     * Gets fiber in grams.
+     *
+     * @return the fiber
+     */
+    public double getFiber() {
+        return fiber;
+    }
+
+    /**
+     * Sets fiber in grams.
+     *
+     * @param fiber the fiber
+     * @return the fiber
+     */
+    public Food setFiber(double fiber) {
+        this.fiber = fiber;
+        return this;
+    }
+
+    /**
+     * Gets fat in grams.
+     *
+     * @return the fat
+     */
+    public double getFat() {
+        return fat;
+    }
+
+    /**
+     * Sets fat in grams.
+     *
+     * @param fat the fat
+     * @return the fat
+     */
+    public Food setFat(double fat) {
+        this.fat = fat;
+        return this;
+    }
+
+    /**
+     * Gets protein in grams.
+     *
+     * @return the protein
+     */
+    public double getProtein() {
+        return protein;
+    }
+
+    /**
+     * Sets protein in grams.
+     *
+     * @param protein the protein
+     * @return the protein
+     */
+    public Food setProtein(double protein) {
+        this.protein = protein;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "name='" + name + '\'' +
+                ", calories=" + calories +
+                ", servingSize=" + servingSize +
+                ", protein=" + protein +
+                ", fat=" + fat +
+                ", fiber=" + fiber +
+                ", sugars=" + sugars +
+                '}';
+    }
+}
