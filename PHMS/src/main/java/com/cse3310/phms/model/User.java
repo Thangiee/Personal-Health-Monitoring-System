@@ -23,44 +23,95 @@ import com.activeandroid.annotation.Table;
 @Table(name = "User")
 public class User extends Model {
 
-    @Column(name = "UserName")
-    private String username;
-    @Column(name = "HashedPassword")
-    private String hashedPassword;
-    @Column(name = "PersonalInfo")
-    private PersonalInfo personalInfo;
+    @Column private String username;
+    @Column private String hashedPassword;
+    @Column private PersonalInfo personalInfo;
+    @Column private Diet diet;
 
+    /**
+     * Instantiates a new User.
+     */
     public User() {
         super();
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param username the username
+     * @param hashedPassword the hashed password
+     */
     public User(String username, String hashedPassword) {
         this.username = username;
         this.hashedPassword = hashedPassword;
+        diet = new Diet();
+        diet.save();
     }
 
+    /**
+     * Gets diet.
+     *
+     * @return the diet
+     */
+    public Diet getDiet() {
+        return diet;
+    }
+
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     * @return the username
+     */
     public User setUsername(String username) {
         this.username = username;
         return this;
     }
 
+    /**
+     * Gets hashed password.
+     *
+     * @return the hashed password
+     */
     public String getHashedPassword() {
         return hashedPassword;
     }
 
+    /**
+     * Sets hashed password.
+     *
+     * @param hashedPassword the hashed password
+     * @return the hashed password
+     */
     public User setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
         return this;
     }
 
+    /**
+     * Gets personal info.
+     *
+     * @return the personal info
+     */
     public PersonalInfo getPersonalInfo() {
         return personalInfo;
     }
 
+    /**
+     * Sets personal info.
+     *
+     * @param personalInfo the personal info
+     * @return the personal info
+     */
     public User setPersonalInfo(PersonalInfo personalInfo) {
         this.personalInfo = personalInfo;
         return this;

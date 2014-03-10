@@ -16,7 +16,7 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.1"
+    buildToolsVersion "19.0.3"
 
     defaultConfig {
         minSdkVersion 14
@@ -54,5 +54,9 @@ dependencies {
 
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
 
+    // library for make custom adapter easier.
+    compile 'com.github.amigold.fundapter2:library:1.01'
+
     compile project(':PHMS:libs:LibWizardPager')
+    compile project(':PHMS:libs:SlidingMenu')
 }

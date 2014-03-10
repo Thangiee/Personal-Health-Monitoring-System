@@ -33,14 +33,14 @@ public class Info extends Model{
     private String phone;
 
     /**
-     * Instantiates act_wizard_screen new Info.
+     * Instantiates a new Info.
      */
     public Info() {
         super();
     }
 
     /**
-     * Instantiates act_wizard_screen new Info.
+     * Instantiates a new Info.
      *
      * @param firstName the first name
      * @param lastName the last name
@@ -110,7 +110,7 @@ public class Info extends Model{
     /**
      * Gets phone.
      *
-     * @return the phone
+     * @return the phone number
      */
     public String getPhone() {
         return phone;
@@ -119,7 +119,7 @@ public class Info extends Model{
     /**
      * Sets phone.
      *
-     * @param phone the phone
+     * @param phone the phone number
      */
     public Info setPhone(String phone) {
         this.phone = phone;

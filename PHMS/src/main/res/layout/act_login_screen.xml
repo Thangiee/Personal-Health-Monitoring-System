@@ -78,7 +78,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Sign Up for an Account"
                 android:id="@+id/act_login_screen_tv_sign_up"
-                android:background="@null"
+                android:background="@drawable/selectable_item_background"
                 android:layout_below="@+id/act_login_screen_btn_login"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"/>

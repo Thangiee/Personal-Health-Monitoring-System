@@ -33,14 +33,14 @@ public class PersonalInfo extends Info{
     private double height;
 
     /**
-     * Instantiates act_wizard_screen new Personal info.
+     * Instantiates a new Personal info.
      */
     public PersonalInfo() {
         super();
     }
 
     /**
-     * Instantiates act_wizard_screen new Personal info.
+     * Instantiates a new Personal info.
      *
      * @param firstName the first name
      * @param lastName the last name
@@ -92,7 +92,7 @@ public class PersonalInfo extends Info{
     /**
      * Gets weight.
      *
-     * @return the weight
+     * @return the weight in lbs
      */
     public double getWeight() {
         return weight;
@@ -101,7 +101,7 @@ public class PersonalInfo extends Info{
     /**
      * Sets weight.
      *
-     * @param weight the weight
+     * @param weight the weight in lbs
      * @return PersonalInfo object
      */
     public PersonalInfo setWeight(double weight) {
@@ -112,7 +112,7 @@ public class PersonalInfo extends Info{
     /**
      * Gets height.
      *
-     * @return the height
+     * @return the height in inches
      */
     public double getHeight() {
         return height;
@@ -121,7 +121,7 @@ public class PersonalInfo extends Info{
     /**
      * Sets height.
      *
-     * @param height the height
+     * @param height the height in inches
      * @return PersonalInfo object
      */
     public PersonalInfo setHeight(double height) {
