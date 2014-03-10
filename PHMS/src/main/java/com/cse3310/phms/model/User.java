@@ -23,12 +23,10 @@ import com.activeandroid.annotation.Table;
 @Table(name = "User")
 public class User extends Model {
 
-    @Column(name = "UserName")
-    private String username;
-    @Column(name = "HashedPassword")
-    private String hashedPassword;
-    @Column(name = "PersonalInfo")
-    private PersonalInfo personalInfo;
+    @Column private String username;
+    @Column private String hashedPassword;
+    @Column private PersonalInfo personalInfo;
+    @Column private Diet diet;
 
     /**
      * Instantiates a new User.
@@ -46,6 +44,17 @@ public class User extends Model {
     public User(String username, String hashedPassword) {
         this.username = username;
         this.hashedPassword = hashedPassword;
+        diet = new Diet();
+        diet.save();
+    }
+
+    /**
+     * Gets diet.
+     *
+     * @return the diet
+     */
+    public Diet getDiet() {
+        return diet;
     }
 
     /**

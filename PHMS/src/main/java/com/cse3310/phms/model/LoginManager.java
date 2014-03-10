@@ -39,8 +39,9 @@ public class LoginManager {
         if (!isUserNameExists(userName)) {
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-            // create new user
             personalInfo.save();
+
+            // create new user
             User newUser = new User(userName, hashedPassword);
             newUser.setPersonalInfo(personalInfo);
             newUser.save(); // save user to database
