@@ -40,6 +40,7 @@
                     validate:emptyErrorString="Username can not be empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="25"
                     android:saveEnabled="false"
                     android:inputType="textCapWords"
                     android:layout_marginBottom="16dp"/>
@@ -53,6 +54,7 @@
                     validate:testType="alphaNumeric"
                     validate:emptyErrorString="Password can not be empty"
                     android:password="true"
+                    android:maxLength="25"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:saveEnabled="false"

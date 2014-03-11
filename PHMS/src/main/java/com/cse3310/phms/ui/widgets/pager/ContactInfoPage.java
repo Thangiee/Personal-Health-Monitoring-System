@@ -17,12 +17,10 @@
 package com.cse3310.phms.ui.widgets.pager;
 
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import co.juliansuarez.libwizardpager.wizard.model.ModelCallbacks;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.ReviewItem;
 import com.cse3310.phms.ui.fragments.RegContactInfoFragment;
-import com.cse3310.phms.ui.fragments.RegPersonalInfoFragment;
 
 import java.util.ArrayList;
 
@@ -48,8 +46,7 @@ public class ContactInfoPage extends Page{
 
     @Override
     public boolean isCompleted() {
-        return !TextUtils.isEmpty(mData.getString(EMAIL_KEY))
-                && !TextUtils.isEmpty(mData.getString(PHONE_KEY));
+        return mData.getBoolean(VALID_KEY);
     }
 
     public ContactInfoPage setValue(String value) {

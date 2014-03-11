@@ -40,6 +40,7 @@
                     validate:emptyErrorString="@string/cant_be_empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="25"
                     android:saveEnabled="false"
                     android:inputType="textCapWords"
                     android:layout_marginBottom="16dp"/>
@@ -54,6 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:saveEnabled="false"
+                    android:maxLength="25"
                     android:inputType="textCapWords"
                     android:layout_marginBottom="16dp"/>
 
@@ -110,6 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:saveEnabled="false"
+                    android:maxLength="5"
                     android:inputType="numberDecimal"
                     android:hint="In pounds"
                     android:layout_marginBottom="16dp"/>
