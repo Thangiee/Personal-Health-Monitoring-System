@@ -83,8 +83,9 @@
 
     <ListView
             android:id="@android:id/list"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:choiceMode="singleChoice"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>

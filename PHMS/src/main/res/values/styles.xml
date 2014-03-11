@@ -3,6 +3,7 @@
     <style name="AppTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="textAppearanceFinish">@style/TextAppearanceFinish</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/list_item_background</item>
     </style>
 
     <style name="TextAppearanceFinish" parent="@style/TextAppearance.Sherlock.Small">
@@ -19,7 +20,7 @@
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#669900</item>
+        <item name="android:background">@color/my_app_green</item>
         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
 

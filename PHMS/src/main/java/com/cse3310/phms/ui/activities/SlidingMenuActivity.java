@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
+import com.cse3310.phms.ui.fragments.HomeScreenFragment_;
 import com.cse3310.phms.ui.fragments.SlideMenuListFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.actionbar.ActionBarSlideIcon;
@@ -48,7 +49,9 @@ public class SlidingMenuActivity extends SlidingFragmentActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.frag_home_screen);
+        setContentView(R.layout.front_layout_frame);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, new HomeScreenFragment_()).commit();
 
         if (mTitleRes == 0) {
             mTitleRes = R.string.app_name;
@@ -57,14 +60,14 @@ public class SlidingMenuActivity extends SlidingFragmentActivity{
 
         // set the Behind View
         // this is the view behind the list when the slide menu is open
-        setBehindContentView(R.layout.menu_frame);
+        setBehindContentView(R.layout.back_layout_frame);
         if (savedInstanceState == null) {
             FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
             mFrag = new SlideMenuListFragment();
-            t.replace(R.id.menu_frame, mFrag);
+            t.replace(R.id.frag_back_container, mFrag);
             t.commit();
         } else {
-            mFrag = (SlideMenuListFragment)this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+            mFrag = (SlideMenuListFragment)this.getSupportFragmentManager().findFragmentById(R.id.frag_back_container);
         }
 
         // customize the SlidingMenu
