@@ -17,12 +17,14 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import co.juliansuarez.libwizardpager.wizard.ui.PageFragmentCallbacks;
 import com.andreabaccega.widget.FormEditText;
@@ -205,5 +207,17 @@ public class RegPersonalInfoFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setMenuVisibility(isVisibleToUser);
+        if (mFirstName != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            if (!isVisibleToUser) {
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            }
+        }
     }
 }
