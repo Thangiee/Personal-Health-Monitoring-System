@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 
     @Click(R.id.act_login_screen_btn_login)
     void clickedLoginButton() {
-        String username = mUsernameEditText.getText().toString();
+        String username = mUsernameEditText.getText().toString().toLowerCase();
         String password = mPasswordEditText.getText().toString();
 
         if (LoginManager.login(username, password)) {

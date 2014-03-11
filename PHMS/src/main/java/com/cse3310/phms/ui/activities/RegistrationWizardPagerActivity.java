@@ -34,7 +34,7 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
 
     @Override
     public void onSubmit() {
-        String username = onGetPage("Account Registration").getData().getString(AccountInfoPage.USERNAME_KEY);
+        String username = onGetPage("Account Registration").getData().getString(AccountInfoPage.USERNAME_KEY).toLowerCase();
         String password = onGetPage("Account Registration").getData().getString(AccountInfoPage.PASSWORD_KEY);
 
         // check if username is taken.

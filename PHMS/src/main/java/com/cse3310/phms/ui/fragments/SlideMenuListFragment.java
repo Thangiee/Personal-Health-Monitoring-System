@@ -72,7 +72,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         // set the sliding menu header to show the current user's username and email.
         User user = UserSingleton.getInstance().getCurrentUser();
         TextView usernameHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_username);
-        usernameHeader.setText(user.getUsername());
+        usernameHeader.setText(Character.toUpperCase(user.getUsername().charAt(0)) + user.getUsername().substring(1)); // first char to upper case
         TextView emailHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_email);
         emailHeader.setText(user.getPersonalInfo().getEmail());
 

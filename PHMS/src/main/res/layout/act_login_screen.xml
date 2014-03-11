@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:hint="User Name"
                 android:singleLine="true"
+                android:inputType="textCapWords"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="200dp"
