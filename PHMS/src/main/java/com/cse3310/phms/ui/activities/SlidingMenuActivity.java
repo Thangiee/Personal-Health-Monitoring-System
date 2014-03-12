@@ -25,9 +25,11 @@ import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.fragments.HomeScreenFragment_;
 import com.cse3310.phms.ui.fragments.SlideMenuListFragment;
+import com.cse3310.phms.ui.utils.Events;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.actionbar.ActionBarSlideIcon;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import de.greenrobot.event.EventBus;
 
 /**
  * See https://github.com/jfeinstein10/SlidingMenu for documentations on
@@ -50,8 +52,9 @@ public class SlidingMenuActivity extends SlidingFragmentActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.front_layout_frame);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, new HomeScreenFragment_()).commit();
+
+        EventBus.getDefault().register(this);
 
         if (mTitleRes == 0) {
             mTitleRes = R.string.app_name;
@@ -82,6 +85,16 @@ public class SlidingMenuActivity extends SlidingFragmentActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSlidingMenu().setActionBarSlideIcon(new ActionBarSlideIcon(
                 this, R.drawable.ic_navigation_drawer, R.string.open_content_desc, R.string.close_content_desc));
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    public void onEvent(Events.SlidingMenuItemSelectedEvent event) {
+        setTitle(event.newTitle);
     }
 
     @Override

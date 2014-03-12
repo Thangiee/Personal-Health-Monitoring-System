@@ -32,8 +32,10 @@ import com.ami.fundapter.extractors.StringExtractor;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.utils.DrawerItem;
+import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import de.greenrobot.event.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,21 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.frag_diet_screen, "Diet"));
         add(new DrawerItem(R.layout.frag_diet_screen, "test"));
     }};
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.frag_list_sliding_menu, container, false);
+
+        // set the sliding menu header to show the current user's username and email.
+        User user = UserSingleton.getInstance().getCurrentUser();
+        TextView usernameHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_username);
+        usernameHeader.setText(Character.toUpperCase(user.getUsername().charAt(0)) + user.getUsername().substring(1)); // first char to upper case
+        TextView emailHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_email);
+        emailHeader.setText(user.getPersonalInfo().getEmail());
+
+        return view;
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -65,21 +82,6 @@ public class SlideMenuListFragment extends SherlockListFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container,savedInstanceState);
-        View view = inflater.inflate(R.layout.frag_list_sliding_menu, container, false);
-
-        // set the sliding menu header to show the current user's username and email.
-        User user = UserSingleton.getInstance().getCurrentUser();
-        TextView usernameHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_username);
-        usernameHeader.setText(Character.toUpperCase(user.getUsername().charAt(0)) + user.getUsername().substring(1)); // first char to upper case
-        TextView emailHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_email);
-        emailHeader.setText(user.getPersonalInfo().getEmail());
-
-        return view;
-    }
-
-    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         selectItem(position);
 //        EventBus.getDefault().postSticky(new EventBusDemoEvent.ButtonClickEvent(position));
@@ -93,10 +95,12 @@ public class SlideMenuListFragment extends SherlockListFragment {
         switch (drawerItems.get(position).layoutId) {
             case R.layout.frag_home_screen:
                 Toast.makeText(getActivity(), "you clicked home", Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS"));
                 fragment = new HomeScreenFragment_();
                 break;
             case R.layout.frag_diet_screen:
                 Toast.makeText(getActivity(), "you clicked diet", Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Diet"));
                 fragment = new DietScreenFragment_();
                 break;
         }
