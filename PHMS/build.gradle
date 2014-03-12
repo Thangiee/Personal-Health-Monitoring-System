@@ -57,6 +57,9 @@ dependencies {
     // library for make custom adapter easier.
     compile 'com.github.amigold.fundapter2:library:1.01'
 
+    // library for communicating btw components easier.
+    compile 'de.greenrobot:eventbus:2.2.0'
+
     compile project(':PHMS:libs:LibWizardPager')
     compile project(':PHMS:libs:SlidingMenu')
 }
