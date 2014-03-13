@@ -16,10 +16,62 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.view.MenuItem;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.Food;
+import com.cse3310.phms.ui.cards.FoodCard;
+import com.cse3310.phms.ui.cards.FoodCardExpand;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.internal.base.BaseCard;
+import it.gmariotti.cardslib.library.view.CardListView;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @EFragment(R.layout.frag_diet_screen)
-public class DietScreenFragment extends SherlockFragment{
+public class DietScreenFragment extends SherlockFragment {
+    private List<Card> mFoodCards = new ArrayList<Card>();
+
+    @ViewById(R.id.frag_diet_food_list)
+    CardListView mCardListView;
+
+    @AfterViews
+    void onAfterViews() {
+        CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), mFoodCards);
+        if (mCardListView != null) {
+            mCardListView.setAdapter(adapter);
+        }
+
+        addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
+        addFoodCard(new Food("Chess").setCalories(250));
+        addFoodCard(new Food("water").setCalories(0));
+        addFoodCard(new Food("Egg").setCalories(200));
+    }
+
+    public void addFoodCard(Food food) {
+        FoodCard card = new FoodCard(getActivity());
+
+        CardHeader header = new CardHeader(getActivity());
+        header.setTitle(food.getName());
+        //Add a popup menu. This method set OverFlow button to visible
+        header.setPopupMenu(R.menu.edit_del_menu, new CardHeader.OnClickCardHeaderPopupMenuListener() {
+            @Override
+            public void onMenuItemClick(BaseCard baseCard, MenuItem menuItem) {
+                Toast.makeText(getActivity(), "Click on " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        card.addCardHeader(header);
+
+        FoodCardExpand cardExpand = new FoodCardExpand(getActivity(), food);
+        card.addCardExpand(cardExpand);
+
+        mFoodCards.add(card);
+    }
 }

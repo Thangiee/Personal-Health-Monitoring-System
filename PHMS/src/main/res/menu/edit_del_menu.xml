@@ -16,14 +16,14 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_edit"
+          android:title="Edit"
+          android:orderInCategory="100"
+          android:showAsAction="always" />
 
-    <it.gmariotti.cardslib.library.view.CardListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/frag_diet_food_list"/>
-
-</LinearLayout>
+    <item android:id="@+id/action_del"
+          android:title="Delete"
+          android:orderInCategory="101"
+          android:showAsAction="always" />
+</menu>
