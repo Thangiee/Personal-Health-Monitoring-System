@@ -19,18 +19,52 @@ package com.cse3310.phms.ui.cards;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import com.cse3310.phms.R;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 
 public class FoodCard extends Card{
 
+    protected String mTitle;
+    protected String mSubTitle;
+    protected String mBtnTitle;
+    protected View.OnClickListener mBtnClickListener;
+
     public FoodCard(Context context) {
-        super(context);
+        super(context, R.layout.card_inner_food);
     }
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
+        TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
+        TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
+        TextView btnTitle = (TextView) view.findViewById(R.id.card_inner_txt_btn);
+
+        title.setText(mTitle);
+        subTitle.setText(mSubTitle);
+        btnTitle.setText(mBtnTitle);
+        btnTitle.setClickable(true);
+
+        btnTitle.setOnClickListener(mBtnClickListener);
+
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);
+    }
+
+    public void setTitle(String title) {
+        this.mTitle = title;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.mSubTitle = subTitle;
+    }
+
+    public void setBtnTitle(String btnTitle) {
+        this.mBtnTitle = btnTitle;
+    }
+
+    public void setBtnClickListener(View.OnClickListener mBtnClickListener) {
+        this.mBtnClickListener = mBtnClickListener;
     }
 }
