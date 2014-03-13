@@ -32,7 +32,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
 import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
-import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
 
 public class AccountInfoFragment extends SherlockFragment {
     private static final String ARG_KEY = "key";

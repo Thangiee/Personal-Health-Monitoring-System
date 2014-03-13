@@ -31,11 +31,11 @@ import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.validators.PhoneValidator;
-import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
-import com.cse3310.phms.ui.widgets.pager.ContactInfoPage;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
+import com.cse3310.phms.ui.views.pager.ContactInfoPage;
 
-import static com.cse3310.phms.ui.widgets.pager.ContactInfoPage.EMAIL_KEY;
-import static com.cse3310.phms.ui.widgets.pager.ContactInfoPage.PHONE_KEY;
+import static com.cse3310.phms.ui.views.pager.ContactInfoPage.EMAIL_KEY;
+import static com.cse3310.phms.ui.views.pager.ContactInfoPage.PHONE_KEY;
 
 public class RegContactInfoFragment extends SherlockFragment {
     private static final String ARG_KEY = "key";

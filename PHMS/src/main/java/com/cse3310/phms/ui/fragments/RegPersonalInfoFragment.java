@@ -32,10 +32,10 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.PersonalInfo;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.validators.NotZeroValidator;
-import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
-import com.cse3310.phms.ui.widgets.pager.PersonalInfoPage;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
+import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
 
-import static com.cse3310.phms.ui.widgets.pager.PersonalInfoPage.*;
+import static com.cse3310.phms.ui.views.pager.PersonalInfoPage.*;
 
 public class RegPersonalInfoFragment extends SherlockFragment {
     private static final String ARG_KEY = "key";

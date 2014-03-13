@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.ui.widgets;
+package com.cse3310.phms.ui.views;
 
 import android.content.Context;
 import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
 import co.juliansuarez.libwizardpager.wizard.model.PageList;
-import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
-import com.cse3310.phms.ui.widgets.pager.ContactInfoPage;
-import com.cse3310.phms.ui.widgets.pager.PersonalInfoPage;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
+import com.cse3310.phms.ui.views.pager.ContactInfoPage;
+import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
 
 public class RegistrationWizardModel extends AbstractWizardModel {
     public RegistrationWizardModel(Context context) {

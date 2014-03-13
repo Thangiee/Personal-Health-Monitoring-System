@@ -14,32 +14,34 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.ui.widgets.pager;
+package com.cse3310.phms.ui.views.pager;
 
 import android.support.v4.app.Fragment;
 import co.juliansuarez.libwizardpager.wizard.model.ModelCallbacks;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.ReviewItem;
-import com.cse3310.phms.ui.fragments.AccountInfoFragment;
+import com.cse3310.phms.ui.fragments.RegContactInfoFragment;
 
 import java.util.ArrayList;
 
-public class AccountInfoPage extends Page{
-    public static final String USERNAME_KEY = "username";
-    public static final String PASSWORD_KEY= "password";
+public class ContactInfoPage extends Page{
+    public static final String EMAIL_KEY = "Email";
+    public static final String PHONE_KEY= "Phone";
 
-    public AccountInfoPage(ModelCallbacks callbacks, String title) {
+
+    public ContactInfoPage(ModelCallbacks callbacks, String title) {
         super(callbacks, title);
     }
 
     @Override
     public Fragment createFragment() {
-        return AccountInfoFragment.create(getKey());
+        return RegContactInfoFragment.create(getKey());
     }
 
     @Override
     public void getReviewItems(ArrayList<ReviewItem> dest) {
-        dest.add(new ReviewItem("Username", mData.getString(USERNAME_KEY), getKey(), -1));
+        dest.add(new ReviewItem("Email", mData.getString(EMAIL_KEY), getKey(), -1));
+        dest.add(new ReviewItem("Phone", mData.getString(PHONE_KEY), getKey(), -1));
     }
 
     @Override
@@ -47,8 +49,8 @@ public class AccountInfoPage extends Page{
         return mData.getBoolean(VALID_KEY);
     }
 
-    public AccountInfoPage setValue(String value) {
+    public ContactInfoPage setValue(String value) {
         mData.putString(SIMPLE_DATA_KEY, value);
         return this;
     }
-}
+ }
