@@ -60,6 +60,9 @@ dependencies {
     // library for communicating btw components easier.
     compile 'de.greenrobot:eventbus:2.2.0'
 
+    compile 'com.github.gabrielemariotti.cards:library:1.4.2'
+    compile 'se.emilsjolander:stickylistheaders:2.1.5'
+
     compile project(':PHMS:libs:LibWizardPager')
     compile project(':PHMS:libs:SlidingMenu')
 }
