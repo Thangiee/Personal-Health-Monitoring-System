@@ -27,4 +27,35 @@
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">#fff</item>
     </style>
+
+    <!-- Google Now style -->
+    <style name="Now_extras"/>
+
+    <style name="Now_extras.card_expand_inner_layout">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Now_extras.card_expand_inner_layout.light_gray">
+        <item name="android:background">#515254</item>
+        <item name="android:textColor">#B3B2B2</item>
+    </style>
+
+    <style name="Now_extras.card_expand_inner_layout.light_gray.bold">
+        <item name="android:background">#4A4B4D</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Now_extras.card_expand_inner_layout.dark">
+        <item name="android:background">#4A4B4D</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="Now_extras.card_expand_inner_layout.dark.bold" parent="@style/Now_extras.card_expand_inner_layout.dark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
