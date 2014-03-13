@@ -37,6 +37,7 @@ import java.util.List;
 
 @EFragment(R.layout.frag_diet_screen)
 public class DietScreenFragment extends SherlockFragment {
+    private static int idCounter = 0;
     private List<Card> mFoodCards = new ArrayList<Card>();
 
     @ViewById(R.id.frag_diet_food_list)
@@ -44,19 +45,24 @@ public class DietScreenFragment extends SherlockFragment {
 
     @AfterViews
     void onAfterViews() {
-        CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), mFoodCards);
-        if (mCardListView != null) {
-            mCardListView.setAdapter(adapter);
-        }
-
         addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
         addFoodCard(new Food("Chess").setCalories(250));
         addFoodCard(new Food("water").setCalories(0));
         addFoodCard(new Food("Egg").setCalories(200));
+
+        CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), mFoodCards);
+        //Enable undo controller!
+        adapter.setEnableUndo(true);
+
+        if (mCardListView != null) {
+            mCardListView.setAdapter(adapter);
+        }
     }
 
     public void addFoodCard(Food food) {
         FoodCard card = new FoodCard(getActivity());
+        card.setSwipeable(true);
+        card.setId("" + idCounter++);
 
         CardHeader header = new CardHeader(getActivity());
         header.setTitle(food.getName());

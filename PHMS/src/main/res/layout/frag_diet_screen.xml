@@ -15,15 +15,22 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
 
-    <it.gmariotti.cardslib.library.view.CardListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/frag_diet_food_list"/>
+        <it.gmariotti.cardslib.library.view.CardListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/frag_diet_food_list"/>
 
-</LinearLayout>
+    </RelativeLayout>
+
+    <!-- Include undo message layout -->
+    <include layout="@layout/list_card_undo_message"/>
+
+</FrameLayout>
