@@ -61,6 +61,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity
         setContentView(R.layout.front_layout_frame);
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, new HomeScreenFragment_()).commit();
         inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // use to show and hide keyboard
+        suggestionAdapter = new ArrayAdapter<String>(this, R.layout.search_drop_down);
 
         if (mTitleRes == 0) {
             mTitleRes = R.string.app_name;
@@ -95,7 +96,6 @@ public abstract class BaseActivity extends SlidingFragmentActivity
         MenuItem menuItem = menu.getItem(SEARCH_ICON).setActionView(R.layout.act_layout_search); // switch to this menu after clicking the search icon
 
         // setup search suggestions
-        suggestionAdapter = new ArrayAdapter<String>(this, R.layout.search_drop_down);
         autoCompTextView = (AutoCompleteTextView) menuItem.getActionView().findViewById(R.id.act_search_txt_auto_complete);
         autoCompTextView.setAdapter(suggestionAdapter);
         autoCompTextView.setOnItemClickListener(this);

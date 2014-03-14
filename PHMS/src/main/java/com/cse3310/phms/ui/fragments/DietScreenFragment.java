@@ -86,7 +86,13 @@ public class DietScreenFragment extends SherlockFragment {
         if (mCardListView != null) {
             mCardListView.setExternalAdapter(animCardArrayAdapter, adapter);
         }
+    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // change suggestions to items in this screen
         Set<String> suggestions = new HashSet<String>(mFoodCards.size());
         for (Card card : mFoodCards) {
             suggestions.add(card.getTitle());
