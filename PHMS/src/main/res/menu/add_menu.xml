@@ -18,21 +18,9 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/search"
-            android:title="search"
-            android:orderInCategory="100"
+            android:id="@+id/add_icon"
+            android:title="Add"
+            android:orderInCategory="101"
             android:showAsAction="ifRoom|collapseActionView"
-            android:icon="@drawable/ic_action_search" />
-
-    <item
-            android:id="@+id/action_settings"
-            android:title="@string/action_settings"
-            android:orderInCategory="200"
-            android:showAsAction="collapseActionView"/>
-
-    <item
-            android:id="@+id/about_us"
-            android:title="About us"
-            android:orderInCategory="201"
-            android:showAsAction="collapseActionView"/>
+            android:icon="@drawable/ic_add_icon" />
 </menu>

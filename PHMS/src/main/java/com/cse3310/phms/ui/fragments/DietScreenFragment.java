@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
 import com.cse3310.phms.ui.activities.SlidingMenuActivity;
@@ -66,6 +68,12 @@ public class DietScreenFragment extends SherlockFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @AfterViews
     void onAfterViews() {
         // Set up adapter
@@ -84,6 +92,12 @@ public class DietScreenFragment extends SherlockFragment {
             suggestions.add(card.getTitle());
         }
         ((SlidingMenuActivity) getActivity()).setSuggestions(suggestions);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.add_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     public void addFoodCard(Food food) {
