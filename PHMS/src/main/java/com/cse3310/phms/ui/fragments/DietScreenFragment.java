@@ -16,24 +16,30 @@
 
 package com.cse3310.phms.ui.fragments;
 
-import android.view.MenuItem;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
+import com.cse3310.phms.ui.activities.SlidingMenuActivity;
 import com.cse3310.phms.ui.cards.FoodCard;
 import com.cse3310.phms.ui.cards.FoodCardExpand;
+import com.nhaarman.listviewanimations.swinginadapters.AnimationAdapter;
+import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.base.BaseCard;
 import it.gmariotti.cardslib.library.view.CardListView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @EFragment(R.layout.frag_diet_screen)
 public class DietScreenFragment extends SherlockFragment {
@@ -43,37 +49,57 @@ public class DietScreenFragment extends SherlockFragment {
     @ViewById(R.id.frag_diet_food_list)
     CardListView mCardListView;
 
-    @AfterViews
-    void onAfterViews() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
         addFoodCard(new Food("Chess").setCalories(250));
         addFoodCard(new Food("water").setCalories(0));
         addFoodCard(new Food("Egg").setCalories(200));
+        addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
+        addFoodCard(new Food("Chess").setCalories(250));
+        addFoodCard(new Food("water").setCalories(0));
+        addFoodCard(new Food("Egg").setCalories(200));
+        addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
+        addFoodCard(new Food("Chess").setCalories(250));
+        addFoodCard(new Food("water").setCalories(0));
+        addFoodCard(new Food("Egg").setCalories(200));
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
+    @AfterViews
+    void onAfterViews() {
+        // Set up adapter
         CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), mFoodCards);
-        //Enable undo controller!
-        adapter.setEnableUndo(true);
+        adapter.setEnableUndo(true); // Enable undo controller!
+        // Set up animation adapter
+        AnimationAdapter animCardArrayAdapter = new SwingBottomInAnimationAdapter(adapter);
+        animCardArrayAdapter.setAbsListView(mCardListView);
 
         if (mCardListView != null) {
-            mCardListView.setAdapter(adapter);
+            mCardListView.setExternalAdapter(animCardArrayAdapter, adapter);
         }
+
+        Set<String> suggestions = new HashSet<String>(mFoodCards.size());
+        for (Card card : mFoodCards) {
+            suggestions.add(card.getTitle());
+        }
+        ((SlidingMenuActivity) getActivity()).setSuggestions(suggestions);
     }
 
     public void addFoodCard(Food food) {
         FoodCard card = new FoodCard(getActivity());
         card.setSwipeable(true);
         card.setId("" + idCounter++);
+        card.setTitle(food.getName());
+        card.setSubTitle("" + food.getCalories());
+        card.setBtnTitle("Edit");
 
-        CardHeader header = new CardHeader(getActivity());
-        header.setTitle(food.getName());
-        //Add a popup menu. This method set OverFlow button to visible
-        header.setPopupMenu(R.menu.edit_del_menu, new CardHeader.OnClickCardHeaderPopupMenuListener() {
+        card.setBtnClickListener(new View.OnClickListener() {
             @Override
-            public void onMenuItemClick(BaseCard baseCard, MenuItem menuItem) {
-                Toast.makeText(getActivity(), "Click on " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Click on edit", Toast.LENGTH_SHORT).show();
             }
         });
-        card.addCardHeader(header);
 
         FoodCardExpand cardExpand = new FoodCardExpand(getActivity(), food);
         card.addCardExpand(cardExpand);

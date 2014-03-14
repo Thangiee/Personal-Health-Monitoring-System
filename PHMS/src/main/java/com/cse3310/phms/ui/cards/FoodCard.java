@@ -53,6 +53,7 @@ public class FoodCard extends Card{
     }
 
     public void setTitle(String title) {
+        super.setTitle(title);
         this.mTitle = title;
     }
 

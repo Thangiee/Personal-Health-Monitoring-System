@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:focusable="false">
+
+    <AutoCompleteTextView
+            android:id="@+id/act_search_txt_auto_complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:completionThreshold="1"
+            android:drawableRight="@android:drawable/ic_input_delete"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:textColorHint="@color/default_color"
+            android:hint="Search" >
+        <requestFocus/>
+    </AutoCompleteTextView>
+</FrameLayout>
