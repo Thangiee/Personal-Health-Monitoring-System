@@ -92,7 +92,8 @@ public abstract class BaseActivity extends SlidingFragmentActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.base_action_bar, menu);
+        getSupportMenuInflater().inflate(R.menu.overflow_menu, menu);
+        getSupportMenuInflater().inflate(R.menu.search_menu, menu);
         MenuItem menuItem = menu.getItem(SEARCH_ICON).setActionView(R.layout.act_layout_search); // switch to this menu after clicking the search icon
 
         // setup search suggestions
