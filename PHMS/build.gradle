@@ -63,6 +63,8 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:library:1.4.2'
     compile 'se.emilsjolander:stickylistheaders:2.1.5'
 
+    compile 'com.nhaarman.listviewanimations:library:2.6.0'
+
     compile project(':PHMS:libs:LibWizardPager')
     compile project(':PHMS:libs:SlidingMenu')
 }
