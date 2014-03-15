@@ -20,6 +20,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.cse3310.phms.R;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
@@ -39,7 +40,7 @@ public class FoodCard extends Card{
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
         TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
-        TextView btnTitle = (TextView) view.findViewById(R.id.card_inner_txt_btn);
+        final TextView btnTitle = (TextView) view.findViewById(R.id.card_inner_txt_btn);
 
         title.setText(mTitle);
         subTitle.setText(mSubTitle);
@@ -50,6 +51,19 @@ public class FoodCard extends Card{
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);
+        setOnExpandAnimatorEndListener(new OnExpandAnimatorEndListener() {
+            @Override
+            public void onExpandEnd(Card card) {
+                Toast.makeText(getContext(), "clicky", Toast.LENGTH_SHORT).show();
+                btnTitle.setVisibility(View.VISIBLE);
+            }
+        });
+        setOnCollapseAnimatorEndListener(new OnCollapseAnimatorEndListener() {
+            @Override
+            public void onCollapseEnd(Card card) {
+                btnTitle.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     public void setTitle(String title) {
