@@ -42,7 +42,7 @@ import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{
-        add(new DrawerItem(R.layout.frag_home_screen, "Home"));
+        add(new DrawerItem(R.layout.home_screen, "Home"));
         add(new DrawerItem(R.layout.diet_screen, "Diet"));
         add(new DrawerItem(R.layout.frag_card_list, "test"));
     }};
@@ -92,7 +92,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         FragmentTransaction fragTran = getActivity().getSupportFragmentManager().beginTransaction();
 
         switch (drawerItems.get(position).layoutId) {
-            case R.layout.frag_home_screen:
+            case R.layout.home_screen:
                 Toast.makeText(getActivity(), "you clicked home", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS"));
                 fragment = new HomeScreenFragment_();

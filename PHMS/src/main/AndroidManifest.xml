@@ -30,8 +30,12 @@
                 android:label="@string/app_name"/>
         <activity
                 android:name=".ui.activities.SearchCardsActivity"
-                android:label="@string/app_name"
-                android:noHistory="true"/>
+                android:label="Search"
+                android:noHistory="true">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.activities.SlidingMenuActivity"/>
+        </activity>
     </application>
 
 </manifest>

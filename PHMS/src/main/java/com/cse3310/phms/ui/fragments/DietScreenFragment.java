@@ -55,7 +55,6 @@ public class DietScreenFragment extends SherlockFragment {
         User user = UserSingleton.getInstance().getCurrentUser();
         List<Food> foodList = user.getDiet().getFoods();
         mSuggestionSet = new HashSet<String>(foodList.size());
-
         for (Food food : foodList) {
             cardList.add(createFoodCard(food));
             mSuggestionSet.add(food.getName());
@@ -64,12 +63,14 @@ public class DietScreenFragment extends SherlockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        CardListFragment_ cardListFragment = new CardListFragment_();
-        cardListFragment.addCards(cardList);
         Fragment dietHeaderFragment = new DietScreenHeaderFragment_();
+        CardListFragment_ cardListFragment = new CardListFragment_();
+        cardListFragment.addCards(cardList); // add cards to show in the card list fragment
+
+        // fragments within fragment
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.diet_screen_header_container, dietHeaderFragment);
-        transaction.add(R.id.diet_screen_food_list_container, cardListFragment).commit();
+        transaction.add(R.id.diet_screen_header_container, dietHeaderFragment);   // add header fragment
+        transaction.add(R.id.diet_screen_food_list_container, cardListFragment).commit();   // add fragment to show the cards
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -78,6 +79,7 @@ public class DietScreenFragment extends SherlockFragment {
         super.onActivityCreated(savedInstanceState);
         // change the suggestions for search to unique intake food name.
         EventBus.getDefault().post(new Events.SetSuggestionEvent(mSuggestionSet));
+        // setup the cards that will be searched if the user decide to search
         EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(cardList));
     }
 

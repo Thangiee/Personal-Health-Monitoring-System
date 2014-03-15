@@ -23,7 +23,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
 import org.androidannotations.annotations.EFragment;
 
-@EFragment(R.layout.frag_home_screen)
+@EFragment(R.layout.home_screen)
 public class HomeScreenFragment extends SherlockFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {

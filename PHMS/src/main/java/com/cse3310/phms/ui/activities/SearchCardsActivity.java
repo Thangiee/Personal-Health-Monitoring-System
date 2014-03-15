@@ -18,7 +18,9 @@ package com.cse3310.phms.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.fragments.SearchScreenFragment_;
 import com.cse3310.phms.ui.utils.Events;
@@ -35,6 +37,9 @@ public class SearchCardsActivity extends BaseActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // enable the up/home button in the actionbar
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         EventBus.getDefault().registerSticky(this);
         // change suggestions to items in this screen
@@ -62,6 +67,17 @@ public class SearchCardsActivity extends BaseActivity{
         mAutoCompTextView.dismissDropDown();
         Keyboard.hide(mInputManager, mAutoCompTextView);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
