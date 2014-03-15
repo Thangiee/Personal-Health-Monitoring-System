@@ -32,7 +32,7 @@ import java.util.*;
 
 public class SearchCardsActivity extends BaseActivity{
     private List<Card> mCardMatchList = new ArrayList<Card>();
-    protected Collection<Card> mCardsToSearch;
+    private Collection<Card> mCardsToSearch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class SearchCardsActivity extends BaseActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         EventBus.getDefault().registerSticky(this);
+
         // change suggestions to items in this screen
         Set<String> suggestionsSet = new HashSet<String>(mCardsToSearch.size());
         for (Card card : mCardsToSearch) {
@@ -64,6 +65,7 @@ public class SearchCardsActivity extends BaseActivity{
         super.onCreateOptionsMenu(menu);
         mSearchMenuItem.expandActionView();
         mAutoCompTextView.setText(mSearchWord);
+        mAutoCompTextView.clearFocus();
         mAutoCompTextView.dismissDropDown();
         Keyboard.hide(mInputManager, mAutoCompTextView);
         return true;
