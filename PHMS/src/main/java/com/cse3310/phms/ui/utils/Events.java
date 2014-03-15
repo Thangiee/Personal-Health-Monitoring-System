@@ -16,12 +16,30 @@
 
 package com.cse3310.phms.ui.utils;
 
+import java.util.List;
+
 public class Events {
     public static class SlidingMenuItemSelectedEvent {
         public String newTitle;
 
         public SlidingMenuItemSelectedEvent(String newTitle) {
             this.newTitle = newTitle;
+        }
+    }
+
+    public static class SearchEvent {
+        public String searchWord;
+
+        public SearchEvent(String searchWord) {
+            this.searchWord = searchWord;
+        }
+    }
+
+    public static class initListEvent<T> {
+        public List<T> list;
+
+        public initListEvent(List<T> list) {
+            this.list = list;
         }
     }
 }

@@ -30,6 +30,7 @@ import com.ami.fundapter.BindDictionary;
 import com.ami.fundapter.FunDapter;
 import com.ami.fundapter.extractors.StringExtractor;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.Food;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.utils.DrawerItem;
 import com.cse3310.phms.ui.utils.Events;
@@ -101,6 +102,8 @@ public class SlideMenuListFragment extends SherlockListFragment {
             case R.layout.frag_diet_screen:
                 Toast.makeText(getActivity(), "you clicked diet", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Diet"));
+                EventBus.getDefault().postSticky(new Events.initListEvent<Food>(
+                        UserSingleton.getInstance().getCurrentUser().getDiet().getFoods()));
                 fragment = new DietScreenFragment_();
                 break;
         }

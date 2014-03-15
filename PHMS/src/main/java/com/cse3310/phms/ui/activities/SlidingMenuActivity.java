@@ -16,14 +16,22 @@
 
 package com.cse3310.phms.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
+import com.cse3310.phms.ui.fragments.HomeScreenFragment_;
+import com.cse3310.phms.ui.fragments.SlideMenuListFragment;
 import com.cse3310.phms.ui.utils.Events;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.actionbar.ActionBarSlideIcon;
 import de.greenrobot.event.EventBus;
+import it.gmariotti.cardslib.library.internal.Card;
+
+import java.util.List;
 
 /**
  * See https://github.com/jfeinstein10/SlidingMenu for documentations on
@@ -32,6 +40,8 @@ import de.greenrobot.event.EventBus;
 public class SlidingMenuActivity extends BaseActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
+    private List<Card> CardsToSearch;
+    protected SlideMenuListFragment mFrag;
 
     public SlidingMenuActivity() {
     }
@@ -43,8 +53,29 @@ public class SlidingMenuActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, new HomeScreenFragment_()).commit();
+
         EventBus.getDefault().register(this);
 
+        if (savedInstanceState == null) {
+            FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
+            mFrag = new SlideMenuListFragment();
+            t.replace(R.id.frag_back_container, mFrag);
+            t.commit();
+        } else {
+            mFrag = (SlideMenuListFragment)this.getSupportFragmentManager().findFragmentById(R.id.frag_back_container);
+        }
+
+        // turn on sliding
+        getSlidingMenu().setSlidingEnabled(true);
+        // customize the SlidingMenu
+        SlidingMenu sm = getSlidingMenu();
+        sm.setShadowWidth(50);
+        sm.setShadowDrawable(R.drawable.shadow);
+        sm.setBehindOffset(260);
+        sm.setFadeDegree(1.0f);
+        sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        setSlidingActionBarEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSlidingMenu().setActionBarSlideIcon(new ActionBarSlideIcon(
                 this, R.drawable.ic_navigation_drawer, R.string.open_content_desc, R.string.close_content_desc));
@@ -75,6 +106,15 @@ public class SlidingMenuActivity extends BaseActivity {
     }
 
     @Override
+    public void doSearch() {
+        Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().postSticky(new Events.SearchEvent(autoCompTextView.getText().toString()));
+
+        Intent intent = new Intent(this, SearchCardsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
@@ -88,5 +128,9 @@ public class SlidingMenuActivity extends BaseActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+
+    public void setCardsToSearch(List<Card> cardsToSearch) {
+        CardsToSearch = cardsToSearch;
     }
 }

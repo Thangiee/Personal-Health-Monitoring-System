@@ -18,19 +18,18 @@ package com.cse3310.phms.ui.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
-import com.cse3310.phms.ui.fragments.HomeScreenFragment_;
-import com.cse3310.phms.ui.fragments.SlideMenuListFragment;
 import com.cse3310.phms.ui.utils.Keyboard;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import java.util.Collection;
@@ -40,9 +39,10 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
     private static final int SEARCH_ICON = 0;
     private int mTitleRes;
     private ArrayAdapter<String> suggestionAdapter;
-    private AutoCompleteTextView autoCompTextView;
+
+    protected AutoCompleteTextView autoCompTextView;
     protected InputMethodManager inputManager;
-    protected SlideMenuListFragment mFrag;
+    protected MenuItem searchMenuItem;
 
     protected BaseActivity() {
         super();
@@ -56,46 +56,30 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.front_layout_frame);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, new HomeScreenFragment_()).commit();
-
         inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // use to show and hide keyboard
         suggestionAdapter = new ArrayAdapter<String>(this, R.layout.search_drop_down);
+
+        // turn off sliding by default.
+        getSlidingMenu().setSlidingEnabled(false);
+
+        // set the Behind View
+        // this is the view behind the list when the slide menu is open
+        setBehindContentView(R.layout.back_layout_frame);
 
         if (mTitleRes == 0) {
             mTitleRes = R.string.app_name;
         }
         setTitle(mTitleRes);
-
-        // set the Behind View
-        // this is the view behind the list when the slide menu is open
-        setBehindContentView(R.layout.back_layout_frame);
-        if (savedInstanceState == null) {
-            FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
-            mFrag = new SlideMenuListFragment();
-            t.replace(R.id.frag_back_container, mFrag);
-            t.commit();
-        } else {
-            mFrag = (SlideMenuListFragment)this.getSupportFragmentManager().findFragmentById(R.id.frag_back_container);
-        }
-
-        // customize the SlidingMenu
-        SlidingMenu sm = getSlidingMenu();
-        sm.setShadowWidth(50);
-        sm.setShadowDrawable(R.drawable.shadow);
-        sm.setBehindOffset(260);
-        sm.setFadeDegree(1.0f);
-        sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        setSlidingActionBarEnabled(false);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.overflow_menu, menu);
         getSupportMenuInflater().inflate(R.menu.search_menu, menu);
-        // switch to this menu after clicking the search icon
-        MenuItem menuItem = menu.getItem(SEARCH_ICON).setActionView(R.layout.act_layout_search);
+        // set search field view to switch to after clicking the search icon
+        searchMenuItem = menu.getItem(SEARCH_ICON).setActionView(R.layout.act_layout_search);
 
-        autoCompTextView = (AutoCompleteTextView) menuItem.getActionView().findViewById(R.id.act_search_txt_auto_complete);
+        autoCompTextView = (AutoCompleteTextView) searchMenuItem.getActionView().findViewById(R.id.act_search_txt_auto_complete);
         setUpAutoCompleteTextView();
         return true;
     }
@@ -113,7 +97,6 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 
             @Override
             public void onViewDetachedFromWindow(View v) {
-                Toast.makeText(getBaseContext(), "closing", Toast.LENGTH_SHORT).show();
                 Keyboard.hide(inputManager, autoCompTextView);
             }
         });
@@ -122,7 +105,8 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         autoCompTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               Keyboard.hide(inputManager, autoCompTextView);
+                Keyboard.hide(inputManager, autoCompTextView);
+                doSearch();
             }
         });
 
@@ -131,9 +115,9 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    Toast.makeText(getBaseContext(), "searching for " + autoCompTextView.getText(), Toast.LENGTH_SHORT).show();
                     Keyboard.hide(inputManager, autoCompTextView);
                     autoCompTextView.dismissDropDown(); // hide suggestion
+                    doSearch();
                     return true;
                 }
                 return false;
@@ -150,7 +134,6 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
                     // some magic...
                     if (event.getX() >= (autoCompTextView.getRight() - autoCompTextView
                             .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        Toast.makeText(getBaseContext(), "deleting..." , Toast.LENGTH_SHORT).show();
                         autoCompTextView.setText(""); // set search text view to empty string.
                         return true;
                     }
@@ -170,8 +153,6 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
             case R.id.about_us:
                 Toast.makeText(getBaseContext(), "about us", Toast.LENGTH_SHORT).show(); //TODO: to be implemented
                 return true;
-            case R.id.search:
-                return true;
             default:
                 return false;
         }
@@ -183,11 +164,5 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         suggestionAdapter.notifyDataSetChanged();
     }
 
-    private void toggleKeyboard() {
-        inputManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.RESULT_HIDDEN);
-    }
-
-    private void hideKeyboard(View v) {
-        inputManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS); // hide keyboard
-    }
+    public abstract void doSearch();
 }

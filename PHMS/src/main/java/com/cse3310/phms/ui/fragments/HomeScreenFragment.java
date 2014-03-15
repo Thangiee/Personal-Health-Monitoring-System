@@ -16,11 +16,24 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.frag_home_screen)
 public class HomeScreenFragment extends SherlockFragment{
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.overflow_menu, menu);
+    }
 }

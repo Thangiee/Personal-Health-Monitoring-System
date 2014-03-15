@@ -26,11 +26,13 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
-import com.cse3310.phms.ui.activities.SlidingMenuActivity;
+import com.cse3310.phms.ui.activities.BaseActivity;
 import com.cse3310.phms.ui.cards.FoodCard;
 import com.cse3310.phms.ui.cards.FoodCardExpand;
+import com.cse3310.phms.ui.utils.Events;
 import com.nhaarman.listviewanimations.swinginadapters.AnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
+import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
@@ -46,38 +48,31 @@ import java.util.Set;
 @EFragment(R.layout.frag_diet_screen)
 public class DietScreenFragment extends SherlockFragment {
     private static int idCounter = 0;
-    private List<Card> mFoodCards = new ArrayList<Card>();
+    private List<FoodCard> mFoodCards = new ArrayList<FoodCard>();
+    private List<Food> mFoodList;
 
     @ViewById(R.id.frag_diet_food_list)
     CardListView mCardListView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
-        addFoodCard(new Food("Chess").setCalories(250));
-        addFoodCard(new Food("water").setCalories(0));
-        addFoodCard(new Food("Egg").setCalories(200));
-        addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
-        addFoodCard(new Food("Chess").setCalories(250));
-        addFoodCard(new Food("water").setCalories(0));
-        addFoodCard(new Food("Egg").setCalories(200));
-        addFoodCard(new Food("Egg").setCalories(200).setFat(30).setFiber(52));
-        addFoodCard(new Food("Chess").setCalories(250));
-        addFoodCard(new Food("water").setCalories(0));
-        addFoodCard(new Food("Egg").setCalories(200));
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().registerSticky(this);
+        setHasOptionsMenu(true);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        for (Food food : mFoodList) {
+            addFoodCard(food);
+        }
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @AfterViews
     void onAfterViews() {
         // Set up adapter
-        CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), mFoodCards);
+        CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), new ArrayList<Card>(mFoodCards));
         adapter.setEnableUndo(true); // Enable undo controller!
         // Set up animation adapter
         AnimationAdapter animCardArrayAdapter = new SwingBottomInAnimationAdapter(adapter);
@@ -94,16 +89,29 @@ public class DietScreenFragment extends SherlockFragment {
 
         // change suggestions to items in this screen
         Set<String> suggestions = new HashSet<String>(mFoodCards.size());
-        for (Card card : mFoodCards) {
+        for (FoodCard card : mFoodCards) {
             suggestions.add(card.getTitle());
         }
-        ((SlidingMenuActivity) getActivity()).setSuggestions(suggestions);
+
+        BaseActivity parentActivity = ((BaseActivity) getActivity());
+        parentActivity.setSuggestions(suggestions);
+//        parentActivity.setCardsToSearch(new ArrayList<Card>(mFoodCards));
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.add_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    public void onEvent(Events.initListEvent<Food> event) {
+        this.mFoodList = event.list;
     }
 
     public void addFoodCard(Food food) {
@@ -120,10 +128,8 @@ public class DietScreenFragment extends SherlockFragment {
                 Toast.makeText(getActivity(), "Click on edit", Toast.LENGTH_SHORT).show();
             }
         });
-
         FoodCardExpand cardExpand = new FoodCardExpand(getActivity(), food);
         card.addCardExpand(cardExpand);
-
         mFoodCards.add(card);
     }
 }
