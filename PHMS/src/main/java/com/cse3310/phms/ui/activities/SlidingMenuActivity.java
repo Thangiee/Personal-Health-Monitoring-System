@@ -29,9 +29,6 @@ import com.cse3310.phms.ui.utils.Events;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.actionbar.ActionBarSlideIcon;
 import de.greenrobot.event.EventBus;
-import it.gmariotti.cardslib.library.internal.Card;
-
-import java.util.List;
 
 /**
  * See https://github.com/jfeinstein10/SlidingMenu for documentations on
@@ -40,7 +37,6 @@ import java.util.List;
 public class SlidingMenuActivity extends BaseActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
-    private List<Card> CardsToSearch;
     protected SlideMenuListFragment mFrag;
 
     public SlidingMenuActivity() {
@@ -54,8 +50,6 @@ public class SlidingMenuActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, new HomeScreenFragment_()).commit();
-
-        EventBus.getDefault().register(this);
 
         if (savedInstanceState == null) {
             FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
@@ -82,9 +76,15 @@ public class SlidingMenuActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
         EventBus.getDefault().unregister(this);
-        super.onDestroy();
+        super.onPause();
     }
 
     // change the title in the action bar after selecting an item
@@ -108,8 +108,7 @@ public class SlidingMenuActivity extends BaseActivity {
     @Override
     public void doSearch() {
         Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
-        EventBus.getDefault().postSticky(new Events.SearchEvent(autoCompTextView.getText().toString()));
-
+        EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
         Intent intent = new Intent(this, SearchCardsActivity.class);
         startActivity(intent);
     }
@@ -128,9 +127,5 @@ public class SlidingMenuActivity extends BaseActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-    }
-
-    public void setCardsToSearch(List<Card> cardsToSearch) {
-        CardsToSearch = cardsToSearch;
     }
 }

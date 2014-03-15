@@ -16,7 +16,9 @@
 
 package com.cse3310.phms.ui.utils;
 
-import java.util.List;
+import it.gmariotti.cardslib.library.internal.Card;
+
+import java.util.Collection;
 
 public class Events {
     public static class SlidingMenuItemSelectedEvent {
@@ -27,19 +29,34 @@ public class Events {
         }
     }
 
-    public static class SearchEvent {
+    public static class initCardsToSearchEvent {
+        public Collection<Card> cardsToSearch;
+
+        public initCardsToSearchEvent(Collection<Card> cardsToSearch) {
+            this.cardsToSearch = cardsToSearch;
+        }
+    }
+
+    public static class initSearchWordEvent {
         public String searchWord;
 
-        public SearchEvent(String searchWord) {
+        public initSearchWordEvent(String searchWord) {
             this.searchWord = searchWord;
         }
     }
 
-    public static class initListEvent<T> {
-        public List<T> list;
+    public static class SetSuggestionEvent {
+        public Collection<String> suggestions;
 
-        public initListEvent(List<T> list) {
-            this.list = list;
+        public SetSuggestionEvent(Collection<String> suggestions) {
+            this.suggestions = suggestions;
         }
     }
+//    public static class initListEvent<T> {
+//        public List<T> list;
+//
+//        public initListEvent(List<T> list) {
+//            this.list = list;
+//        }
+//    }
 }

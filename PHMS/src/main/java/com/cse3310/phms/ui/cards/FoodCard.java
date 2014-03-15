@@ -25,7 +25,7 @@ import com.cse3310.phms.R;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 
-public class FoodCard extends Card{
+public class FoodCard extends Card implements Card.OnSwipeListener{
 
     protected String mTitle;
     protected String mSubTitle;
@@ -34,6 +34,7 @@ public class FoodCard extends Card{
 
     public FoodCard(Context context) {
         super(context, R.layout.card_inner_food);
+        setOnSwipeListener(this);
     }
 
     @Override
@@ -46,7 +47,6 @@ public class FoodCard extends Card{
         subTitle.setText(mSubTitle);
         btnTitle.setText(mBtnTitle);
         btnTitle.setClickable(true);
-
         btnTitle.setOnClickListener(mBtnClickListener);
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
@@ -81,5 +81,10 @@ public class FoodCard extends Card{
 
     public void setBtnClickListener(View.OnClickListener mBtnClickListener) {
         this.mBtnClickListener = mBtnClickListener;
+    }
+
+    @Override
+    public void onSwipe(Card card) {
+        Toast.makeText(getContext(), "Deleting card", Toast.LENGTH_SHORT).show();
     }
 }

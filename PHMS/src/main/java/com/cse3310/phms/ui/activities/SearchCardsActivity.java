@@ -16,62 +16,51 @@
 
 package com.cse3310.phms.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Food;
-import com.cse3310.phms.ui.fragments.DietScreenFragment_;
+import com.cse3310.phms.ui.fragments.SearchScreenFragment_;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.Keyboard;
-import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
+import it.gmariotti.cardslib.library.internal.Card;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SearchCardsActivity extends BaseActivity{
-    private String searchWord;
-    private List<Food> mFoodList;
+    private List<Card> mCardMatchList = new ArrayList<Card>();
+    protected Collection<Card> mCardsToSearch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EventBus.getDefault().registerSticky(this);
-
-        mFoodList = UserSingleton.getInstance().getCurrentUser().getDiet().getFoods();
         // change suggestions to items in this screen
-        Set<String> suggestions = new HashSet<String>(mFoodList.size());
-        for (Food food : mFoodList) {
-            suggestions.add(food.getName());
-        }
-        setSuggestions(suggestions);
+        Set<String> suggestionsSet = new HashSet<String>(mCardsToSearch.size());
+        for (Card card : mCardsToSearch) {
+            String title = card.getTitle();
+            suggestionsSet.add(title);
 
-        List<Food> match = new ArrayList<Food>();
-        for (Food food : mFoodList) {
-            if (food.getName().toLowerCase().contains(searchWord.toLowerCase())) {
-                match.add(food);
-                System.out.println(food.getName());
+            if (title.toLowerCase().contains(mSearchWord.toLowerCase())) {
+                mCardMatchList.add(card);
             }
         }
+        setSuggestions(suggestionsSet);
 
-        EventBus.getDefault().postSticky(new Events.initListEvent<Food>(match));
-        SherlockFragment fragment = new DietScreenFragment_();
-        FragmentTransaction fragTran = getSupportFragmentManager().beginTransaction();
-        fragTran.replace(R.id.frag_front_container, fragment);
-        fragTran.commit();
+        SearchScreenFragment_ searchScreenFragment = new SearchScreenFragment_();
+        searchScreenFragment.setMatchCardList(mCardMatchList);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, searchScreenFragment).commit();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        searchMenuItem.expandActionView();
-        autoCompTextView.setText(searchWord);
-        autoCompTextView.dismissDropDown();
-        Keyboard.hide(inputManager, autoCompTextView);
+        mSearchMenuItem.expandActionView();
+        mAutoCompTextView.setText(mSearchWord);
+        mAutoCompTextView.dismissDropDown();
+        Keyboard.hide(mInputManager, mAutoCompTextView);
         return true;
     }
 
@@ -83,25 +72,17 @@ public class SearchCardsActivity extends BaseActivity{
 
     @Override
     public void doSearch() {
-        final String word = autoCompTextView.getText().toString().toLowerCase();
-        List<Food> match = new ArrayList<Food>();
-
-        for (Food food : mFoodList) {
-            if (food.getName().toLowerCase().contains(word)) {
-                match.add(food);
-                System.out.println(food.getName());
-            }
-        }
-
-        EventBus.getDefault().postSticky(new Events.initListEvent<Food>(match));
-        SherlockFragment fragment = new DietScreenFragment_();
-        FragmentTransaction fragTran = getSupportFragmentManager().beginTransaction();
-        fragTran.replace(R.id.frag_front_container, fragment);
-        fragTran.commit();
+        EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
+        Intent intent = new Intent(this, SearchCardsActivity.class);
+        startActivity(intent);
         finish();
     }
 
-    public void onEvent(Events.SearchEvent event) {
-        this.searchWord = event.searchWord;
+    public void onEvent(Events.initCardsToSearchEvent event) {
+        this.mCardsToSearch = event.cardsToSearch;
+    }
+
+    public void onEvent(Events.initSearchWordEvent event) {
+        super.mSearchWord = event.searchWord;
     }
 }

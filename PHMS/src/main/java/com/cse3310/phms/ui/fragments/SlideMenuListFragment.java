@@ -30,7 +30,6 @@ import com.ami.fundapter.BindDictionary;
 import com.ami.fundapter.FunDapter;
 import com.ami.fundapter.extractors.StringExtractor;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Food;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.utils.DrawerItem;
 import com.cse3310.phms.ui.utils.Events;
@@ -44,8 +43,8 @@ import java.util.List;
 public class SlideMenuListFragment extends SherlockListFragment {
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{
         add(new DrawerItem(R.layout.frag_home_screen, "Home"));
-        add(new DrawerItem(R.layout.frag_diet_screen, "Diet"));
-        add(new DrawerItem(R.layout.frag_diet_screen, "test"));
+        add(new DrawerItem(R.layout.diet_screen, "Diet"));
+        add(new DrawerItem(R.layout.frag_card_list, "test"));
     }};
 
     @Override
@@ -85,7 +84,6 @@ public class SlideMenuListFragment extends SherlockListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         selectItem(position);
-//        EventBus.getDefault().postSticky(new EventBusDemoEvent.ButtonClickEvent(position));
         ((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle(); // close sliding menu after clicking an item
     }
 
@@ -99,11 +97,9 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS"));
                 fragment = new HomeScreenFragment_();
                 break;
-            case R.layout.frag_diet_screen:
+            case R.layout.diet_screen:
                 Toast.makeText(getActivity(), "you clicked diet", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Diet"));
-                EventBus.getDefault().postSticky(new Events.initListEvent<Food>(
-                        UserSingleton.getInstance().getCurrentUser().getDiet().getFoods()));
                 fragment = new DietScreenFragment_();
                 break;
         }
