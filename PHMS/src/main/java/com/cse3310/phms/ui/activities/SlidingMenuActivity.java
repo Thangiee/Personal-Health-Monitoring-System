@@ -107,7 +107,7 @@ public class SlidingMenuActivity extends BaseActivity {
 
     @Override
     public void doSearch() {
-        Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Searching for " + mSearchWord, Toast.LENGTH_SHORT).show();
         EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
         Intent intent = new Intent(this, SearchCardsActivity.class);
         startActivity(intent);
