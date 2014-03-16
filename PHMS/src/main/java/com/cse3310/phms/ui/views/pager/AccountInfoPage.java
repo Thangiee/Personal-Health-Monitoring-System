@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.ui.widgets.pager;
+package com.cse3310.phms.ui.views.pager;
 
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import co.juliansuarez.libwizardpager.wizard.model.ModelCallbacks;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.ReviewItem;
@@ -45,8 +44,7 @@ public class AccountInfoPage extends Page{
 
     @Override
     public boolean isCompleted() {
-        return !TextUtils.isEmpty(mData.getString(USERNAME_KEY))
-                && !TextUtils.isEmpty(mData.getString(PASSWORD_KEY));
+        return mData.getBoolean(VALID_KEY);
     }
 
     public AccountInfoPage setValue(String value) {

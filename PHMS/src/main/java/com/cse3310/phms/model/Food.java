@@ -25,7 +25,7 @@ public class Food extends Model{
 
     @Column private String name;
     @Column private double calories;
-    @Column private double servingSize;
+    @Column private double numOfServings;
     @Column private double protein;
     @Column private double fat;
     @Column private double fiber;
@@ -36,6 +36,7 @@ public class Food extends Model{
      */
     public Food() {
         super();
+        numOfServings = 1;
     }
 
     /**
@@ -45,6 +46,7 @@ public class Food extends Model{
      */
     public Food(String name) {
         this.name = name;
+        numOfServings = 1;
     }
 
     /**
@@ -101,18 +103,18 @@ public class Food extends Model{
      *
      * @return the serving size
      */
-    public double getServingSize() {
-        return servingSize;
+    public double getNumOfServings() {
+        return numOfServings;
     }
 
     /**
      * Sets serving size.
      *
-     * @param servingSize the serving size
+     * @param numOfServings the serving size
      * @return the serving size
      */
-    public Food setServingSize(double servingSize) {
-        this.servingSize = servingSize;
+    public Food setNumOfServings(double numOfServings) {
+        this.numOfServings = numOfServings;
         return this;
     }
 
@@ -181,7 +183,7 @@ public class Food extends Model{
         return "Food{" +
                 "name='" + name + '\'' +
                 ", calories=" + calories +
-                ", servingSize=" + servingSize +
+                ", numOfServings=" + numOfServings +
                 ", protein=" + protein +
                 ", fat=" + fat +
                 ", fiber=" + fiber +

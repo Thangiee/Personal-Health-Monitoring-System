@@ -29,6 +29,7 @@ public abstract class Page implements PageTreeNode {
      * The key into {@link #getData()} used for wizards with simple (single) values.
      */
     public static final String SIMPLE_DATA_KEY = "_";
+    public static final String VALID_KEY = "VALID";
 
     protected ModelCallbacks mCallbacks;
 

@@ -16,11 +16,6 @@
 
 package co.juliansuarez.libwizardpager.wizard.ui;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +30,11 @@ import android.widget.TextView;
 import co.juliansuarez.libwizardpager.R;
 import co.juliansuarez.libwizardpager.wizard.model.MultipleFixedChoicePage;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MultipleChoiceFragment extends ListFragment {
     private static final String ARG_KEY = "key";

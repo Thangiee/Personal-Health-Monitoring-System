@@ -17,20 +17,24 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import co.juliansuarez.libwizardpager.wizard.ui.PageFragmentCallbacks;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
-import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
+import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
+import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
 
-public class AccountInfoFragment extends Fragment {
+public class AccountInfoFragment extends SherlockFragment {
     private static final String ARG_KEY = "key";
 
     private PageFragmentCallbacks mCallbacks;
@@ -38,6 +42,7 @@ public class AccountInfoFragment extends Fragment {
     private AccountInfoPage mPage;
     private FormEditText mUsername;
     private FormEditText mPassword;
+    private boolean[] validFields = new boolean[2];
 
     public static AccountInfoFragment create(String key) {
         Bundle args = new Bundle();
@@ -91,25 +96,53 @@ public class AccountInfoFragment extends Fragment {
         mCallbacks = null;
     }
 
+    private boolean allFieldsValid() {
+        for (boolean b : validFields) {
+            if (!b) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mUsername.addValidator(new NoSpaceValidator());
+        mUsername.addValidator(new MinimumLengthValidator(3));
         mUsername.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
                 mPage.getData().putString(AccountInfoPage.USERNAME_KEY, mUsername.getText().toString());
+                validFields[0] = mUsername.testValidity();
+                mPage.getData().putBoolean(AccountInfoPage.VALID_KEY, allFieldsValid());
                 mPage.notifyDataChanged();
-                mUsername.testValidity();
             }
         });
 
+        mPassword.addValidator(new NoSpaceValidator());
+        mPassword.addValidator(new MinimumLengthValidator(6));
         mPassword.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
                 mPage.getData().putString(AccountInfoPage.PASSWORD_KEY, mPassword.getText().toString());
+                validFields[1] = mPassword.testValidity();
+                mPage.getData().putBoolean(AccountInfoPage.VALID_KEY, allFieldsValid());
                 mPage.notifyDataChanged();
-                mPassword.testValidity();
             }
         });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setMenuVisibility(isVisibleToUser);
+        if (mUsername != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            if (!isVisibleToUser) {
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            }
+        }
     }
 }

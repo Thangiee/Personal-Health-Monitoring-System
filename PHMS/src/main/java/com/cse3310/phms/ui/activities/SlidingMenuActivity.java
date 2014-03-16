@@ -16,57 +16,52 @@
 
 package com.cse3310.phms.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
+import com.cse3310.phms.ui.fragments.HomeScreenFragment_;
 import com.cse3310.phms.ui.fragments.SlideMenuListFragment;
+import com.cse3310.phms.ui.utils.Events;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.actionbar.ActionBarSlideIcon;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import de.greenrobot.event.EventBus;
 
 /**
  * See https://github.com/jfeinstein10/SlidingMenu for documentations on
  * SlidingMenu.
  */
-public class SlidingMenuActivity extends SlidingFragmentActivity{
-    private int mTitleRes;
-    protected SlideMenuListFragment mFrag;
+public class SlidingMenuActivity extends BaseActivity {
+
     private boolean doubleBackToExitPressedOnce = false;
+    protected SlideMenuListFragment mFrag;
 
     public SlidingMenuActivity() {
-        super();
     }
 
-    public SlidingMenuActivity(int titleRes) {
-        mTitleRes = titleRes;
+    public SlidingMenuActivity(int mTitleRes) {
+        super(mTitleRes);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.frag_home_screen);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, new HomeScreenFragment_()).commit();
 
-        if (mTitleRes == 0) {
-            mTitleRes = R.string.app_name;
-        }
-        setTitle(mTitleRes);
-
-        // set the Behind View
-        // this is the view behind the list when the slide menu is open
-        setBehindContentView(R.layout.menu_frame);
         if (savedInstanceState == null) {
             FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
             mFrag = new SlideMenuListFragment();
-            t.replace(R.id.menu_frame, mFrag);
+            t.replace(R.id.frag_back_container, mFrag);
             t.commit();
         } else {
-            mFrag = (SlideMenuListFragment)this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+            mFrag = (SlideMenuListFragment)this.getSupportFragmentManager().findFragmentById(R.id.frag_back_container);
         }
 
+        // turn on sliding
+        getSlidingMenu().setSlidingEnabled(true);
         // customize the SlidingMenu
         SlidingMenu sm = getSlidingMenu();
         sm.setShadowWidth(50);
@@ -75,10 +70,27 @@ public class SlidingMenuActivity extends SlidingFragmentActivity{
         sm.setFadeDegree(1.0f);
         sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         setSlidingActionBarEnabled(false);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSlidingMenu().setActionBarSlideIcon(new ActionBarSlideIcon(
                 this, R.drawable.ic_navigation_drawer, R.string.open_content_desc, R.string.close_content_desc));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    // change the title in the action bar after selecting an item
+    // in the sliding menu.
+    public void onEvent(Events.SlidingMenuItemSelectedEvent event) {
+        setTitle(event.newTitle);
     }
 
     @Override
@@ -88,15 +100,17 @@ public class SlidingMenuActivity extends SlidingFragmentActivity{
             case android.R.id.home:
                 toggle();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // create all the icons on the action bar
-        getSupportMenuInflater().inflate(R.menu.action_bar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void doSearch() {
+        Toast.makeText(this, "Searching for " + mSearchWord, Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
+        Intent intent = new Intent(this, SearchCardsActivity.class);
+        startActivity(intent);
     }
 
     @Override

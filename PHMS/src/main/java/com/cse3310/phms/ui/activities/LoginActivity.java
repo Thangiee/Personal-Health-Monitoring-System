@@ -20,10 +20,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Editable;
 import android.widget.Button;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.LoginManager;
+import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
+import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
+import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -40,9 +45,16 @@ public class LoginActivity extends Activity {
     @ViewById(R.id.act_login_screen_btn_login)
     Button mLoginButton;
 
+    @AfterViews
+    void onAfterViews() {
+        mUsernameEditText.addValidator(new NoSpaceValidator());
+        mUsernameEditText.addValidator(new MinimumLengthValidator(3));
+        mPasswordEditText.addValidator(new NoSpaceValidator());
+    }
+
     @Click(R.id.act_login_screen_btn_login)
     void clickedLoginButton() {
-        String username = mUsernameEditText.getText().toString();
+        String username = mUsernameEditText.getText().toString().toLowerCase();
         String password = mPasswordEditText.getText().toString();
 
         if (LoginManager.login(username, password)) {
@@ -73,5 +85,22 @@ public class LoginActivity extends Activity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    @AfterViews
+    void setViewsListener() {
+        mUsernameEditText.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                mUsernameEditText.testValidity();
+            }
+        });
+
+        mPasswordEditText.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPasswordEditText.testValidity();
+            }
+        });
     }
 }

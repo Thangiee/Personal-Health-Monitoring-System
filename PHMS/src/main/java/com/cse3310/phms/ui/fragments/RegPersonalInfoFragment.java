@@ -17,23 +17,27 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import co.juliansuarez.libwizardpager.wizard.ui.PageFragmentCallbacks;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.PersonalInfo;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
-import com.cse3310.phms.ui.widgets.pager.PersonalInfoPage;
+import com.cse3310.phms.ui.utils.validators.NotZeroValidator;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
+import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
 
-import static com.cse3310.phms.ui.widgets.pager.PersonalInfoPage.*;
+import static com.cse3310.phms.ui.views.pager.PersonalInfoPage.*;
 
-public class RegPersonalInfoFragment extends Fragment {
+public class RegPersonalInfoFragment extends SherlockFragment {
     private static final String ARG_KEY = "key";
 
     private PageFragmentCallbacks mCallbacks;
@@ -46,6 +50,7 @@ public class RegPersonalInfoFragment extends Fragment {
     private FormEditText mWeight;
     private Spinner mFeetSpinner;
     private Spinner mInchSpinner;
+    private boolean[] validFields = new boolean[4]; // equals to the number of formEditText fields
 
     public static RegPersonalInfoFragment create(String key) {
         Bundle args = new Bundle();
@@ -80,11 +85,13 @@ public class RegPersonalInfoFragment extends Fragment {
         mLastName.setText(mPage.getData().getString(LAST_KEY));
 
         mAge = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_age);
+        mAge.setText(mPage.getData().getString(AGE_KEY));
 
         mGender = (RadioButton) rootView.findViewById(R.id.rb_gender_male);
-        mPage.getData().putString(GENDER_KEY, PersonalInfo.Gender.MALE.name()); // default value
+        mPage.getData().putString(GENDER_KEY, PersonalInfo.Gender.MALE.name()); // default value MALE
 
         mWeight = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_weight);
+        mWeight.setText(mPage.getData().getString(WEIGHT_KEY));
 
         mFeetSpinner = (Spinner) rootView.findViewById(R.id.frag_person_Info_sign_up_page_sp_ft);
         ArrayAdapter<CharSequence> ftAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.ft, android.R.layout.simple_spinner_item);
@@ -116,6 +123,17 @@ public class RegPersonalInfoFragment extends Fragment {
         mCallbacks = null;
     }
 
+    private void checkAllFormEditTextValid() {
+        boolean allValid = true;
+        for (boolean b : validFields) {
+            if (!b) {
+                allValid = false;
+                break;
+            }
+        }
+        mPage.getData().putBoolean(AccountInfoPage.VALID_KEY, allValid);
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -123,8 +141,9 @@ public class RegPersonalInfoFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 mPage.getData().putString(FIRST_KEY, mFirstName.getText().toString());
+                validFields[0] = mFirstName.testValidity();
+                checkAllFormEditTextValid();
                 mPage.notifyDataChanged();
-                mFirstName.testValidity();
             }
         });
 
@@ -132,19 +151,19 @@ public class RegPersonalInfoFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 mPage.getData().putString(LAST_KEY, mLastName.getText().toString());
+                validFields[1] = mLastName.testValidity();
+                checkAllFormEditTextValid();
                 mPage.notifyDataChanged();
-                mLastName.testValidity();
             }
         });
 
+        mAge.addValidator(new NotZeroValidator("Age cannot be 0"));
         mAge.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (!mAge.testValidity()) {
-                    mPage.getData().putInt(AGE_KEY, 0);
-                } else {
-                    mPage.getData().putInt(AGE_KEY, Integer.parseInt(s.toString()));
-                }
+                mPage.getData().putString(AGE_KEY, mAge.getText().toString());
+                validFields[2] = mAge.testValidity();
+                checkAllFormEditTextValid();
                 mPage.notifyDataChanged();
             }
         });
@@ -161,14 +180,13 @@ public class RegPersonalInfoFragment extends Fragment {
             }
         });
 
+        mWeight.addValidator(new NotZeroValidator("Weight cannot be 0"));
         mWeight.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (!mWeight.testValidity()) {
-                    mPage.getData().putDouble(WEIGHT_KEY, 0.0);
-                } else {
-                    mPage.getData().putDouble(WEIGHT_KEY, Double.parseDouble(s.toString()));
-                }
+                mPage.getData().putString(WEIGHT_KEY, mWeight.getText().toString());
+                validFields[3] = mWeight.testValidity();
+                checkAllFormEditTextValid();
                 mPage.notifyDataChanged();
             }
         });
@@ -189,7 +207,6 @@ public class RegPersonalInfoFragment extends Fragment {
             }
         });
 
-
         mInchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -205,5 +222,17 @@ public class RegPersonalInfoFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setMenuVisibility(isVisibleToUser);
+        if (mFirstName != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            if (!isVisibleToUser) {
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            }
+        }
     }
 }

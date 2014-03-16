@@ -17,58 +17,45 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.activeandroid.Cache;
 import com.ami.fundapter.BindDictionary;
 import com.ami.fundapter.FunDapter;
 import com.ami.fundapter.extractors.StringExtractor;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.User;
+import com.cse3310.phms.ui.utils.DrawerItem;
+import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import de.greenrobot.event.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
-    private List<String> topViewTitleList = new ArrayList<String>();
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        for (int i = 0; i < 50; i++) {
-            topViewTitleList.add("Title " + i);
-        }
-
-        BindDictionary<String> dict = new BindDictionary<String>();
-        dict.addStringField(R.id.frag_list_item_tv_title,
-                new StringExtractor<String>() {
-                    @Override
-                    public String getStringValue(String s, int i) {
-                        return s;
-                    }
-                });
-
-        FunDapter<String> adapter = new FunDapter<String>(Cache.getContext(), topViewTitleList, R.layout.frag_list_item, dict);
-        setListAdapter(adapter);
-    }
+    private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{
+        add(new DrawerItem(R.layout.home_screen, "Home"));
+        add(new DrawerItem(R.layout.diet_screen, "Diet"));
+        add(new DrawerItem(R.layout.frag_card_list, "test"));
+    }};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container,savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.frag_list_sliding_menu, container, false);
 
         // set the sliding menu header to show the current user's username and email.
         User user = UserSingleton.getInstance().getCurrentUser();
         TextView usernameHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_username);
-        usernameHeader.setText(user.getUsername());
+        usernameHeader.setText(Character.toUpperCase(user.getUsername().charAt(0)) + user.getUsername().substring(1)); // first char to upper case
         TextView emailHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_email);
         emailHeader.setText(user.getPersonalInfo().getEmail());
 
@@ -76,10 +63,50 @@ public class SlideMenuListFragment extends SherlockListFragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        BindDictionary<DrawerItem> dict = new BindDictionary<DrawerItem>();
+        dict.addStringField(R.id.frag_list_item_tv_title,
+               new StringExtractor<DrawerItem>() {
+                   @Override
+                   public String getStringValue(DrawerItem drawerItem, int i) {
+                       return drawerItem.title;
+                   }
+               });
+
+        FunDapter<DrawerItem> adapter = new FunDapter<DrawerItem>(getActivity(), drawerItems, R.layout.frag_list_item, dict);
+        setListAdapter(adapter);
+
+        getListView().setItemChecked(0, true); // set home in sliding menu as default on start up
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-//        EventBus.getDefault().postSticky(new EventBusDemoEvent.ButtonClickEvent(position));
-        Toast.makeText(getActivity(), ">" + v.getId(), Toast.LENGTH_SHORT).show();
+        selectItem(position);
         ((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle(); // close sliding menu after clicking an item
+    }
+
+    private void selectItem(int position) {
+        SherlockFragment fragment = null;
+        FragmentTransaction fragTran = getActivity().getSupportFragmentManager().beginTransaction();
+
+        switch (drawerItems.get(position).layoutId) {
+            case R.layout.home_screen:
+                Toast.makeText(getActivity(), "you clicked home", Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS"));
+                fragment = new HomeScreenFragment_();
+                break;
+            case R.layout.diet_screen:
+                Toast.makeText(getActivity(), "you clicked diet", Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Diet"));
+                fragment = new DietScreenFragment_();
+                break;
+        }
+
+        if (fragment != null) {
+            fragTran.replace(R.id.frag_front_container, fragment);
+            fragTran.commit();
+        }
     }
 }

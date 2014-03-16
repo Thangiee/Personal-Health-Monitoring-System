@@ -1,1 +1,0 @@
-all our activities here

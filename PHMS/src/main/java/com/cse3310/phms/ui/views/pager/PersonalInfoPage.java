@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.ui.widgets.pager;
+package com.cse3310.phms.ui.views.pager;
 
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 import co.juliansuarez.libwizardpager.wizard.model.ModelCallbacks;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.ReviewItem;
@@ -48,9 +45,9 @@ public class PersonalInfoPage extends Page{
     public void getReviewItems(ArrayList<ReviewItem> dest) {
         dest.add(new ReviewItem("First name", mData.getString(FIRST_KEY), getKey(), -1));
         dest.add(new ReviewItem("Last name", mData.getString(LAST_KEY), getKey(), -1));
-        dest.add(new ReviewItem("Age", String.valueOf(mData.getInt(AGE_KEY)), getKey(), -1));
+        dest.add(new ReviewItem("Age", mData.getString(AGE_KEY), getKey(), -1));
         dest.add(new ReviewItem("Gender", mData.getString(GENDER_KEY), getKey(), -1));
-        dest.add(new ReviewItem("Weight", mData.getDouble(WEIGHT_KEY) + " lbs", getKey(), -1));
+        dest.add(new ReviewItem("Weight", mData.getString(WEIGHT_KEY) + " lbs", getKey(), -1));
 
         int inches = mData.getInt(HEIGHT_KEY);
         dest.add(new ReviewItem("Height", inches /12 + "\'" + inches % 12 + "\"", getKey(), -1));
@@ -58,23 +55,11 @@ public class PersonalInfoPage extends Page{
 
     @Override
     public boolean isCompleted() {
-        return !TextUtils.isEmpty(mData.getString(FIRST_KEY))
-                && !TextUtils.isEmpty(mData.getString(LAST_KEY))
-                && !TextUtils.isEmpty(mData.getString(GENDER_KEY))
-                && !isZero(mData.getDouble(WEIGHT_KEY))
-                && !isZero(mData.getInt(AGE_KEY));
+        return mData.getBoolean(VALID_KEY);
     }
 
     public PersonalInfoPage setValue(String value) {
         mData.putString(SIMPLE_DATA_KEY, value);
         return this;
-    }
-
-    private boolean isZero(int value) {
-       return value == 0;
-    }
-
-    private boolean isZero(double value) {
-       return value == 0.0;
     }
  }

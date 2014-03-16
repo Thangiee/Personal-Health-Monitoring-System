@@ -3,8 +3,5 @@
         <attr name="textAppearanceFinish" format="reference" />
     </declare-styleable>
     
-    <color name="slide_menu_background">#fff</color>
-    <color name="slide_menu_text">#777777</color>
-    <color name="slide_menu_header_background">#464646</color>
-    <color name="slide_menu_header_text">#fff</color>
+
 </resources>

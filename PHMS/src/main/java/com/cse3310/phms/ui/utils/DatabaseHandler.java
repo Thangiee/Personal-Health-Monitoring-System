@@ -40,7 +40,7 @@ public class DatabaseHandler {
 
     public static List<Food> getFoodsByDiet(Diet diet) {
         return new Select().all().from(Food.class).innerJoin(ManyToManyTable.DietAndFood.class)
-                .on("DietAndFood.FoodId = Food.id").where("DietAndFood.DietId = ?", diet.getId()).execute();
+                .on("DietAndFood.Food = Food.id").where("DietAndFood.Diet = ?", diet.getId()).execute();
     }
 
 

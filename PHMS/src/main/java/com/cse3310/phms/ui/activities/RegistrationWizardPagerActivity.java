@@ -21,10 +21,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.model.PersonalInfo;
-import com.cse3310.phms.ui.widgets.RegistrationWizardModel;
-import com.cse3310.phms.ui.widgets.pager.AccountInfoPage;
-import com.cse3310.phms.ui.widgets.pager.ContactInfoPage;
-import com.cse3310.phms.ui.widgets.pager.PersonalInfoPage;
+import com.cse3310.phms.ui.views.RegistrationWizardModel;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
+import com.cse3310.phms.ui.views.pager.ContactInfoPage;
+import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
 
 public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
     @Override
@@ -34,7 +34,7 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
 
     @Override
     public void onSubmit() {
-        String username = onGetPage("Account Registration").getData().getString(AccountInfoPage.USERNAME_KEY);
+        String username = onGetPage("Account Registration").getData().getString(AccountInfoPage.USERNAME_KEY).toLowerCase();
         String password = onGetPage("Account Registration").getData().getString(AccountInfoPage.PASSWORD_KEY);
 
         // check if username is taken.
@@ -46,9 +46,9 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
         // extract all the information from the registration process and
         // use it to create a new user object.
         PersonalInfo info = new PersonalInfo("ads", "ass")
-                .setAge(onGetPage("Personal Info").getData().getInt(PersonalInfoPage.AGE_KEY))
+                .setAge(Integer.parseInt(onGetPage("Personal Info").getData().getString(PersonalInfoPage.AGE_KEY)))
                 .setGender(PersonalInfo.Gender.valueOf(onGetPage("Personal Info").getData().getString(PersonalInfoPage.GENDER_KEY)))
-                .setWeight(onGetPage("Personal Info").getData().getDouble(PersonalInfoPage.WEIGHT_KEY))
+                .setWeight(Double.parseDouble(onGetPage("Personal Info").getData().getString(PersonalInfoPage.WEIGHT_KEY)))
                 .setHeight(onGetPage("Personal Info").getData().getInt(PersonalInfoPage.HEIGHT_KEY));
         info.setFirstName(onGetPage("Personal Info").getData().getString(PersonalInfoPage.FIRST_KEY))
                 .setLastName(onGetPage("Personal Info").getData().getString(PersonalInfoPage.LAST_KEY))

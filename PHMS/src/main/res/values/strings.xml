@@ -12,6 +12,7 @@
     <string name="cant_be_empty">This field can not be empty.</string>
     <string name="open_content_desc">Close</string>
     <string name="close_content_desc">Open</string>
+    <string name="username_or_pass_incorrect">Username or Password maybe incorrect</string>
 
     <string-array name="ft">
         <item>3</item>

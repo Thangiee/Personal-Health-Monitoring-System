@@ -17,22 +17,27 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import co.juliansuarez.libwizardpager.wizard.ui.PageFragmentCallbacks;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
-import com.cse3310.phms.ui.widgets.pager.ContactInfoPage;
+import com.cse3310.phms.ui.utils.validators.PhoneValidator;
+import com.cse3310.phms.ui.views.pager.AccountInfoPage;
+import com.cse3310.phms.ui.views.pager.ContactInfoPage;
 
-import static com.cse3310.phms.ui.widgets.pager.ContactInfoPage.*;
+import static com.cse3310.phms.ui.views.pager.ContactInfoPage.EMAIL_KEY;
+import static com.cse3310.phms.ui.views.pager.ContactInfoPage.PHONE_KEY;
 
-public class RegContactInfoFragment extends Fragment {
+public class RegContactInfoFragment extends SherlockFragment {
     private static final String ARG_KEY = "key";
 
     private PageFragmentCallbacks mCallbacks;
@@ -40,6 +45,7 @@ public class RegContactInfoFragment extends Fragment {
     private ContactInfoPage mPage;
     private FormEditText mEmail;
     private FormEditText mPhone;
+    private boolean[] validFields = new boolean[2];
 
 
     public static RegContactInfoFragment create(String key) {
@@ -94,6 +100,15 @@ public class RegContactInfoFragment extends Fragment {
         mCallbacks = null;
     }
 
+    private boolean allFieldsValid() {
+        for (boolean b : validFields) {
+            if (!b) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -101,18 +116,33 @@ public class RegContactInfoFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 mPage.getData().putString(EMAIL_KEY, mEmail.getText().toString());
+                validFields[0] = mEmail.testValidity();
+                mPage.getData().putBoolean(AccountInfoPage.VALID_KEY, allFieldsValid());
                 mPage.notifyDataChanged();
-                mEmail.testValidity();
             }
         });
 
+        mPhone.addValidator(new PhoneValidator(10));
         mPhone.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
                 mPage.getData().putString(PHONE_KEY, mPhone.getText().toString());
+                validFields[1] = mPhone.testValidity();
+                mPage.getData().putBoolean(AccountInfoPage.VALID_KEY, allFieldsValid());
                 mPage.notifyDataChanged();
-                mPhone.testValidity();
             }
         });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setMenuVisibility(isVisibleToUser);
+        if (mEmail != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            if (!isVisibleToUser) {
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            }
+        }
     }
 }

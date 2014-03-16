@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/search_drop_down_txt_suggestion"
+          style="@style/suggestion_drop_down"
+          android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
+          android:singleLine="true"
+          android:layout_width="match_parent"
+          android:layout_height="?android:attr/listPreferredItemHeight"
+          android:ellipsize="marquee">
+
+</TextView>
