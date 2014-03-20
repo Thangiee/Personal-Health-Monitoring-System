@@ -44,7 +44,13 @@ public class SlideMenuListFragment extends SherlockListFragment {
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{
         add(new DrawerItem(R.layout.home_screen, "Home"));
         add(new DrawerItem(R.layout.diet_screen, "Diet"));
-        add(new DrawerItem(R.layout.frag_card_list, "test"));
+        add(new DrawerItem(R.layout.frag_card_list, "Weight Log"));
+        add(new DrawerItem(R.layout.frag_card_list, "Medication"));
+        add(new DrawerItem(R.layout.frag_card_list, "Appointment"));
+        add(new DrawerItem(R.layout.frag_card_list, "Vital Signs"));
+        add(new DrawerItem(R.layout.frag_card_list, "Contacts"));
+        add(new DrawerItem(R.layout.frag_card_list, "Recipes"));
+        add(new DrawerItem(R.layout.frag_card_list, "Reminders"));
     }};
 
     @Override
