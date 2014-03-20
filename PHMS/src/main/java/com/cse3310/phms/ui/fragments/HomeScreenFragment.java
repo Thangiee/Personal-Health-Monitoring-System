@@ -17,14 +17,27 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.activeandroid.ActiveAndroid;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.Food;
+import com.cse3310.phms.model.User;
+import com.cse3310.phms.ui.utils.UserSingleton;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.home_screen)
 public class HomeScreenFragment extends SherlockFragment{
+
+    @ViewById(R.id.initialize_test_data)
+    Button testButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,5 +48,67 @@ public class HomeScreenFragment extends SherlockFragment{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.overflow_menu, menu);
+    }
+
+    @AfterViews
+    void setClickListener() {
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initializeTestData();
+            }
+        });
+    }
+
+
+    private void initializeTestData() {
+        User user = UserSingleton.getInstance().getCurrentUser();
+        ActiveAndroid.beginTransaction();
+        try {
+            Food food = new Food("Applesauce");
+            food.save();
+            user.getDiet().addFood(food);
+            food = new Food("Apple juice");
+            food.save();
+            user.getDiet().addFood(food);
+            user.getDiet().addFood(food);
+            food = new Food("Apple");
+            food.save();
+            user.getDiet().addFood(food);
+            user.getDiet().addFood(food);
+            user.getDiet().addFood(food);
+            food = new Food("Beer");
+            food.save();
+            user.getDiet().addFood(food);
+            user.getDiet().addFood(food);
+            food = new Food("Bread");
+            food.save();
+            user.getDiet().addFood(food);
+            food = new Food("Bacon");
+            food.save();
+            user.getDiet().addFood(food);
+            user.getDiet().addFood(food);
+            user.getDiet().addFood(food);
+            food = new Food("corn");
+            food.save();
+            user.getDiet().addFood(food);
+            food = new Food("cheese");
+            food.save();
+            user.getDiet().addFood(food);
+            food = new Food("cake");
+            food.save();
+            user.getDiet().addFood(food);
+            food = new Food("cookies");
+            food.save();
+            user.getDiet().addFood(food);
+            food = new Food("chicken");
+            food.save();
+            user.getDiet().addFood(food);
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        Toast.makeText(getActivity(), "DONE", Toast.LENGTH_SHORT).show();
     }
 }
