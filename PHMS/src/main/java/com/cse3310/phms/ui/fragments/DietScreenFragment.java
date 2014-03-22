@@ -53,7 +53,7 @@ public class DietScreenFragment extends SherlockFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        User user = UserSingleton.getInstance().getCurrentUser();
+        User user = UserSingleton.INSTANCE.getCurrentUser();
         List<Food> foodList = user.getDiet().getFoods();
         mSuggestionSet = new HashSet<String>(foodList.size());
         for (Food food : foodList) {

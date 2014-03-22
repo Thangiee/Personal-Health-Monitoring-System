@@ -62,7 +62,7 @@ public class HomeScreenFragment extends SherlockFragment{
 
 
     private void initializeTestData() {
-        User user = UserSingleton.getInstance().getCurrentUser();
+        User user = UserSingleton.INSTANCE.getCurrentUser();
         ActiveAndroid.beginTransaction();
         try {
             Food food = new Food("Applesauce");
