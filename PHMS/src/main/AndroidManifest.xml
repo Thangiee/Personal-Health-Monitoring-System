@@ -37,6 +37,14 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.activities.SlidingMenuActivity"/>
         </activity>
+        <activity
+                android:name=".ui.activities.AddFoodActivity_"
+                android:launchMode="singleTop"
+                android:label="@string/app_name">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.activities.SlidingMenuActivity"/>
+        </activity>
     </application>
 
 </manifest>
