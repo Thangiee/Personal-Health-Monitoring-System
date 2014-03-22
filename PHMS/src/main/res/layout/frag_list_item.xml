@@ -22,13 +22,22 @@
               android:orientation="horizontal"
               android:background="?android:attr/activatedBackgroundIndicator"
               android:paddingLeft="12dp">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/list_item_icon"
+            android:src="@drawable/ic_launcher"/>
+
     <TextView android:id="@+id/frag_list_item_tv_title"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:text="titles"
-              android:textSize="24sp"
+              android:textSize="18sp"
               android:textColor="@drawable/list_item_text_color"
               android:layout_weight="1"
+              android:paddingLeft="6dp"
               android:paddingTop="12dp"
               android:paddingBottom="12dp"/>
 </LinearLayout>

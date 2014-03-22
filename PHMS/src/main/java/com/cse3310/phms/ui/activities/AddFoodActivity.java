@@ -14,17 +14,7 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.ui.utils;
+package com.cse3310.phms.ui.activities;
 
-public class DrawerItem {
-    public static final int DEFAULT = 0;
-    public int layoutId;
-    public String title;
-    public int imageId;
-
-    public DrawerItem(int layoutId, String title, int imageId) {
-        this.layoutId = layoutId;
-        this.title = title;
-        this.imageId = imageId;
-    }
+public class AddFoodActivity {
 }
