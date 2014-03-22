@@ -16,7 +16,6 @@
 
 package com.cse3310.phms.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import com.actionbarsherlock.view.Menu;
@@ -86,14 +85,6 @@ public class SearchCardsActivity extends BaseActivity{
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
-    }
-
-    @Override
-    public void doSearch() {
-        EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
-        Intent intent = new Intent(this, SearchCardsActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public void onEvent(Events.initCardsToSearchEvent event) {
