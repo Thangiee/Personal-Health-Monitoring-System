@@ -35,7 +35,7 @@
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView"
+                android:id="@+id/list_item_icon"
                 android:src="@drawable/user_icon"
                 android:background="@color/slide_menu_background"
                 android:contentDescription="profile photo"
@@ -51,7 +51,7 @@
                 android:paddingTop="24dp"
                 android:paddingBottom="24dp"
                 android:paddingLeft="12dp"
-                android:layout_toRightOf="@+id/imageView">
+                android:layout_toRightOf="@+id/list_item_icon">
 
             <TextView
                     android:layout_width="fill_parent"

@@ -17,6 +17,7 @@
 package com.cse3310.phms.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.KeyEvent;
@@ -34,6 +35,7 @@ import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.Keyboard;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import de.greenrobot.event.EventBus;
 
 import java.util.Collection;
 
@@ -108,12 +110,20 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         }
     }
 
+    public void doSearch() {
+        Toast.makeText(this, "Searching for " + mSearchWord, Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
+        Intent intent = new Intent(this, SearchCardsActivity.class);
+        startActivity(intent);
+    }
+
     // change suggestions in search
     public void onEvent(Events.SetSuggestionEvent event) {
         setSuggestions(event.suggestions);
     }
 
     public void setSuggestions(Collection<String> suggestions) {
+        System.out.println(">>>>>> setting suggestions");
         mSuggestionAdapter.clear();
         mSuggestionAdapter.addAll(suggestions);
         mSuggestionAdapter.notifyDataSetChanged();
@@ -178,5 +188,5 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         });
     }
 
-    public abstract void doSearch();
+
 }

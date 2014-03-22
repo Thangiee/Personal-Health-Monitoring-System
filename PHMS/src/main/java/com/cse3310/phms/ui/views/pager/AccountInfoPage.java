@@ -20,7 +20,7 @@ import android.support.v4.app.Fragment;
 import co.juliansuarez.libwizardpager.wizard.model.ModelCallbacks;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.ReviewItem;
-import com.cse3310.phms.ui.fragments.AccountInfoFragment;
+import com.cse3310.phms.ui.fragments.RegAccountInfoFragment;
 
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ public class AccountInfoPage extends Page{
 
     @Override
     public Fragment createFragment() {
-        return AccountInfoFragment.create(getKey());
+        return RegAccountInfoFragment.create(getKey());
     }
 
     @Override

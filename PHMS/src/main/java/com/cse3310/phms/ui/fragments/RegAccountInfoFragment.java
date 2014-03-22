@@ -34,7 +34,7 @@ import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
 import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
 import com.cse3310.phms.ui.views.pager.AccountInfoPage;
 
-public class AccountInfoFragment extends SherlockFragment {
+public class RegAccountInfoFragment extends SherlockFragment {
     private static final String ARG_KEY = "key";
 
     private PageFragmentCallbacks mCallbacks;
@@ -42,18 +42,18 @@ public class AccountInfoFragment extends SherlockFragment {
     private AccountInfoPage mPage;
     private FormEditText mUsername;
     private FormEditText mPassword;
-    private boolean[] validFields = new boolean[2];
+    private boolean[] validFields;
 
-    public static AccountInfoFragment create(String key) {
+    public static RegAccountInfoFragment create(String key) {
         Bundle args = new Bundle();
         args.putString(ARG_KEY, key);
 
-        AccountInfoFragment fragment = new AccountInfoFragment();
+        RegAccountInfoFragment fragment = new RegAccountInfoFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public AccountInfoFragment() {
+    public RegAccountInfoFragment() {
     }
 
     @Override
@@ -77,6 +77,21 @@ public class AccountInfoFragment extends SherlockFragment {
         mPassword.setText(mPage.getData().getString(AccountInfoPage.PASSWORD_KEY));
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        mPage.getData().putBooleanArray("valid", validFields);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        validFields = mPage.getData().getBooleanArray("valid");
+        if (validFields == null) {
+            validFields = new boolean[2];
+        }
+        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override

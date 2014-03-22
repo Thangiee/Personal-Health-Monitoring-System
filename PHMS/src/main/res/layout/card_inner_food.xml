@@ -54,7 +54,6 @@
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:background="@drawable/blue_btn_bg"
-            android:visibility="invisible"
             android:text="Edit"
             android:layout_centerInParent="true"
             android:layout_width="48dp"

@@ -19,7 +19,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
     }
 }
 
@@ -30,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.0'
+    compile 'com.android.support:support-v4:19.0.1'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
 }
 
@@ -39,8 +39,8 @@ android {
     buildToolsVersion "19.0.3"
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 19
+        minSdkVersion=14
+        targetSdkVersion=19
     }
 
     sourceSets {

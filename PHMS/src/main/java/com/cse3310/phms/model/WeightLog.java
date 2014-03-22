@@ -51,7 +51,7 @@ public class WeightLog extends Model{
      */
     public WeightLog(double weight) {
         this.weight = weight;
-        this.user = UserSingleton.getInstance().getCurrentUser();
+        this.user = UserSingleton.INSTANCE.getCurrentUser();
         this.time = Calendar.getInstance().getTimeInMillis();
         date = new Date(time);
 

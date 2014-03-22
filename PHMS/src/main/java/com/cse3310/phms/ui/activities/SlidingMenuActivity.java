@@ -16,7 +16,6 @@
 
 package com.cse3310.phms.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
@@ -103,14 +102,6 @@ public class SlidingMenuActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void doSearch() {
-        Toast.makeText(this, "Searching for " + mSearchWord, Toast.LENGTH_SHORT).show();
-        EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
-        Intent intent = new Intent(this, SearchCardsActivity.class);
-        startActivity(intent);
     }
 
     @Override

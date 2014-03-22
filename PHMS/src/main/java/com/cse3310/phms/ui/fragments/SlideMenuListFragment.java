@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.ami.fundapter.BindDictionary;
 import com.ami.fundapter.FunDapter;
 import com.ami.fundapter.extractors.StringExtractor;
+import com.ami.fundapter.interfaces.StaticImageLoader;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.utils.DrawerItem;
@@ -42,9 +44,15 @@ import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{
-        add(new DrawerItem(R.layout.home_screen, "Home"));
-        add(new DrawerItem(R.layout.diet_screen, "Diet"));
-        add(new DrawerItem(R.layout.frag_card_list, "test"));
+        add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
+        add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
+        add(new DrawerItem(R.layout.frag_card_list, "Weight Log", R.drawable.ic_action_line_chart));
+        add(new DrawerItem(R.layout.frag_card_list, "Medication", R.drawable.ic_action_pill));
+        add(new DrawerItem(R.layout.frag_card_list, "Appointment", R.drawable.ic_action_calendar_day));
+        add(new DrawerItem(R.layout.frag_card_list, "Vital Signs", R.drawable.ic_action_warning));
+        add(new DrawerItem(R.layout.frag_card_list, "Contacts", R.drawable.ic_action_users));
+        add(new DrawerItem(R.layout.frag_card_list, "Recipes", R.drawable.ic_action_list_2));
+        add(new DrawerItem(R.layout.frag_card_list, "Reminders", R.drawable.ic_action_alarm));
     }};
 
     @Override
@@ -53,7 +61,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         View view = inflater.inflate(R.layout.frag_list_sliding_menu, container, false);
 
         // set the sliding menu header to show the current user's username and email.
-        User user = UserSingleton.getInstance().getCurrentUser();
+        User user = UserSingleton.INSTANCE.getCurrentUser();
         TextView usernameHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_username);
         usernameHeader.setText(Character.toUpperCase(user.getUsername().charAt(0)) + user.getUsername().substring(1)); // first char to upper case
         TextView emailHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_email);
@@ -74,6 +82,17 @@ public class SlideMenuListFragment extends SherlockListFragment {
                        return drawerItem.title;
                    }
                });
+
+        dict.addStaticImageField(R.id.list_item_icon, new StaticImageLoader<DrawerItem>() {
+            @Override
+            public void loadImage(DrawerItem item, ImageView imageView, int position) {
+                if (item.imageId == DrawerItem.DEFAULT) {
+                    imageView.setImageResource(R.drawable.ic_launcher);
+                } else {
+                    imageView.setImageResource(item.imageId);
+                }
+            }
+        });
 
         FunDapter<DrawerItem> adapter = new FunDapter<DrawerItem>(getActivity(), drawerItems, R.layout.frag_list_item, dict);
         setListAdapter(adapter);

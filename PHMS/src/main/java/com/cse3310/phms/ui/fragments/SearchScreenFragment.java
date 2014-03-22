@@ -34,9 +34,10 @@ public class SearchScreenFragment extends SherlockFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         CardListFragment_ cardListFragment = new CardListFragment_();
         cardListFragment.addCards(matchCardList);
+        cardListFragment.setChangeSearchPriorities(false);
+
         Fragment dietHeaderFragment = new SearchScreenHeaderFragment_();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.search_screen_header_container, dietHeaderFragment);

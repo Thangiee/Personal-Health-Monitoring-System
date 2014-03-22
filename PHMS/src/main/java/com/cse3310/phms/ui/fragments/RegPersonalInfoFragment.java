@@ -107,6 +107,21 @@ public class RegPersonalInfoFragment extends SherlockFragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        mPage.getData().putBooleanArray("valid", validFields);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        validFields = mPage.getData().getBooleanArray("valid");
+        if (validFields == null) {
+            validFields = new boolean[4];
+        }
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
