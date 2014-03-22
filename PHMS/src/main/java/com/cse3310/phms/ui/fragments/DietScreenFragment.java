@@ -36,6 +36,7 @@ import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -89,11 +90,16 @@ public class DietScreenFragment extends SherlockFragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @OptionsItem(R.id.add_icon)
+    void menuAddFoodIntake() {
+        Toast.makeText(getActivity(), "add food intake", Toast.LENGTH_SHORT).show();
+    }
+
     private FoodCard createFoodCard(Food food) {
         FoodCard card = new FoodCard(getActivity());
         card.setTitle(food.getName());
         card.setSubTitle("" + food.getCalories());
-        card.setBtnTitle("Edit");
+        card.setEditButton("Edit");
 
         card.setBtnClickListener(new View.OnClickListener() {
             @Override
