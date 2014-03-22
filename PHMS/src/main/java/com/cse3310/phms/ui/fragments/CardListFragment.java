@@ -16,10 +16,16 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
+import com.cse3310.phms.ui.utils.Events;
 import com.nhaarman.listviewanimations.swinginadapters.AnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
+import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
@@ -28,15 +34,50 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @EFragment(R.layout.frag_card_list)
 public class CardListFragment extends SherlockFragment {
     private static int idCounter = 0;
+    private Set<String> mSuggestionSet;
     private List<Card> mCardList = new ArrayList<Card>();
+    private boolean mChangeSearchPriorities = true;
 
     @ViewById(R.id.frag_diet_food_list)
     CardListView mCardListView;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mSuggestionSet = new HashSet<String>(mCardList.size()); // use to collect unique food to be use as search suggestions.
+        for (Card card : mCardList) {
+            mSuggestionSet.add(card.getTitle());
+        }
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @AfterViews
+    void test() {
+        System.out.println(mChangeSearchPriorities + " " + mSuggestionSet.size());
+        if (mChangeSearchPriorities) {
+            // change the suggestions for search to unique intake food name.
+            EventBus.getDefault().postSticky(new Events.SetSuggestionEvent(mSuggestionSet));
+            // setup the cards that will be searched if the user decide to search
+            EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(mCardList));
+        }
+    }
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        System.out.println(mChangeSearchPriorities + " " + mSuggestionSet.size());
+//        if (mChangeSearchPriorities) {
+//            // change the suggestions for search to unique intake food name.
+//            EventBus.getDefault().post(new Events.SetSuggestionEvent(mSuggestionSet));
+//            // setup the cards that will be searched if the user decide to search
+//            EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(mCardList));
+//        }
+//    }
 
     @AfterViews
     void onAfterViews() {
@@ -61,5 +102,9 @@ public class CardListFragment extends SherlockFragment {
         for (Card card : cards) {
             addCard(card);
         }
+    }
+
+    public void setChangeSearchPriorities(boolean changeSearchPriorities) {
+        this.mChangeSearchPriorities = changeSearchPriorities;
     }
 }

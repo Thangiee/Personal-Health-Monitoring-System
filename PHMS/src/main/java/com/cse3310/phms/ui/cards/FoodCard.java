@@ -30,7 +30,7 @@ public class FoodCard extends Card{
     protected String mSubTitle;
     protected String mBtnTitle;
     protected View.OnClickListener mBtnClickListener;
-    private TextView editButton;
+    private TextView mButton;
 
     public FoodCard(Context context) {
         super(context, R.layout.card_inner_food);
@@ -40,13 +40,13 @@ public class FoodCard extends Card{
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
         TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
-        editButton = (TextView) view.findViewById(R.id.card_inner_txt_btn);
+        mButton = (TextView) view.findViewById(R.id.card_inner_txt_btn);
 
         title.setText(mTitle);
         subTitle.setText(mSubTitle);
-        editButton.setText(mBtnTitle);
-        editButton.setClickable(true);
-        editButton.setOnClickListener(mBtnClickListener);
+        mButton.setText(mBtnTitle);
+        mButton.setClickable(true);
+        mButton.setOnClickListener(mBtnClickListener);
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);
@@ -61,8 +61,8 @@ public class FoodCard extends Card{
         this.mSubTitle = subTitle;
     }
 
-    public void setEditButton(String editButton) {
-        this.mBtnTitle = editButton;
+    public void setButtonTitle(String title) {
+        this.mBtnTitle = title;
     }
 
     public void setBtnClickListener(View.OnClickListener mBtnClickListener) {

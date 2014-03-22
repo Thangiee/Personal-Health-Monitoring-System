@@ -42,17 +42,16 @@ public class SearchCardsActivity extends BaseActivity{
 
         EventBus.getDefault().registerSticky(this);
 
-        // change suggestions to items in this screen
         Set<String> suggestionsSet = new HashSet<String>(mCardsToSearch.size());
         for (Card card : mCardsToSearch) {
             String title = card.getTitle();
             suggestionsSet.add(title);
 
-            if (title.toLowerCase().contains(mSearchWord.toLowerCase())) {
+            if (title.toLowerCase().contains(mSearchWord.toLowerCase())) { // match cards with search word
                 mCardMatchList.add(card);
             }
         }
-        setSuggestions(suggestionsSet);
+        setSuggestions(suggestionsSet); // set search suggestions
 
         SearchScreenFragment_ searchScreenFragment = new SearchScreenFragment_();
         searchScreenFragment.setMatchCardList(mCardMatchList);
