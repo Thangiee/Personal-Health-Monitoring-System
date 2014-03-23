@@ -32,7 +32,9 @@ import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.activities.AddFoodActivity_;
 import com.cse3310.phms.ui.cards.FoodCard;
 import com.cse3310.phms.ui.cards.FoodCardExpand;
+import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
+import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
@@ -43,11 +45,13 @@ import java.util.List;
 @EFragment(R.layout.diet_screen)
 public class DietScreenFragment extends SherlockFragment {
     private List<Card> cardList = new ArrayList<Card>();
+    CardListFragment_ cardListFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        EventBus.getDefault().register(this);
 
         User user = UserSingleton.INSTANCE.getCurrentUser();
         List<Food> foodList = user.getDiet().getFoods();
@@ -59,8 +63,8 @@ public class DietScreenFragment extends SherlockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Fragment dietHeaderFragment = new DietScreenHeaderFragment_();
-        CardListFragment_ cardListFragment = new CardListFragment_();
-        cardListFragment.addCards(cardList); // add cards to show in the card list fragment
+        cardListFragment = new CardListFragment_();
+        cardListFragment.initializeCards(cardList); // add cards to show in the card list fragment
 
         // fragments within fragment
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -75,9 +79,20 @@ public class DietScreenFragment extends SherlockFragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
     @OptionsItem(R.id.add_icon)
     void menuAddFoodIntake() {
-        AddFoodActivity_.intent(this).start();
+        AddFoodActivity_.intent(this).startForResult(1);
+    }
+
+    public void onEvent(Events.AddCardEvent<FoodCard> event) {
+        cardListFragment.addCard(event.card);
+        cardListFragment.update();
     }
 
     private FoodCard createFoodCard(Food food) {

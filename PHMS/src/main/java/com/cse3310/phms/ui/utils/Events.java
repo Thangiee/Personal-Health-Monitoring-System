@@ -52,11 +52,12 @@ public class Events {
             this.suggestions = suggestions;
         }
     }
-//    public static class initListEvent<T> {
-//        public List<T> list;
-//
-//        public initListEvent(List<T> list) {
-//            this.list = list;
-//        }
-//    }
+
+    public static class AddCardEvent <T extends Card>{
+        public T card;
+
+        public AddCardEvent(T card) {
+            this.card = card;
+        }
+    }
 }

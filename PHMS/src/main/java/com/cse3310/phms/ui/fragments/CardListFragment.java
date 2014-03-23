@@ -96,6 +96,8 @@ public class CardListFragment extends SherlockFragment {
 
     public void addCard(Card card) {
         adapter.add(card);
+        mSuggestionSet.add(card.getTitle());
+        initializeCard(card);
     }
 
     public void update() {
