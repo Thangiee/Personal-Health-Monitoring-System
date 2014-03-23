@@ -1,13 +1,11 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.ui.PageFragmentCallbacks;
@@ -29,6 +27,7 @@ public class EditTextPageFragment extends SherlockFragment{
     private boolean[] validFields = new boolean[1];
     private Validator[] validators;
     private FormEditText mFormEditText;
+    private int inputType = 0;
 
     public static EditTextPageFragment create(String key) {
         Bundle args = new Bundle();
@@ -65,6 +64,10 @@ public class EditTextPageFragment extends SherlockFragment{
             }
         }
 
+        // set the keyboard input type
+        if (inputType != 0) {
+            mFormEditText.setInputType(inputType);
+        }
         return rootView;
     }
 
@@ -123,20 +126,13 @@ public class EditTextPageFragment extends SherlockFragment{
         });
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setMenuVisibility(isVisibleToUser);
-        if (mFormEditText != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            if (!isVisibleToUser) {
-                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            }
-        }
-    }
-
     public EditTextPageFragment setValidators(Validator... validators) {
         this.validators = validators;
+        return this;
+    }
+
+    public EditTextPageFragment setInputType(int inputType) {
+        this.inputType = inputType;
         return this;
     }
 }

@@ -44,6 +44,7 @@ public class CardListFragment extends SherlockFragment {
     private Set<String> mSuggestionSet;
     private List<Card> mCardList = new ArrayList<Card>();
     private boolean mChangeSearchPriorities = true;
+    private CardArrayAdapter adapter;
 
     @ViewById(R.id.frag_diet_food_list)
     CardListView mCardListView;
@@ -71,7 +72,7 @@ public class CardListFragment extends SherlockFragment {
     @AfterViews
     void setupAdapter() {
         // Set up adapter
-        CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), new ArrayList<Card>(mCardList));
+        adapter = new CardArrayAdapter(getActivity(), new ArrayList<Card>(mCardList));
         adapter.setEnableUndo(true); // Enable undo controller!
         // Set up animation adapter
         AnimationAdapter animCardArrayAdapter = new SwingBottomInAnimationAdapter(adapter);
@@ -81,16 +82,24 @@ public class CardListFragment extends SherlockFragment {
         }
     }
 
-    public void addCard(Card card) {
+    public void initializeCard(Card card) {
         card.setSwipeable(true);
         card.setId("" + idCounter++);
         mCardList.add(card);
     }
 
-    public void addCards(List<Card> cards) {
+    public void initializeCards(List<Card> cards) {
         for (Card card : cards) {
-            addCard(card);
+            initializeCard(card);
         }
+    }
+
+    public void addCard(Card card) {
+        adapter.add(card);
+    }
+
+    public void update() {
+        adapter.notifyDataSetChanged();
     }
 
     public void setChangeSearchPriorities(boolean changeSearchPriorities) {
