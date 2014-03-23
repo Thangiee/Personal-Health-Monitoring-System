@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.Food;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 
@@ -31,9 +32,12 @@ public class FoodCard extends Card{
     protected String mBtnTitle;
     protected View.OnClickListener mBtnClickListener;
     private TextView mButton;
+    private Food mFood;
 
-    public FoodCard(Context context) {
+    public FoodCard(Context context, Food food) {
         super(context, R.layout.card_inner_food);
+        this.mFood = food;
+        addCardExpand(new FoodCardExpand(getContext(), mFood));
     }
 
     @Override
@@ -41,7 +45,6 @@ public class FoodCard extends Card{
         TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
         TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
         mButton = (TextView) view.findViewById(R.id.card_inner_txt_btn);
-
         title.setText(mTitle);
         subTitle.setText(mSubTitle);
         mButton.setText(mBtnTitle);
@@ -50,6 +53,10 @@ public class FoodCard extends Card{
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);
+    }
+
+    public Food getFood() {
+        return mFood;
     }
 
     public void setTitle(String title) {

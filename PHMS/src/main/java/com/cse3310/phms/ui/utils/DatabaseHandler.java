@@ -34,10 +34,15 @@ public class DatabaseHandler {
         return new Select().all().from(table).execute();
     }
 
+    public static <T extends Model> List<T> getById(Class<T> table, long id) {
+        return new Select().all().from(table).where("Id = ?", id).execute();
+    }
+
     public static User getUserByUserName(final String userName) {
         return new Select().from(User.class).where("UserName = ?", userName).executeSingle();
     }
 
+    //TODO: buggy, return wrong id
     public static List<Food> getFoodsByDiet(Diet diet) {
         return new Select().all().from(Food.class).innerJoin(ManyToManyTable.DietAndFood.class)
                 .on("DietAndFood.Food = Food.id").where("DietAndFood.Diet = ?", diet.getId()).execute();

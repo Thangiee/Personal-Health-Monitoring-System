@@ -60,4 +60,12 @@ public class Events {
             this.card = card;
         }
     }
+
+    public static class RemoveCardEvent <T extends Card>{
+        public T card;
+
+        public RemoveCardEvent(T card) {
+            this.card = card;
+        }
+    }
 }

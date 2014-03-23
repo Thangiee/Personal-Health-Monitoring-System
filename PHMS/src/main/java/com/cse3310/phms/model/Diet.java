@@ -22,6 +22,7 @@ import com.activeandroid.annotation.Table;
 import com.cse3310.phms.model.utils.ManyToManyTable;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cse3310.phms.model.utils.ManyToManyTable.DietAndFood;
@@ -54,8 +55,17 @@ public class Diet extends Model{
      *
      * @return list of foods
      */
-    public List<Food> getFoods() {
-        return DatabaseHandler.getFoodsByDiet(this);
+    public List<Food> getFoods(long userId) {
+        List<Food> foodList = new ArrayList<Food>();
+        List<DietAndFood> dietAndFoodList = DatabaseHandler.getAllRows(DietAndFood.class);
+
+        // Poor performance?
+        for (DietAndFood dietAndFood : dietAndFoodList) {
+            if (dietAndFood.getDietId() == userId) {
+                foodList.addAll(DatabaseHandler.getById(Food.class, dietAndFood.getFoodId()));
+            }
+        }
+        return foodList;
     }
 
     /**
