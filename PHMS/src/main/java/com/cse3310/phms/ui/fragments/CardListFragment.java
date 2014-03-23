@@ -57,29 +57,19 @@ public class CardListFragment extends SherlockFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @AfterViews
-    void test() {
+    @Override
+    public void onResume() {
         if (mChangeSearchPriorities) {
-            // change the suggestions for search to unique intake food name.
+            // change the suggestions for search to unique intake food name. Sending to BaseActivity
             EventBus.getDefault().postSticky(new Events.SetSuggestionEvent(mSuggestionSet));
-            // setup the cards that will be searched if the user decide to search
+            // setup the cards that will be searched if the user decide to search Sending to SearchCardsActivity
             EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(mCardList));
         }
+        super.onResume();
     }
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        System.out.println(mChangeSearchPriorities + " " + mSuggestionSet.size());
-//        if (mChangeSearchPriorities) {
-//            // change the suggestions for search to unique intake food name.
-//            EventBus.getDefault().post(new Events.SetSuggestionEvent(mSuggestionSet));
-//            // setup the cards that will be searched if the user decide to search
-//            EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(mCardList));
-//        }
-//    }
 
     @AfterViews
-    void onAfterViews() {
+    void setupAdapter() {
         // Set up adapter
         CardArrayAdapter adapter = new CardArrayAdapter(getActivity(), new ArrayList<Card>(mCardList));
         adapter.setEnableUndo(true); // Enable undo controller!
