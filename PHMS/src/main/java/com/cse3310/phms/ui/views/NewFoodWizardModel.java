@@ -17,12 +17,9 @@
 package com.cse3310.phms.ui.views;
 
 import android.content.Context;
+import android.text.InputType;
 import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
-import co.juliansuarez.libwizardpager.wizard.model.NumberPage;
 import co.juliansuarez.libwizardpager.wizard.model.PageList;
-import co.juliansuarez.libwizardpager.wizard.model.TextPage;
-import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
-import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
 import com.cse3310.phms.ui.views.pager.EditTextPage;
 
 public class NewFoodWizardModel extends AbstractWizardModel {
@@ -41,13 +38,14 @@ public class NewFoodWizardModel extends AbstractWizardModel {
     @Override
     protected PageList onNewRootPageList() {
         return new PageList(
-                new TextPage(this, NAME).setRequired(true),
-                new EditTextPage(this, CAL, new MinimumLengthValidator(4), new NoSpaceValidator()).setRequired(true),
-                new NumberPage(this, PROTEIN).setRequired(true),
-                new NumberPage(this, FAT).setRequired(true),
-                new NumberPage(this, FIBER).setRequired(true),
-                new NumberPage(this, SUGAR).setRequired(true),
-                new NumberPage(this, SERVING).setRequired(true)
+                // inputType for editTextPage on number by default
+                new EditTextPage(this, NAME).setInputType(InputType.TYPE_CLASS_TEXT).setRequired(true),
+                new EditTextPage(this, CAL).setRequired(true),
+                new EditTextPage(this, PROTEIN).setRequired(true),
+                new EditTextPage(this, FAT).setRequired(true),
+                new EditTextPage(this, FIBER).setRequired(true),
+                new EditTextPage(this, SUGAR).setRequired(true),
+                new EditTextPage(this, SERVING).setRequired(true)
         );
     }
 }
