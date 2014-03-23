@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.model.utils;import java.io.UnsupportedEncodingException;
+package com.cse3310.phms.model.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 
 /**

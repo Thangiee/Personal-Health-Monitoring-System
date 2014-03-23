@@ -123,7 +123,6 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
     }
 
     public void setSuggestions(Collection<String> suggestions) {
-        System.out.println(">>>>>> setting suggestions");
         mSuggestionAdapter.clear();
         mSuggestionAdapter.addAll(suggestions);
         mSuggestionAdapter.notifyDataSetChanged();

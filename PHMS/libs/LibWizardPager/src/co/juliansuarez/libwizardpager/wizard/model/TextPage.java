@@ -1,10 +1,10 @@
 package co.juliansuarez.libwizardpager.wizard.model;
 
-import java.util.ArrayList;
-
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import co.juliansuarez.libwizardpager.wizard.ui.TextFragment;
+
+import java.util.ArrayList;
 
 public class TextPage extends Page {
 

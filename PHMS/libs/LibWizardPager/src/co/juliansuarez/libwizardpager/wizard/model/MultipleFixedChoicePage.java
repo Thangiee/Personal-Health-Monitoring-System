@@ -16,10 +16,10 @@
 
 package co.juliansuarez.libwizardpager.wizard.model;
 
-import java.util.ArrayList;
-
 import android.support.v4.app.Fragment;
 import co.juliansuarez.libwizardpager.wizard.ui.MultipleChoiceFragment;
+
+import java.util.ArrayList;
 
 /**
  * A page offering the user a number of non-mutually exclusive choices.

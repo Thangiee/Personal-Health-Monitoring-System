@@ -16,9 +16,6 @@
 
 package co.juliansuarez.libwizardpager.wizard.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +29,9 @@ import android.widget.TextView;
 import co.juliansuarez.libwizardpager.R;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import co.juliansuarez.libwizardpager.wizard.model.SingleFixedChoicePage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SingleChoiceFragment extends ListFragment {
     private static final String ARG_KEY = "key";

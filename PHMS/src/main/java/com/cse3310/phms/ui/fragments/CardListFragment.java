@@ -59,7 +59,6 @@ public class CardListFragment extends SherlockFragment {
 
     @AfterViews
     void test() {
-        System.out.println(mChangeSearchPriorities + " " + mSuggestionSet.size());
         if (mChangeSearchPriorities) {
             // change the suggestions for search to unique intake food name.
             EventBus.getDefault().postSticky(new Events.SetSuggestionEvent(mSuggestionSet));

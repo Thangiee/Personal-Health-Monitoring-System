@@ -16,11 +16,14 @@
 
 package com.cse3310.phms.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import com.actionbarsherlock.view.Menu;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
 import com.cse3310.phms.ui.cards.FoodCard;
+import com.cse3310.phms.ui.cards.FoodCardExpand;
 import com.cse3310.phms.ui.fragments.CardListFragment_;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 import de.greenrobot.event.EventBus;
@@ -36,6 +39,7 @@ public class AddFoodActivity extends BaseActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().registerSticky(this);
+        setTitle("Add Food Intake");
 
         CardListFragment_ cardListFragment = new CardListFragment_();
         // enable the up/home button in the actionbar
@@ -50,13 +54,28 @@ public class AddFoodActivity extends BaseActivity{
             foodCard.setTitle(food.getName());
             foodCard.setSubTitle("sub title");
             foodCard.setButtonTitle("Add");
+
+            FoodCardExpand foodCardExpand = new FoodCardExpand(this, food);
+            foodCard.addCardExpand(foodCardExpand);
             cardListFragment.addCard(foodCard);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.add_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @OptionsItem(R.id.add_icon)
+    void menuAddButton() {
+        Intent intent = new Intent(this, NewFoodWizardPagerActivity.class);
+        startActivity(intent);
+    }
+
     @OptionsItem(android.R.id.home)
-    void onHomeButtonClick() {
+    void menuActionBarHome() {
         NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
     }
 
@@ -65,15 +84,4 @@ public class AddFoodActivity extends BaseActivity{
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-
-    //    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 }

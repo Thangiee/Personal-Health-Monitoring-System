@@ -17,13 +17,8 @@
 package com.jeremyfeinstein.slidingmenu.lib.actionbar;
 
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.Rect;
-import android.graphics.Region;
+import android.graphics.*;
 import android.graphics.drawable.Drawable;
-
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 /**

@@ -36,11 +36,12 @@ public class SearchCardsActivity extends BaseActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().registerSticky(this);
+        setTitle("Search");
+
         // enable the up/home button in the actionbar
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        EventBus.getDefault().registerSticky(this);
 
         Set<String> suggestionsSet = new HashSet<String>(mCardsToSearch.size());
         for (Card card : mCardsToSearch) {

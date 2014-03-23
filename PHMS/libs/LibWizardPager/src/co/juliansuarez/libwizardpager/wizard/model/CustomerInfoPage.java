@@ -16,11 +16,11 @@
 
 package co.juliansuarez.libwizardpager.wizard.model;
 
-import java.util.ArrayList;
-
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import co.juliansuarez.libwizardpager.wizard.ui.CustomerInfoFragment;
+
+import java.util.ArrayList;
 
 /**
  * A page asking for a name and an email.

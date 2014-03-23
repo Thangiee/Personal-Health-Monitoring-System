@@ -16,12 +16,12 @@
 
 package co.juliansuarez.libwizardpager.wizard.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import co.juliansuarez.libwizardpager.wizard.ui.SingleChoiceFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A page representing a branching point in the wizard. Depending on which choice is selected, the
