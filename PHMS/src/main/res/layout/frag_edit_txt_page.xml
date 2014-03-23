@@ -33,7 +33,6 @@
             <com.andreabaccega.widget.FormEditText
                     android:id="@+id/frag_edit_txt_field"
                     validate:testType="alphaNumeric"
-                    validate:emptyErrorString="Username can not be empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="25"

@@ -21,14 +21,9 @@ import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
 import co.juliansuarez.libwizardpager.wizard.model.NumberPage;
 import co.juliansuarez.libwizardpager.wizard.model.PageList;
 import co.juliansuarez.libwizardpager.wizard.model.TextPage;
-import com.andreabaccega.formedittextvalidator.Validator;
 import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
-import com.cse3310.phms.ui.views.pager.AccountInfoPage;
-import com.cse3310.phms.ui.views.pager.ContactInfoPage;
+import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
 import com.cse3310.phms.ui.views.pager.EditTextPage;
-import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
-
-import java.util.ArrayList;
 
 public class NewFoodWizardModel extends AbstractWizardModel {
     public static final String NAME = "Food Name";
@@ -47,7 +42,7 @@ public class NewFoodWizardModel extends AbstractWizardModel {
     protected PageList onNewRootPageList() {
         return new PageList(
                 new TextPage(this, NAME).setRequired(true),
-                new EditTextPage(this, CAL, new MinimumLengthValidator(4)).setRequired(true),
+                new EditTextPage(this, CAL, new MinimumLengthValidator(4), new NoSpaceValidator()).setRequired(true),
                 new NumberPage(this, PROTEIN).setRequired(true),
                 new NumberPage(this, FAT).setRequired(true),
                 new NumberPage(this, FIBER).setRequired(true),

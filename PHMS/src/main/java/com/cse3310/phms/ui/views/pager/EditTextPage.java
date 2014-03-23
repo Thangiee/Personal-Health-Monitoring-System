@@ -10,16 +10,18 @@ import com.cse3310.phms.ui.fragments.EditTextPageFragment;
 import java.util.ArrayList;
 
 public class EditTextPage extends Page{
-    private Validator validator;
+    private Validator[] validators;
 
-    public EditTextPage(ModelCallbacks callbacks, String title, Validator validator) {
+    public EditTextPage(ModelCallbacks callbacks, String title, Validator... validators) {
         super(callbacks, title);
-        this.validator = validator;
+        this.validators = validators;
     }
 
     @Override
     public Fragment createFragment() {
-        return EditTextPageFragment.create(getKey(), validator);
+        EditTextPageFragment pageFragment = EditTextPageFragment.create(getKey());
+        pageFragment.setValidators(validators);
+        return pageFragment;
     }
 
     @Override

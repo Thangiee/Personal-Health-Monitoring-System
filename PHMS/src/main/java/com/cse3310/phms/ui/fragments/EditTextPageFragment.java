@@ -16,7 +16,6 @@ import com.andreabaccega.formedittextvalidator.Validator;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
-import com.cse3310.phms.ui.views.pager.ContactInfoPage;
 import com.cse3310.phms.ui.views.pager.EditTextPage;
 
 import static co.juliansuarez.libwizardpager.wizard.model.Page.SIMPLE_DATA_KEY;
@@ -26,19 +25,16 @@ public class EditTextPageFragment extends SherlockFragment{
 
     private PageFragmentCallbacks mCallbacks;
     private String mKey;
-    private ContactInfoPage mPage;
+    private EditTextPage mPage;
     private boolean[] validFields = new boolean[1];
-
+    private Validator[] validators;
     private FormEditText mFormEditText;
 
-    public static EditTextPageFragment create(String key, Validator validator) {
+    public static EditTextPageFragment create(String key) {
         Bundle args = new Bundle();
         args.putString(ARG_KEY, key);
 
         EditTextPageFragment fragment = new EditTextPageFragment();
-        FormEditText formEditText = fragment.getFormEditText();
-        formEditText.addValidator(validator);
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,7 +47,7 @@ public class EditTextPageFragment extends SherlockFragment{
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         mKey = args.getString(ARG_KEY);
-        mPage = (ContactInfoPage) mCallbacks.onGetPage(mKey);
+        mPage = (EditTextPage) mCallbacks.onGetPage(mKey);
     }
 
     @Override
@@ -61,6 +57,13 @@ public class EditTextPageFragment extends SherlockFragment{
 
         mFormEditText = (FormEditText) rootView.findViewById(R.id.frag_edit_txt_field);
         mFormEditText.setText(mPage.getData().getString(Page.SIMPLE_DATA_KEY));
+
+        // set validators for formEditText
+        if (validators != null) {
+            for (Validator validator : validators) {
+                mFormEditText.addValidator(validator);
+            }
+        }
 
         return rootView;
     }
@@ -106,10 +109,6 @@ public class EditTextPageFragment extends SherlockFragment{
         return true;
     }
 
-    public FormEditText getFormEditText() {
-        return mFormEditText;
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -134,5 +133,10 @@ public class EditTextPageFragment extends SherlockFragment{
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             }
         }
+    }
+
+    public EditTextPageFragment setValidators(Validator... validators) {
+        this.validators = validators;
+        return this;
     }
 }
