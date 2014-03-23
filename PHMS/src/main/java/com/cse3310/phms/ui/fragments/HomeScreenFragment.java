@@ -105,6 +105,8 @@ public class HomeScreenFragment extends SherlockFragment{
             food.save();
             user.getDiet().addFood(food);
             ActiveAndroid.setTransactionSuccessful();
+            food = new Food("zzz");
+            food.save();
         } finally {
             ActiveAndroid.endTransaction();
         }
