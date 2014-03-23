@@ -31,7 +31,6 @@ import com.cse3310.phms.model.Food;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.activities.AddFoodActivity_;
 import com.cse3310.phms.ui.cards.FoodCard;
-import com.cse3310.phms.ui.cards.FoodCardExpand;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
@@ -54,8 +53,9 @@ public class DietScreenFragment extends SherlockFragment {
         EventBus.getDefault().register(this);
 
         User user = UserSingleton.INSTANCE.getCurrentUser();
-        List<Food> foodList = user.getDiet().getFoods();
+        List<Food> foodList = user.getDiet().getFoods(user.getId());
         for (Food food : foodList) {
+            System.out.println(food.getId());
             cardList.add(createFoodCard(food));
         }
     }
@@ -90,13 +90,8 @@ public class DietScreenFragment extends SherlockFragment {
         AddFoodActivity_.intent(this).startForResult(1);
     }
 
-    public void onEvent(Events.AddCardEvent<FoodCard> event) {
-        cardListFragment.addCard(event.card);
-        cardListFragment.update();
-    }
-
-    private FoodCard createFoodCard(Food food) {
-        FoodCard card = new FoodCard(getActivity());
+    private FoodCard createFoodCard(final Food food) {
+        FoodCard card = new FoodCard(getActivity(), food);
         card.setTitle(food.getName());
         card.setSubTitle("" + food.getCalories());
         card.setButtonTitle("Edit");
@@ -107,8 +102,28 @@ public class DietScreenFragment extends SherlockFragment {
                 Toast.makeText(getActivity(), "Click on edit", Toast.LENGTH_SHORT).show();
             }
         });
-        FoodCardExpand cardExpand = new FoodCardExpand(getActivity(), food);
-        card.addCardExpand(cardExpand);
+
+        card.setOnSwipeListener(new Card.OnSwipeListener() {
+            @Override
+            public void onSwipe(Card card) {
+                Toast.makeText(getActivity(), UserSingleton.INSTANCE.getCurrentUser().getUsername() + " removed " + food.getId(), Toast.LENGTH_SHORT).show();
+                System.out.println(UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(food));
+                cardListFragment.removeCard(card);
+                cardListFragment.update();
+            }
+        });
         return card;
+    }
+
+    //=======================================
+    //              Event Listener
+    //=======================================
+    public void onEvent(Events.AddCardEvent<FoodCard> event) {
+        cardListFragment.addCard(createFoodCard(event.card.getFood()));
+        cardListFragment.update();
+    }
+
+    public void OnEvent(Events.RemoveCardEvent<FoodCard> event) {
+        Toast.makeText(getActivity(), "remove " + event.card.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -19,7 +19,6 @@ package com.cse3310.phms.ui.activities;
 import co.juliansuarez.libwizardpager.wizard.model.Page;
 import com.cse3310.phms.model.Food;
 import com.cse3310.phms.ui.cards.FoodCard;
-import com.cse3310.phms.ui.cards.FoodCardExpand;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.views.NewFoodWizardModel;
 import de.greenrobot.event.EventBus;
@@ -51,15 +50,12 @@ public class NewFoodWizardPagerActivity extends BaseWizardPagerActivity{
                 .setFat(fat)
                 .setFiber(fiber)
                 .setSugars(sugars)
-                .setNumOfServings(servings);
+                .setNumOfServings(servings).save();
 
-        food.save();
-
-        FoodCard foodCard = new FoodCard(this);
+        FoodCard foodCard = new FoodCard(this, food);
         foodCard.setTitle(name);
         foodCard.setSubTitle("subtitle");
         foodCard.setButtonTitle("Edit");
-        foodCard.addCardExpand(new FoodCardExpand(this, food));
         // todo : implement onclicklistener
 
         EventBus.getDefault().post(new Events.AddCardEvent<FoodCard>(foodCard));

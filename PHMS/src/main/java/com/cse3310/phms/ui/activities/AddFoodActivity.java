@@ -25,7 +25,6 @@ import com.actionbarsherlock.view.Menu;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
 import com.cse3310.phms.ui.cards.FoodCard;
-import com.cse3310.phms.ui.cards.FoodCardExpand;
 import com.cse3310.phms.ui.fragments.CardListFragment_;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
@@ -54,7 +53,7 @@ public class AddFoodActivity extends BaseActivity{
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
         // create a card for each of the food.
         for (final Food food : foodList) {
-            foodCard = new FoodCard(this);
+            foodCard = new FoodCard(this, food);
             foodCard.setTitle(food.getName());
             foodCard.setSubTitle("sub title");
             foodCard.setButtonTitle("Add");
@@ -64,14 +63,12 @@ public class AddFoodActivity extends BaseActivity{
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(AddFoodActivity.this,
-                            "Added " + food.getName() + " to today's diet", Toast.LENGTH_SHORT).show();
+                            "Added " + food.getId() + " to today's diet", Toast.LENGTH_SHORT).show();
                     UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
                     EventBus.getDefault().postSticky(new Events.AddCardEvent<FoodCard>(finalFoodCard));
                 }
             });
 
-            FoodCardExpand foodCardExpand = new FoodCardExpand(this, food);
-            foodCard.addCardExpand(foodCardExpand);
             cardListFragment.initializeCard(foodCard);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();

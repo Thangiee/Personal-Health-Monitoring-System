@@ -61,10 +61,7 @@ public class CardListFragment extends SherlockFragment {
     @Override
     public void onResume() {
         if (mChangeSearchPriorities) {
-            // change the suggestions for search to unique intake food name. Sending to BaseActivity
-            EventBus.getDefault().postSticky(new Events.SetSuggestionEvent(mSuggestionSet));
-            // setup the cards that will be searched if the user decide to search Sending to SearchCardsActivity
-            EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(mCardList));
+            update();
         }
         super.onResume();
     }
@@ -100,7 +97,17 @@ public class CardListFragment extends SherlockFragment {
         initializeCard(card);
     }
 
+    public void removeCard(Card card) {
+        adapter.remove(card);
+        mSuggestionSet.remove(card.getTitle());
+        mCardList.remove(card);
+    }
+
     public void update() {
+        // change the suggestions for search to unique intake food name. Sending to BaseActivity
+        EventBus.getDefault().postSticky(new Events.SetSuggestionEvent(mSuggestionSet));
+        // setup the cards that will be searched if the user decide to search Sending to SearchCardsActivity
+        EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(mCardList));
         adapter.notifyDataSetChanged();
     }
 
