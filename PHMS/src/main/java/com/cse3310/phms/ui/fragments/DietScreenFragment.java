@@ -106,7 +106,6 @@ public class DietScreenFragment extends SherlockFragment {
         card.setOnSwipeListener(new Card.OnSwipeListener() {
             @Override
             public void onSwipe(Card card) {
-                Toast.makeText(getActivity(), UserSingleton.INSTANCE.getCurrentUser().getUsername() + " removed " + food.getId(), Toast.LENGTH_SHORT).show();
                 System.out.println(UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(food));
                 cardListFragment.removeCard(card);
                 cardListFragment.update();

@@ -99,7 +99,6 @@ public class CardListFragment extends SherlockFragment {
 
     public void removeCard(Card card) {
         adapter.remove(card);
-        mSuggestionSet.remove(card.getTitle());
         mCardList.remove(card);
     }
 
