@@ -64,7 +64,7 @@ public class DietScreenFragment extends SherlockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Fragment dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
-        cardListFragment.initializeCards(cardList); // add cards to show in the card list fragment
+        cardListFragment.initializeCards(cardList); // add cards to show in the foodCard list fragment
 
         // fragments within fragment
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -118,12 +118,12 @@ public class DietScreenFragment extends SherlockFragment {
     //=======================================
     //              Event Listener
     //=======================================
-    public void onEvent(Events.AddCardEvent<FoodCard> event) {
-        cardListFragment.addCard(createFoodCard(event.card.getFood()));
+    public void onEvent(Events.AddFoodCardEvent event) {
+        cardListFragment.addCard(createFoodCard(event.foodCard.getFood()));
         cardListFragment.update();
     }
 
-    public void OnEvent(Events.RemoveCardEvent<FoodCard> event) {
-        Toast.makeText(getActivity(), "remove " + event.card.getTitle(), Toast.LENGTH_SHORT).show();
+    public void OnEvent(Events.RemoveFoodCardEvent event) {
+        Toast.makeText(getActivity(), "remove " + event.foodCard.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

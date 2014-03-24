@@ -58,7 +58,7 @@ public class NewFoodWizardPagerActivity extends BaseWizardPagerActivity{
         foodCard.setButtonTitle("Edit");
         // todo : implement onclicklistener
 
-        EventBus.getDefault().post(new Events.AddCardEvent<FoodCard>(foodCard));
+        EventBus.getDefault().post(new Events.AddFoodCardEvent(foodCard));
         finish();
     }
 }

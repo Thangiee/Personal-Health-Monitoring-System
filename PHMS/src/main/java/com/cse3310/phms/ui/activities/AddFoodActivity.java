@@ -51,7 +51,7 @@ public class AddFoodActivity extends BaseActivity{
 
         FoodCard foodCard;
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
-        // create a card for each of the food.
+        // create a foodCard for each of the food.
         for (final Food food : foodList) {
             foodCard = new FoodCard(this, food);
             foodCard.setTitle(food.getName());
@@ -63,9 +63,9 @@ public class AddFoodActivity extends BaseActivity{
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(AddFoodActivity.this,
-                            "Added " + food.getId() + " to today's diet", Toast.LENGTH_SHORT).show();
+                            "Added " + food.getName() + " to today's diet", Toast.LENGTH_SHORT).show();
                     UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
-                    EventBus.getDefault().postSticky(new Events.AddCardEvent<FoodCard>(finalFoodCard));
+                    EventBus.getDefault().postSticky(new Events.AddFoodCardEvent(finalFoodCard));
                 }
             });
 
