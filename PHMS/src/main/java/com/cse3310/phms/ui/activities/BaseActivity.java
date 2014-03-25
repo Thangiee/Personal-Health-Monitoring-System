@@ -19,6 +19,7 @@ package com.cse3310.phms.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -71,6 +72,10 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         // this is the view behind the list when the slide menu is open
         setBehindContentView(R.layout.back_layout_frame);
 
+        // enable the up/home button in the actionbar
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if (mTitleRes == 0) {
             mTitleRes = R.string.app_name;
         }
@@ -105,6 +110,8 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
             case R.id.about_us:
                 Toast.makeText(getBaseContext(), "about us", Toast.LENGTH_SHORT).show(); //TODO: to be implemented
                 return true;
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
             default:
                 return false;
         }

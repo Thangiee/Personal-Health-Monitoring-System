@@ -31,11 +31,8 @@ public class FoodWizardPagerActivity extends BaseWizardPagerActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (super.editMode) {
-            getActionBar().setTitle("Edit Food");
-        } else {
-            getActionBar().setTitle("Create New Food");
-        }
+        String actionBarTile = super.editMode ? "Edit Food" : "Create New Food";
+        getActionBar().setTitle(actionBarTile);
     }
 
     @Override
@@ -55,19 +52,24 @@ public class FoodWizardPagerActivity extends BaseWizardPagerActivity{
         double sugars = Double.parseDouble(onGetPage(SUGAR_KEY).getData().getString(Page.SIMPLE_DATA_KEY));
         double servings = Double.parseDouble(onGetPage(SERVING_KEY).getData().getString(Page.SIMPLE_DATA_KEY));
 
+        // create the food object
         Food newFood = new Food(name);
         newFood.setCalories(calories)
                 .setProtein(protein)
                 .setFat(fat)
                 .setFiber(fiber)
                 .setSugars(sugars)
-                .setNumOfServings(servings).save();
+                .setNumOfServings(servings)
+                .save(); // save to the Database
 
+        // if editing, remove the old card and add the new edited card
         if (super.editMode) {
             FoodCard oldFoodCard = ((FoodWizardModel) mWizardModel).getFoodCard();
+            // post an event to DietScreenFragment to remove the old card
             EventBus.getDefault().post(new Events.RemoveFoodCardEvent(oldFoodCard));
         }
 
+        // post an event to DietScreenFragment to add a new card
         EventBus.getDefault().post(new Events.AddFoodCardEvent(new FoodCard(this, newFood)));
         finish();
     }

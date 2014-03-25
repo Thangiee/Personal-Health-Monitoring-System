@@ -31,20 +31,20 @@ public class FoodCard extends Card{
     protected String mSubTitle;
     protected String mBtnTitle;
     protected View.OnClickListener mBtnClickListener;
-    private TextView mButton;
     private Food mFood;
 
     public FoodCard(Context context, Food food) {
         super(context, R.layout.card_inner_food);
         this.mFood = food;
-        addCardExpand(new FoodCardExpand(getContext(), mFood));
+        addCardExpand(new FoodCardExpand(getContext(), mFood)); // add the view to expand when the card is clicked
     }
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
         TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
-        mButton = (TextView) view.findViewById(R.id.card_inner_txt_btn);
+        TextView mButton = (TextView) view.findViewById(R.id.card_inner_txt_btn);
+
         title.setText(mTitle);
         subTitle.setText(mSubTitle);
         mButton.setText(mBtnTitle);
@@ -52,7 +52,7 @@ public class FoodCard extends Card{
         mButton.setOnClickListener(mBtnClickListener);
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
-        setViewToClickToExpand(viewToClickToExpand);
+        setViewToClickToExpand(viewToClickToExpand);    // click anywhere on the card to expand
     }
 
     public Food getFood() {

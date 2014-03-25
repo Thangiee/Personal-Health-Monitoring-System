@@ -51,23 +51,4 @@ public class DatabaseHandler {
         return new Select().all().from(Food.class).innerJoin(ManyToManyTable.DietAndFood.class)
                 .on("DietAndFood.Food = Food.id").where("DietAndFood.Diet = ?", diet.getId()).execute();
     }
-
-
-//    public static <T extends Model> void removeById(Class<T> table, int id) {
-//        remove(table, table, id);
-//    }
-//
-//    public static <T extends Model> void remove(Class<T> table, Class<? extends Model> column, Object value) {
-//        TableInfo tableInfo = new TableInfo(table);
-//        String columnName = "";
-//
-//        for (Field field: tableInfo.getFields()) {
-//            if (field.getType() == column) {
-//                columnName = tableInfo.getColumnName(field);
-//                break;
-//            }
-//        }
-//
-//        T.delete(table, new Select().all().from(table).where(columnName + "=?", value).executeSingle().getId());
-//    }
 }

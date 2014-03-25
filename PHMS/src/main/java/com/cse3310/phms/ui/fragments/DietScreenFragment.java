@@ -42,7 +42,7 @@ import org.androidannotations.annotations.OptionsItem;
 import java.util.ArrayList;
 import java.util.List;
 
-@EFragment(R.layout.diet_screen)
+@EFragment(R.layout.diet_screen) // Using Android Annotation; same as using inflater in onCreateView
 public class DietScreenFragment extends SherlockFragment {
     private List<Card> cardList = new ArrayList<Card>();
     CardListFragment_ cardListFragment;
@@ -50,13 +50,13 @@ public class DietScreenFragment extends SherlockFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().register(this);
 
         User user = UserSingleton.INSTANCE.getCurrentUser();
-        List<Food> foodList = user.getDiet().getFoods(user.getId());
+        List<Food> foodList = user.getDiet().getFoods(user.getId());    // get all the food in the user's diet
         for (Food food : foodList) {
-            cardList.add(createFoodCard(food));
+            cardList.add(createFoodCard(food)); // create a card for each of the food
         }
     }
 
@@ -64,18 +64,21 @@ public class DietScreenFragment extends SherlockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Fragment dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
-        cardListFragment.initializeCards(cardList); // add cards to show in the foodCard list fragment
+        cardListFragment.initializeCards(cardList); // add cards to show in the CardListFragment
 
         // fragments within fragment
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.diet_screen_header_container, dietHeaderFragment);   // add header fragment
-        transaction.add(R.id.diet_screen_food_list_container, cardListFragment).commit();   // add fragment to show the cards
+        // add header fragment
+        transaction.add(R.id.diet_screen_header_container, dietHeaderFragment);
+        // add fragment to display the cards
+        transaction.add(R.id.diet_screen_food_list_container, cardListFragment);
+        transaction.commit(); // do the transactions
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_menu, menu);
+        inflater.inflate(R.menu.add_menu, menu);    // add the add icon to the action bar menu
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -85,11 +88,17 @@ public class DietScreenFragment extends SherlockFragment {
         super.onDestroy();
     }
 
+    // start the add food activity after clicking the add icon in the action bar menu
     @OptionsItem(R.id.add_icon)
     void menuAddFoodIntake() {
-        AddFoodActivity_.intent(this).startForResult(1);
+        // called activity must use Android annotation to use this format
+        // otherwise do it the normal way:
+        // Intent intent = new Intent(this, ActivityToStart.class);
+        // startActivity(intent);
+        AddFoodActivity_.intent(this).start();
     }
 
+    // helper method to create and set up a food card
     private FoodCard createFoodCard(final Food food) {
         final FoodCard card = new FoodCard(getActivity(), food);
         card.setTitle(food.getName());
@@ -120,12 +129,15 @@ public class DietScreenFragment extends SherlockFragment {
     //===========================================
     //              EventBus Listener
     //===========================================
+    // add the food to the user's diet and
+    // add a card of that food to be display in the cardListFragment
     public void onEvent(Events.AddFoodCardEvent event) {
         UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(event.foodCard.getFood());
         cardListFragment.addCard(createFoodCard(event.foodCard.getFood()));
         cardListFragment.update();
     }
-
+    // delete the food to the user's diet and
+    // delete the card of that food from the cardListFragment
     public void onEvent(Events.RemoveFoodCardEvent event) {
         UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(event.foodCard.getFood());
         cardListFragment.removeCard(event.foodCard);

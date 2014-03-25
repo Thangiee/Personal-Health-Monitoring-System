@@ -33,10 +33,14 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.act_login_screen)
+/**
+ * See Android Annotations for writing less code
+ * https://github.com/excilys/androidannotations/wiki#introduction
+ */
+@EActivity(R.layout.act_login_screen)   // set the activity layout
 public class LoginActivity extends Activity {
 
-    @ViewById(R.id.act_login_screen_et_username)
+    @ViewById(R.id.act_login_screen_et_username)    // same as findViewById
     FormEditText mUsernameEditText;
 
     @ViewById(R.id.act_login_screen_et_password)
@@ -63,7 +67,6 @@ public class LoginActivity extends Activity {
             finish();
         } else {
             alertLoginFailed();
-            return;
         }
     }
 

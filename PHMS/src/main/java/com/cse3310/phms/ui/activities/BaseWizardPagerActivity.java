@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
@@ -32,6 +33,7 @@ import co.juliansuarez.libwizardpager.wizard.ui.PageFragmentCallbacks;
 import co.juliansuarez.libwizardpager.wizard.ui.ReviewFragment;
 import co.juliansuarez.libwizardpager.wizard.ui.StepPagerStrip;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
 
 import java.util.List;
@@ -59,6 +61,10 @@ public abstract class BaseWizardPagerActivity extends SherlockFragmentActivity i
 			mWizardModel.load(savedInstanceState.getBundle("model"));
 		}
         setupWizard();
+
+        // enable the up/home button in the actionbar
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // go to the review page if the field of all pages are already set
         mPager.setCurrentItem(mCurrentPageSequence.size());
@@ -181,6 +187,17 @@ public abstract class BaseWizardPagerActivity extends SherlockFragmentActivity i
 		super.onSaveInstanceState(outState);
 		outState.putBundle("model", mWizardModel.save());
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 	@Override
 	public AbstractWizardModel onGetModel() {

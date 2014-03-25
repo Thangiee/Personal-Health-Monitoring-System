@@ -18,7 +18,6 @@ package com.cse3310.phms.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
@@ -35,6 +34,10 @@ import org.androidannotations.annotations.OptionsItem;
 
 import java.util.List;
 
+/**
+ * See Android Annotations for writing less code
+ * https://github.com/excilys/androidannotations/wiki#introduction
+ */
 @EActivity
 public class AddFoodActivity extends BaseActivity{
 
@@ -45,9 +48,6 @@ public class AddFoodActivity extends BaseActivity{
         EventBus.getDefault().registerSticky(this);
 
         CardListFragment_ cardListFragment = new CardListFragment_();
-        // enable the up/home button in the actionbar
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FoodCard foodCard;
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
@@ -76,7 +76,7 @@ public class AddFoodActivity extends BaseActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.add_menu, menu);
+        getSupportMenuInflater().inflate(R.menu.add_menu, menu); // add the plus icon to the action bar
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -88,13 +88,9 @@ public class AddFoodActivity extends BaseActivity{
 
     @OptionsItem(R.id.add_icon)
     void menuAddButton() {
+        // start a new activity to add create new food after clicking on the add icon
         Intent intent = new Intent(this, FoodWizardPagerActivity.class);
         startActivity(intent);
-        finish();
-    }
-
-    @OptionsItem(android.R.id.home)
-    void menuActionBarHome() {
-        NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
+        finish();   // kill the current activity
     }
 }

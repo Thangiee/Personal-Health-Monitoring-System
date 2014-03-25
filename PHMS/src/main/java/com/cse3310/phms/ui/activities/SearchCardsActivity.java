@@ -17,9 +17,7 @@
 package com.cse3310.phms.ui.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.fragments.SearchScreenFragment_;
 import com.cse3310.phms.ui.utils.Events;
@@ -39,10 +37,7 @@ public class SearchCardsActivity extends BaseActivity{
         EventBus.getDefault().registerSticky(this);
         setTitle("Search");
 
-        // enable the up/home button in the actionbar
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        // get a set of unique card title
         Set<String> suggestionsSet = new HashSet<String>(mCardsToSearch.size());
         for (Card card : mCardsToSearch) {
             String title = card.getTitle();
@@ -55,7 +50,7 @@ public class SearchCardsActivity extends BaseActivity{
         setSuggestions(suggestionsSet); // set search suggestions
 
         SearchScreenFragment_ searchScreenFragment = new SearchScreenFragment_();
-        searchScreenFragment.setMatchCardList(mCardMatchList);
+        searchScreenFragment.setMatchCardList(mCardMatchList);  // set the cards that match the search word to be display
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, searchScreenFragment).commit();
     }
 
@@ -71,26 +66,19 @@ public class SearchCardsActivity extends BaseActivity{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
+    //===========================================
+    //              EventBus Listener
+    //===========================================
+    // set the card list that will be searched
     public void onEvent(Events.initCardsToSearchEvent event) {
         this.mCardsToSearch = event.cardsToSearch;
     }
-
+    // set the search word that will be used to look for match cards
     public void onEvent(Events.initSearchWordEvent event) {
         super.mSearchWord = event.searchWord;
     }

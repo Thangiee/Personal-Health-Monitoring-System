@@ -36,7 +36,7 @@ public class SearchScreenFragment extends SherlockFragment{
         super.onCreate(savedInstanceState);
         CardListFragment_ cardListFragment = new CardListFragment_();
         cardListFragment.initializeCards(matchCardList);
-        cardListFragment.setChangeSearchPriorities(false);
+        cardListFragment.setChangeSearchPriorities(false); // don't change the suggestion or list of card to search on startup
 
         Fragment dietHeaderFragment = new SearchScreenHeaderFragment_();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

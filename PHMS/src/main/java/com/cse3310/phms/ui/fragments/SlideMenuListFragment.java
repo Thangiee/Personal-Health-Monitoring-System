@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
-    private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{
+    private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // add items in the sliding menu
         add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
         add(new DrawerItem(R.layout.frag_card_list, "Weight Log", R.drawable.ic_action_line_chart));
@@ -74,7 +74,9 @@ public class SlideMenuListFragment extends SherlockListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // see FunDapter library at https://github.com/amigold/FunDapter
         BindDictionary<DrawerItem> dict = new BindDictionary<DrawerItem>();
+        // setup the text for the items in the sliding menu
         dict.addStringField(R.id.frag_list_item_tv_title,
                new StringExtractor<DrawerItem>() {
                    @Override
@@ -83,6 +85,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
                    }
                });
 
+        // setup the icon for the items in the sliding menu
         dict.addStaticImageField(R.id.list_item_icon, new StaticImageLoader<DrawerItem>() {
             @Override
             public void loadImage(DrawerItem item, ImageView imageView, int position) {
@@ -110,10 +113,11 @@ public class SlideMenuListFragment extends SherlockListFragment {
         SherlockFragment fragment = null;
         FragmentTransaction fragTran = getActivity().getSupportFragmentManager().beginTransaction();
 
+        // switch to the chosen screen
         switch (drawerItems.get(position).layoutId) {
             case R.layout.home_screen:
                 Toast.makeText(getActivity(), "you clicked home", Toast.LENGTH_SHORT).show();
-                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS"));
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS")); // post an event to change the title
                 fragment = new HomeScreenFragment_();
                 break;
             case R.layout.diet_screen:

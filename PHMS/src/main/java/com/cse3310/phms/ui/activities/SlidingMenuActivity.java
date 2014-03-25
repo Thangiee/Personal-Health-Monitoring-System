@@ -38,8 +38,7 @@ public class SlidingMenuActivity extends BaseActivity {
     private boolean doubleBackToExitPressedOnce = false;
     protected SlideMenuListFragment mFrag;
 
-    public SlidingMenuActivity() {
-    }
+    public SlidingMenuActivity() {}
 
     public SlidingMenuActivity(int mTitleRes) {
         super(mTitleRes);
@@ -86,12 +85,6 @@ public class SlidingMenuActivity extends BaseActivity {
         super.onPause();
     }
 
-    // change the title in the action bar after selecting an item
-    // in the sliding menu.
-    public void onEvent(Events.SlidingMenuItemSelectedEvent event) {
-        setTitle(event.newTitle);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -105,7 +98,7 @@ public class SlidingMenuActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {   // exit the app after quickly double clicking the back button
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
@@ -118,5 +111,14 @@ public class SlidingMenuActivity extends BaseActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+
+    //===========================================
+    //              EventBus Listener
+    //===========================================
+    // change the title in the action bar after selecting an item
+    // in the sliding menu.
+    public void onEvent(Events.SlidingMenuItemSelectedEvent event) {
+        setTitle(event.newTitle);
     }
 }
