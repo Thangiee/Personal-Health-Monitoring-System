@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.ami.fundapter.BindDictionary;
@@ -43,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
-    private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // add items in the sliding menu
+    private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // list of items to be display in the sliding menu
         add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
         add(new DrawerItem(R.layout.frag_card_list, "Weight Log", R.drawable.ic_action_line_chart));
@@ -54,6 +53,8 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.frag_card_list, "Recipes", R.drawable.ic_action_list_2));
         add(new DrawerItem(R.layout.frag_card_list, "Reminders", R.drawable.ic_action_alarm));
     }};
+
+    private int lastPosition = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,6 +107,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         selectItem(position);
+        lastPosition = position;
         ((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle(); // close sliding menu after clicking an item
     }
 
@@ -113,21 +115,26 @@ public class SlideMenuListFragment extends SherlockListFragment {
         SherlockFragment fragment = null;
         FragmentTransaction fragTran = getActivity().getSupportFragmentManager().beginTransaction();
 
-        // switch to the chosen screen
+        // decide which screen to be switch to base on drawer item the user clicked
         switch (drawerItems.get(position).layoutId) {
             case R.layout.home_screen:
-                Toast.makeText(getActivity(), "you clicked home", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS")); // post an event to change the title
                 fragment = new HomeScreenFragment_();
                 break;
             case R.layout.diet_screen:
-                Toast.makeText(getActivity(), "you clicked diet", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Diet"));
                 fragment = new DietScreenFragment_();
                 break;
         }
 
+        // if the screen to switch to is the same as the current screen,
+        // do nothing/don't recreate that screen.
+        if (lastPosition == position) {
+            return;
+        }
+
         if (fragment != null) {
+            // switch the screen!
             fragTran.replace(R.id.frag_front_container, fragment);
             fragTran.commit();
         }
