@@ -62,7 +62,7 @@ public class Diet extends Model{
         // Poor performance?
         for (DietAndFood dietAndFood : dietAndFoodList) {
             if (dietAndFood.getDietId() == userId) {
-                foodList.addAll(DatabaseHandler.getById(Food.class, dietAndFood.getFoodId()));
+                foodList.addAll(DatabaseHandler.getAllById(Food.class, dietAndFood.getFoodId()));
             }
         }
         return foodList;

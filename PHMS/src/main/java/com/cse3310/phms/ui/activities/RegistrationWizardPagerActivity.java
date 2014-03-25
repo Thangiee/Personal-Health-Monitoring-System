@@ -28,7 +28,7 @@ import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
 
 public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
     @Override
-    public void onSetup() {
+    public void onSetupWizardModel() {
         super.mWizardModel = new RegistrationWizardModel(this);
     }
 

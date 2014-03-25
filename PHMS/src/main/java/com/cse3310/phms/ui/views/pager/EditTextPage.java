@@ -37,7 +37,10 @@ public class EditTextPage extends Page{
     }
 
     public EditTextPage setValue(String value) {
+        // page is validated if a value is pre-set
         mData.putString(SIMPLE_DATA_KEY, value);
+        getData().putBoolean(VALID_KEY, true);
+        notifyDataChanged();
         return this;
     }
 

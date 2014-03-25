@@ -59,6 +59,7 @@ public class AddFoodActivity extends BaseActivity{
             foodCard.setButtonTitle("Add");
 
             final FoodCard finalFoodCard = foodCard;
+            // set what to do when the add button is clicked
             foodCard.setBtnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -68,7 +69,6 @@ public class AddFoodActivity extends BaseActivity{
                     EventBus.getDefault().postSticky(new Events.AddFoodCardEvent(finalFoodCard));
                 }
             });
-
             cardListFragment.initializeCard(foodCard);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();
@@ -88,7 +88,7 @@ public class AddFoodActivity extends BaseActivity{
 
     @OptionsItem(R.id.add_icon)
     void menuAddButton() {
-        Intent intent = new Intent(this, NewFoodWizardPagerActivity.class);
+        Intent intent = new Intent(this, FoodWizardPagerActivity.class);
         startActivity(intent);
         finish();
     }

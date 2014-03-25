@@ -117,11 +117,6 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         startActivity(intent);
     }
 
-    // change suggestions in search
-    public void onEvent(Events.SetSuggestionEvent event) {
-        setSuggestions(event.suggestions);
-    }
-
     public void setSuggestions(Collection<String> suggestions) {
         mSuggestionAdapter.clear();
         mSuggestionAdapter.addAll(suggestions);
@@ -187,5 +182,11 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         });
     }
 
-
+    //===========================================
+    //              EventBus Listener
+    //===========================================
+    // change suggestions in search
+    public void onEvent(Events.SetSuggestionEvent event) {
+        setSuggestions(event.suggestions);
+    }
 }
