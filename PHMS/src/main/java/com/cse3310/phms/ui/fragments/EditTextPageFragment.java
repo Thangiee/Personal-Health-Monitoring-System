@@ -72,6 +72,21 @@ public class EditTextPageFragment extends SherlockFragment{
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mFormEditText.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPage.getData().putString(SIMPLE_DATA_KEY, mFormEditText.getText().toString());
+                validFields[0] = mFormEditText.testValidity();
+                mPage.getData().putBoolean(EditTextPage.VALID_KEY, allFieldsValid());
+                mPage.notifyDataChanged();
+            }
+        });
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         mPage.getData().putBooleanArray("valid", validFields);
         super.onSaveInstanceState(outState);
@@ -110,20 +125,6 @@ public class EditTextPageFragment extends SherlockFragment{
             }
         }
         return true;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mFormEditText.addTextChangedListener(new TextWatcherAdapter() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                mPage.getData().putString(SIMPLE_DATA_KEY, mFormEditText.getText().toString());
-                validFields[0] = mFormEditText.testValidity();
-                mPage.getData().putBoolean(EditTextPage.VALID_KEY, allFieldsValid());
-                mPage.notifyDataChanged();
-            }
-        });
     }
 
     public EditTextPageFragment setValidators(Validator... validators) {

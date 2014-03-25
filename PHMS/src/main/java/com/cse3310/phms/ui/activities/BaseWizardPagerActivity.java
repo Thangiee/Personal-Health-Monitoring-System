@@ -38,34 +38,39 @@ import java.util.List;
 
 public abstract class BaseWizardPagerActivity extends SherlockFragmentActivity implements
 		PageFragmentCallbacks, ReviewFragment.Callbacks, ModelCallbacks {
+
 	private ViewPager mPager;
 	private MyPagerAdapter mPagerAdapter;
-
 	private boolean mEditingAfterReview;
-
 	protected AbstractWizardModel mWizardModel;
-
+    protected boolean editMode = false;
 	private boolean mConsumePageSelectedEvent;
-
 	private Button mNextButton;
 	private Button mPrevButton;
-
 	private List<Page> mCurrentPageSequence;
 	private StepPagerStrip mStepPagerStrip;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.act_wizard_screen);
-        onSetup();
+        onSetupWizardModel();
 
 		if (savedInstanceState != null) {
 			mWizardModel.load(savedInstanceState.getBundle("model"));
 		}
         setupWizard();
+
+        // go to the review page if the field of all pages are already set
+        mPager.setCurrentItem(mCurrentPageSequence.size());
+        mPagerAdapter.notifyDataSetChanged();
+        updateBottomBar();
+        if (mPager.getCurrentItem() == mCurrentPageSequence.size()) {
+            editMode = true;
+        }
 	}
 
     //todo: add documentation
-    public abstract void onSetup();
+    public abstract void onSetupWizardModel();
 
     public abstract void onSubmit();
 

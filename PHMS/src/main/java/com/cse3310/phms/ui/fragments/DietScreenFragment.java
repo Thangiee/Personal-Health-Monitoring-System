@@ -16,13 +16,13 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -30,6 +30,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.activities.AddFoodActivity_;
+import com.cse3310.phms.ui.activities.FoodWizardPagerActivity;
 import com.cse3310.phms.ui.cards.FoodCard;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
@@ -55,7 +56,6 @@ public class DietScreenFragment extends SherlockFragment {
         User user = UserSingleton.INSTANCE.getCurrentUser();
         List<Food> foodList = user.getDiet().getFoods(user.getId());
         for (Food food : foodList) {
-            System.out.println(food.getId());
             cardList.add(createFoodCard(food));
         }
     }
@@ -91,18 +91,21 @@ public class DietScreenFragment extends SherlockFragment {
     }
 
     private FoodCard createFoodCard(final Food food) {
-        FoodCard card = new FoodCard(getActivity(), food);
+        final FoodCard card = new FoodCard(getActivity(), food);
         card.setTitle(food.getName());
         card.setSubTitle("" + food.getCalories());
         card.setButtonTitle("Edit");
 
+        // setup what to do when edit button is clicked on the card
         card.setBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Click on edit", Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().postSticky(card);
+                startActivity(new Intent(getActivity(), FoodWizardPagerActivity.class));
             }
         });
 
+        // remove food associated with the user's diet when the card is swap away.
         card.setOnSwipeListener(new Card.OnSwipeListener() {
             @Override
             public void onSwipe(Card card) {
@@ -114,15 +117,18 @@ public class DietScreenFragment extends SherlockFragment {
         return card;
     }
 
-    //=======================================
-    //              Event Listener
-    //=======================================
+    //===========================================
+    //              EventBus Listener
+    //===========================================
     public void onEvent(Events.AddFoodCardEvent event) {
+        UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(event.foodCard.getFood());
         cardListFragment.addCard(createFoodCard(event.foodCard.getFood()));
         cardListFragment.update();
     }
 
-    public void OnEvent(Events.RemoveFoodCardEvent event) {
-        Toast.makeText(getActivity(), "remove " + event.foodCard.getTitle(), Toast.LENGTH_SHORT).show();
+    public void onEvent(Events.RemoveFoodCardEvent event) {
+        UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(event.foodCard.getFood());
+        cardListFragment.removeCard(event.foodCard);
+        cardListFragment.update();
     }
 }
