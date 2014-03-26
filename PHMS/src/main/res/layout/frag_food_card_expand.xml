@@ -44,7 +44,8 @@
                 android:id="@+id/frag_food_expand_txt_cal"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:maxWidth="20dp"/>
+                android:singleLine="true"
+                android:maxWidth="40dp"/>
         <TextView android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
@@ -85,7 +86,7 @@
                 android:id="@+id/frag_food_expand_txt_ser"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:maxWidth="20dp"/>
+                android:maxWidth="40dp"/>
         <TextView android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
@@ -126,7 +127,7 @@
                 android:id="@+id/frag_food_expand_txt_protein"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:maxWidth="20dp"/>
+                android:maxWidth="40dp"/>
         <TextView android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
