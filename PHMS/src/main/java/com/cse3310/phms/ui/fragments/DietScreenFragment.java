@@ -40,6 +40,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @EFragment(R.layout.diet_screen) // Using Android Annotation; same as using inflater in onCreateView
@@ -55,6 +56,7 @@ public class DietScreenFragment extends SherlockFragment {
 
         User user = UserSingleton.INSTANCE.getCurrentUser();
         List<Food> foodList = user.getDiet().getFoods(user.getId());    // get all the food in the user's diet
+        Collections.sort(foodList);
         for (Food food : foodList) {
             cardList.add(createFoodCard(food)); // create a card for each of the food
         }
@@ -114,12 +116,22 @@ public class DietScreenFragment extends SherlockFragment {
             }
         });
 
-        // remove food associated with the user's diet when the card is swap away.
+        // remove the food associated with the user's diet when the card is swap away.
         card.setOnSwipeListener(new Card.OnSwipeListener() {
             @Override
             public void onSwipe(Card card) {
-                System.out.println(UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(food));
+                UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(food);
                 cardListFragment.removeCard(card);
+                cardListFragment.update();
+            }
+        });
+
+        // add the removed food back to the user's diet when the undo button is click.
+        card.setOnUndoSwipeListListener(new Card.OnUndoSwipeListListener() {
+            @Override
+            public void onUndoSwipe(Card card) {
+                UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
+                cardListFragment.addCard(card);
                 cardListFragment.update();
             }
         });
