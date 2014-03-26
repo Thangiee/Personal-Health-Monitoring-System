@@ -21,9 +21,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
+import com.cse3310.phms.ui.utils.Comparators.CardComparator;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 
+import java.util.Collections;
 import java.util.List;
 
 @EFragment(R.layout.search_screen)
@@ -34,6 +36,7 @@ public class SearchScreenFragment extends SherlockFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Collections.sort(matchCardList, CardComparator.NAME_SORT);
         CardListFragment_ cardListFragment = new CardListFragment_();
         cardListFragment.initializeCards(matchCardList);
         cardListFragment.setChangeSearchPriorities(false); // don't change the suggestion or list of card to search on startup

@@ -29,10 +29,17 @@ import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
+import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.BRAND_SORT;
+import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.NAME_SORT;
+import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.getComparator;
 
 /**
  * See Android Annotations for writing less code
@@ -50,10 +57,16 @@ public class AddFoodActivity extends BaseActivity{
         CardListFragment_ cardListFragment = new CardListFragment_();
 
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
+
+        List<Card> cardList = new ArrayList<Card>(foodList.size());
         // create a foodCard for each of the food.
         for (final Food food : foodList) {
-            cardListFragment.initializeCard(createFoodCard(food));
+            cardList.add(createFoodCard(food));
         }
+
+        Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT));
+        cardListFragment.initializeCards(cardList);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();
     }
 
