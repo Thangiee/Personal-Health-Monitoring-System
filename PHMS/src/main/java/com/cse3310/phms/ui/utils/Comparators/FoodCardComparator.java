@@ -6,10 +6,21 @@ import it.gmariotti.cardslib.library.internal.Card;
 import java.util.Comparator;
 
 public enum FoodCardComparator implements Comparator<Card> {
-    TITLE_SORT {
+    NAME_SORT {
         @Override
         public int compare(Card lhs, Card rhs) {
-            return lhs.getTitle().compareTo(rhs.getTitle());
+            return lhs.getTitle().toLowerCase().compareTo(rhs.getTitle().toLowerCase());
+        }
+    },
+
+    BRAND_SORT {
+        @Override
+        public int compare(Card lhs, Card rhs) {
+            try {
+                return ((FoodCard) lhs).getFood().getBrand().compareTo(((FoodCard) rhs).getFood().getBrand());
+            } catch (NullPointerException e) {
+                return -1;
+            }
         }
     },
 
@@ -23,9 +34,10 @@ public enum FoodCardComparator implements Comparator<Card> {
 
     public static Comparator<Card> getComparator(final FoodCardComparator... multipleOptions) {
         return new Comparator<Card>() {
-            public int compare(Card o1, Card o2) {
-                for (FoodCardComparator option : multipleOptions) {
-                    int result = option.compare(o1, o2);
+            @Override
+            public int compare(Card lhs, Card rhs) {
+                for (FoodCardComparator comparator : multipleOptions) {
+                    int result = comparator.compare(lhs, rhs);
                     if (result != 0) {
                         return result;
                     }

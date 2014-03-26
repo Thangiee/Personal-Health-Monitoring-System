@@ -29,7 +29,6 @@ import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
-import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
@@ -81,7 +80,7 @@ public class AddFoodActivity extends BaseActivity{
     private FoodCard createFoodCard(final Food food) {
         final FoodCard foodCard = new FoodCard(this, food);
         foodCard.setTitle(food.getName());
-        foodCard.setSubTitle("sub title");
+        foodCard.setSubTitle(food.getBrand());
         foodCard.setButtonTitle("Add");
         foodCard.setSwipeable(false);
 

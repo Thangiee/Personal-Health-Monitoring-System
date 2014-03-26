@@ -30,6 +30,7 @@ public class Food extends Model{
     @Column private double fat;
     @Column private double fiber;
     @Column private double sugars;
+    @Column private String brand;
 
     /**
      * Instantiates a new Food.
@@ -175,6 +176,15 @@ public class Food extends Model{
      */
     public Food setProtein(double protein) {
         this.protein = protein;
+        return this;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public Food setBrand(String brand) {
+        this.brand = brand;
         return this;
     }
 

@@ -57,6 +57,10 @@ public class EditTextPageFragment extends SherlockFragment{
         mFormEditText = (FormEditText) rootView.findViewById(R.id.frag_edit_txt_field);
         mFormEditText.setText(mPage.getData().getString(Page.SIMPLE_DATA_KEY));
 
+        if (!mPage.isRequired()) {
+            mFormEditText.setHint("Optional");
+        }
+
         // set validators for formEditText
         if (validators != null) {
             for (Validator validator : validators) {

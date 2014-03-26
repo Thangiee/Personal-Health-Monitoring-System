@@ -32,7 +32,6 @@ import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.activities.AddFoodActivity_;
 import com.cse3310.phms.ui.activities.FoodWizardPagerActivity;
 import com.cse3310.phms.ui.cards.FoodCard;
-import com.cse3310.phms.ui.utils.Comparators.FoodCardComparator;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
@@ -44,11 +43,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
+
 @EFragment(R.layout.diet_screen) // Using Android Annotation; same as using inflater in onCreateView
 public class DietScreenFragment extends SherlockFragment {
     private List<Card> cardList = new ArrayList<Card>();
     private CardListFragment_ cardListFragment;
-    private FragmentTransaction transaction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,9 +65,9 @@ public class DietScreenFragment extends SherlockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Collections.sort(cardList, FoodCardComparator.getComparator(FoodCardComparator.TITLE_SORT, FoodCardComparator.CALORIES_SORT));
+        Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT)); // sort by food name then by brand name
 
-        transaction = getChildFragmentManager().beginTransaction();
+        final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         Fragment dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
         cardListFragment.initializeCards(cardList); // add cards to show in the CardListFragment
@@ -106,7 +106,7 @@ public class DietScreenFragment extends SherlockFragment {
     private FoodCard createFoodCard(final Food food) {
         final FoodCard card = new FoodCard(getActivity(), food);
         card.setTitle(food.getName());
-        card.setSubTitle("" + food.getCalories());
+        card.setSubTitle(food.getBrand());
         card.setButtonTitle("Edit");
         card.setSwipeable(true);
 
@@ -153,7 +153,7 @@ public class DietScreenFragment extends SherlockFragment {
         cardList.add(createFoodCard(event.foodCard.getFood()));
 
         // sort cardList using a comparator
-        Collections.sort(cardList, FoodCardComparator.CALORIES_SORT);
+        Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT)); // sort by food name then by brand name
 
         // make the cardListFragment display the updated cardList
         cardListFragment.clearCards();

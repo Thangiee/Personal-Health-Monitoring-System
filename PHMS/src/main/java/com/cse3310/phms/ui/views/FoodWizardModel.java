@@ -34,6 +34,7 @@ public class FoodWizardModel extends AbstractWizardModel {
     public static final String FIBER_KEY = "Fibers (g)";
     public static final String SUGAR_KEY = "Sugars (g)";
     public static final String SERVING_KEY = "Number of Servings";
+    public static final String BRAND_KEY = "Brand";
     private FoodCard foodCard;
 
     public FoodWizardModel(Context context) {
@@ -50,6 +51,7 @@ public class FoodWizardModel extends AbstractWizardModel {
             // since we are editing the foodCard, let pre-set all the values.
             return new PageList(
                     new EditTextPage(this, NAME_KEY).setValue(food.getName()).setInputType(TYPE_CLASS_TEXT).setRequired(true),
+                    new EditTextPage(this, BRAND_KEY).setValue(food.getBrand()).setInputType(TYPE_CLASS_TEXT),
                     new EditTextPage(this, CAL_KEY).setValue(String.valueOf(food.getCalories())).setRequired(true),
                     new EditTextPage(this, PROTEIN_KEY).setValue(String.valueOf(food.getProtein())).setRequired(true),
                     new EditTextPage(this, FAT_KEY).setValue(String.valueOf(food.getFat())).setRequired(true),
@@ -62,6 +64,7 @@ public class FoodWizardModel extends AbstractWizardModel {
         // else no foodCard was pass so the user is adding a new food card.
         return new PageList(
                 new EditTextPage(this, NAME_KEY).setInputType(TYPE_CLASS_TEXT).setRequired(true), // change input type to text
+                new EditTextPage(this, BRAND_KEY).setInputType(TYPE_CLASS_TEXT).setValue(""),
                 new EditTextPage(this, CAL_KEY).setRequired(true),
                 new EditTextPage(this, PROTEIN_KEY).setRequired(true),
                 new EditTextPage(this, FAT_KEY).setRequired(true),
