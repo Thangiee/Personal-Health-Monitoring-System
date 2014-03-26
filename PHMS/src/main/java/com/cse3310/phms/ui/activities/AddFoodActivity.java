@@ -29,6 +29,7 @@ import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
+import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
@@ -49,27 +50,10 @@ public class AddFoodActivity extends BaseActivity{
 
         CardListFragment_ cardListFragment = new CardListFragment_();
 
-        FoodCard foodCard;
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
         // create a foodCard for each of the food.
         for (final Food food : foodList) {
-            foodCard = new FoodCard(this, food);
-            foodCard.setTitle(food.getName());
-            foodCard.setSubTitle("sub title");
-            foodCard.setButtonTitle("Add");
-
-            final FoodCard finalFoodCard = foodCard;
-            // set what to do when the add button is clicked
-            foodCard.setBtnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(AddFoodActivity.this,
-                            "Added " + food.getName() + " to today's diet", Toast.LENGTH_SHORT).show();
-                    UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
-                    EventBus.getDefault().postSticky(new Events.AddFoodCardEvent(finalFoodCard));
-                }
-            });
-            cardListFragment.initializeCard(foodCard);
+            cardListFragment.initializeCard(createFoodCard(food));
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();
     }
@@ -92,5 +76,26 @@ public class AddFoodActivity extends BaseActivity{
         Intent intent = new Intent(this, FoodWizardPagerActivity.class);
         startActivity(intent);
         finish();   // kill the current activity
+    }
+
+    private FoodCard createFoodCard(final Food food) {
+        final FoodCard foodCard = new FoodCard(this, food);
+        foodCard.setTitle(food.getName());
+        foodCard.setSubTitle("sub title");
+        foodCard.setButtonTitle("Add");
+        foodCard.setSwipeable(false);
+
+        // setup what to do when the add button is clicked on the card
+        foodCard.setBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AddFoodActivity.this,
+                        "Added " + food.getName() + " to today's diet", Toast.LENGTH_SHORT).show();
+                UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
+                EventBus.getDefault().postSticky(new Events.AddFoodCardEvent(foodCard));
+            }
+        });
+
+        return foodCard;
     }
 }

@@ -56,7 +56,6 @@ public class DietScreenFragment extends SherlockFragment {
 
         User user = UserSingleton.INSTANCE.getCurrentUser();
         List<Food> foodList = user.getDiet().getFoods(user.getId());    // get all the food in the user's diet
-        Collections.sort(foodList);
         for (Food food : foodList) {
             cardList.add(createFoodCard(food)); // create a card for each of the food
         }
@@ -106,6 +105,7 @@ public class DietScreenFragment extends SherlockFragment {
         card.setTitle(food.getName());
         card.setSubTitle("" + food.getCalories());
         card.setButtonTitle("Edit");
+        card.setSwipeable(true);
 
         // setup what to do when edit button is clicked on the card
         card.setBtnClickListener(new View.OnClickListener() {

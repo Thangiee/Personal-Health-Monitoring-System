@@ -80,7 +80,6 @@ public class CardListFragment extends SherlockFragment {
     }
 
     public void initializeCard(Card card) {
-        card.setSwipeable(true);
         card.setId("" + idCounter++);
         mCardList.add(card);
     }
