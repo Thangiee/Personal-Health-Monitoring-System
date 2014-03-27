@@ -18,7 +18,6 @@ package com.cse3310.phms.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +48,7 @@ import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
 public class DietScreenFragment extends SherlockFragment {
     private List<Card> cardList = new ArrayList<Card>();
     private CardListFragment_ cardListFragment;
+    private DietScreenHeaderFragment_ dietHeaderFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class DietScreenFragment extends SherlockFragment {
         Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT)); // sort by food name then by brand name
 
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        Fragment dietHeaderFragment = new DietScreenHeaderFragment_();
+        dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
         cardListFragment.initializeCards(cardList); // add cards to show in the CardListFragment
 
@@ -104,39 +104,38 @@ public class DietScreenFragment extends SherlockFragment {
 
     // helper method to create and set up a food card
     private FoodCard createFoodCard(final Food food) {
-        final FoodCard card = new FoodCard(getActivity(), food);
-        card.setTitle(food.getName());
-        card.setSubTitle(food.getBrand());
-        card.setButtonTitle("Edit");
-        card.setSwipeable(true);
+        final FoodCard foodCard = new FoodCard(getActivity(), food);
+        foodCard.setTitle(food.getName());
+        foodCard.setSubTitle(food.getBrand());
+        foodCard.setButtonTitle("Edit");
+        foodCard.setSwipeable(true);
 
         // setup what to do when edit button is clicked on the card
-        card.setBtnClickListener(new View.OnClickListener() {
+        foodCard.setBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(card);
+                EventBus.getDefault().postSticky(foodCard);
                 startActivity(new Intent(getActivity(), FoodWizardPagerActivity.class));
             }
         });
 
         // remove the food associated with the user's diet when the card is swap away.
-        card.setOnSwipeListener(new Card.OnSwipeListener() {
+        foodCard.setOnSwipeListener(new Card.OnSwipeListener() {
             @Override
             public void onSwipe(Card card) {
-                UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(food);
-                cardListFragment.removeCard(card);
-                cardListFragment.update();
+                EventBus.getDefault().postSticky(new Events.RemoveFoodCardEvent(foodCard));
             }
         });
 
         // add the removed food back to the user's diet when the undo button is click.
-        card.setOnUndoSwipeListListener(new Card.OnUndoSwipeListListener() {
+        foodCard.setOnUndoSwipeListListener(new Card.OnUndoSwipeListListener() {
             @Override
             public void onUndoSwipe(Card card) {
                 UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
+                dietHeaderFragment.add(foodCard.getFood());         // update the nutrition counter
             }
         });
-        return card;
+        return foodCard;
     }
 
     //===========================================
@@ -159,6 +158,9 @@ public class DietScreenFragment extends SherlockFragment {
         cardListFragment.clearCards();
         cardListFragment.addCards(cardList);
         cardListFragment.update();
+
+        // update the nutrition counter
+        dietHeaderFragment.add(event.foodCard.getFood());
     }
 
     // delete the food to the user's diet and
@@ -168,5 +170,8 @@ public class DietScreenFragment extends SherlockFragment {
         cardList.remove(event.foodCard);
         cardListFragment.removeCard(event.foodCard);
         cardListFragment.update();
+
+        // update the nutrition counter
+        dietHeaderFragment.minus(event.foodCard.getFood());
     }
 }

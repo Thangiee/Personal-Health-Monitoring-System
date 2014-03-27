@@ -27,7 +27,6 @@
     <TextView
             android:id="@+id/card_inner_txt_title"
             style="@style/inner_title"
-            android:textStyle="bold"
             android:text="Title"
             android:layout_marginTop="3dp"
             android:layout_alignParentLeft="true"

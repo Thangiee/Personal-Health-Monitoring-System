@@ -16,16 +16,142 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+        >
 
-    <TextView
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Header"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+            android:weightSum="10"
+            android:background="@color/light_gray"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout"
+            android:paddingTop="4dp">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Calories"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Fats"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Fibers"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Proteins"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Sugars"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:background="@color/light_gray"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout1"
+            android:paddingBottom="4dp">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/my_app_green"
+                android:text="0"
+                android:id="@+id/diet_screen_header_cal"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/diet_screen_header_fat"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/diet_screen_header_fiber"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/diet_screen_header_proteins"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/diet_screen_header_sugar"
+                android:textSize="16sp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|clip_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1">
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/my_app_green"
+                android:textColor="@color/default_color"
+                android:text="Today's Food Intakes"
+                android:textSize="16sp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:paddingLeft="12dp"
+                android:id="@+id/textView"/>
+    </LinearLayout>
+
+</RelativeLayout>

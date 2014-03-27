@@ -46,7 +46,7 @@ public class CardListFragment extends SherlockFragment {
     private boolean mChangeSearchPriorities = true;
     private CardArrayAdapter adapter;
 
-    @ViewById(R.id.frag_diet_food_list)
+    @ViewById(R.id.frag_card_list_view)
     CardListView mCardListView;
 
     @Override

@@ -27,7 +27,7 @@
         <it.gmariotti.cardslib.library.view.CardListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/frag_diet_food_list"/>
+                android:id="@+id/frag_card_list_view"/>
 
     </RelativeLayout>
 

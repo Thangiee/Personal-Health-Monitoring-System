@@ -22,4 +22,40 @@
     <color name="slide_menu_header_background">#464646</color>
     <color name="slide_menu_header_text">#fff</color>
     <color name="my_app_green">#669900</color>
+    <color name="light_gray">#E0E0E0</color>
+
+    <color name="card_title">#2a84a5</color>
+
+    <!-- Card Color -->
+    <color name="card_background">#FFF</color>
+    <color name="card_background_header">#FFF</color>
+    <color name="card_backgroundExpand">#515254</color>
+
+    <color name="card_text_color_header">#000</color>
+    <color name="card_expand_title_color">#B3B2B2</color>
+
+    <!-- Used by selector -->
+    <color name="card_pressed">#7E0099CC</color>
+    <color name="card_activated">#CFE9F3</color>
+
+    <color name="card_pressed_kitkat">#10000000</color>
+    <color name="card_activated_kitkat">#ADE1F4</color>
+
+    <!-- color card -->
+    <color name="orange">#FFBB33</color>
+    <color name="light_green">#98CC00</color>
+    <color name="light_purple">#A966CC</color>
+    <color name="light_blue">#33B4E4</color>
+    <color name="red">#FF4343</color>
+    <color name="dark_red">#A11143</color>
+
+    <!-- Purchase -->
+    <color name="demo_extras_purchase_normal">#ececec</color>
+    <color name="demo_extras_purchase_pressed">#CCDF9F51</color>
+
+    <color name="demoextra_sticky_header_normal">#ffe74c3c</color>
+    <color name="demoextra_sticky_header_pressed">#ffc0392b</color>
+
+    <!-- Staggered-->
+    <color name="demo_card_staggered_subtitle">#66000000</color>
 </resources>

@@ -27,7 +27,6 @@ import com.cse3310.phms.ui.cards.FoodCard;
 import com.cse3310.phms.ui.fragments.CardListFragment_;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
-import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EActivity;
@@ -37,9 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.BRAND_SORT;
-import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.NAME_SORT;
-import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.getComparator;
+import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
 
 /**
  * See Android Annotations for writing less code
@@ -103,7 +100,6 @@ public class AddFoodActivity extends BaseActivity{
             public void onClick(View v) {
                 Toast.makeText(AddFoodActivity.this,
                         "Added " + food.getName() + " to today's diet", Toast.LENGTH_SHORT).show();
-                UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
                 EventBus.getDefault().postSticky(new Events.AddFoodCardEvent(foodCard));
             }
         });
