@@ -96,9 +96,20 @@ public class CardListFragment extends SherlockFragment {
         initializeCard(card);
     }
 
+    public void addCards(List<Card> cards) {
+        for (Card card : cards) {
+            addCard(card);
+        }
+    }
+
     public void removeCard(Card card) {
         adapter.remove(card);
         mCardList.remove(card);
+    }
+
+    public void clearCards() {
+        adapter.clear();
+        mCardList.clear();
     }
 
     public void update() {

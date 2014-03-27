@@ -32,6 +32,7 @@ import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.activities.AddFoodActivity_;
 import com.cse3310.phms.ui.activities.FoodWizardPagerActivity;
 import com.cse3310.phms.ui.cards.FoodCard;
+import com.cse3310.phms.ui.utils.Comparators.FoodCardComparator;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
@@ -46,7 +47,8 @@ import java.util.List;
 @EFragment(R.layout.diet_screen) // Using Android Annotation; same as using inflater in onCreateView
 public class DietScreenFragment extends SherlockFragment {
     private List<Card> cardList = new ArrayList<Card>();
-    CardListFragment_ cardListFragment;
+    private CardListFragment_ cardListFragment;
+    private FragmentTransaction transaction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,12 +65,13 @@ public class DietScreenFragment extends SherlockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Collections.sort(cardList, FoodCardComparator.getComparator(FoodCardComparator.TITLE_SORT, FoodCardComparator.CALORIES_SORT));
+
+        transaction = getChildFragmentManager().beginTransaction();
         Fragment dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
         cardListFragment.initializeCards(cardList); // add cards to show in the CardListFragment
 
-        // fragments within fragment
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         // add header fragment
         transaction.add(R.id.diet_screen_header_container, dietHeaderFragment);
         // add fragment to display the cards
@@ -131,8 +134,6 @@ public class DietScreenFragment extends SherlockFragment {
             @Override
             public void onUndoSwipe(Card card) {
                 UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
-                cardListFragment.addCard(card);
-                cardListFragment.update();
             }
         });
         return card;
@@ -141,17 +142,30 @@ public class DietScreenFragment extends SherlockFragment {
     //===========================================
     //              EventBus Listener
     //===========================================
+
     // add the food to the user's diet and
     // add a card of that food to be display in the cardListFragment
     public void onEvent(Events.AddFoodCardEvent event) {
+        // add the food to the user's diet
         UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(event.foodCard.getFood());
-        cardListFragment.addCard(createFoodCard(event.foodCard.getFood()));
+
+        // add the new food card to cardList
+        cardList.add(createFoodCard(event.foodCard.getFood()));
+
+        // sort cardList using a comparator
+        Collections.sort(cardList, FoodCardComparator.CALORIES_SORT);
+
+        // make the cardListFragment display the updated cardList
+        cardListFragment.clearCards();
+        cardListFragment.addCards(cardList);
         cardListFragment.update();
     }
+
     // delete the food to the user's diet and
     // delete the card of that food from the cardListFragment
     public void onEvent(Events.RemoveFoodCardEvent event) {
         UserSingleton.INSTANCE.getCurrentUser().getDiet().removeFood(event.foodCard.getFood());
+        cardList.remove(event.foodCard);
         cardListFragment.removeCard(event.foodCard);
         cardListFragment.update();
     }
