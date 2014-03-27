@@ -55,11 +55,11 @@ public class FoodWizardPagerActivity extends BaseWizardPagerActivity{
 
         // create the food object
         Food newFood = new Food(name);
-        newFood.setCalories(calories)
-                .setProtein(protein)
-                .setFat(fat)
-                .setFiber(fiber)
-                .setSugars(sugars)
+        newFood.setCalories(calories * servings)
+                .setProtein(protein * servings)
+                .setFat(fat * servings)
+                .setFiber(fiber * servings)
+                .setSugars(sugars * servings)
                 .setNumOfServings(servings)
                 .setBrand(brand)
                 .save(); // save to the Database
