@@ -16,15 +16,36 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:background="@color/light_gray"
+              android:layout_height="wrap_content"
+              android:paddingBottom="6dp"
+              android:paddingTop="6dp">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/slide_menu_text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Result"
+            android:text="Results"
             android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:paddingLeft="6dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/slide_menu_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0"
+            android:id="@+id/search_header_counter"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="6dp"/>
+
+</RelativeLayout>

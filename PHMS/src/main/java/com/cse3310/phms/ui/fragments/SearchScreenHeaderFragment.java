@@ -16,10 +16,26 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.search_screen_header)
 public class SearchScreenHeaderFragment extends SherlockFragment{
+    @ViewById(R.id.search_header_counter)
+    TextView counterTextView;
+
+    private int resultsFound = 0;
+
+    @AfterViews
+    void OnAfterViews() {
+        counterTextView.setText(String.valueOf(resultsFound));
+    }
+
+    public void setResultsFound(int resultsFound) {
+        this.resultsFound = resultsFound;
+    }
 }

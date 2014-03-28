@@ -17,7 +17,6 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
@@ -41,9 +40,11 @@ public class SearchScreenFragment extends SherlockFragment{
         cardListFragment.initializeCards(matchCardList);
         cardListFragment.setChangeSearchPriorities(false); // don't change the suggestion or list of card to search on startup
 
-        Fragment dietHeaderFragment = new SearchScreenHeaderFragment_();
+        SearchScreenHeaderFragment_ screenHeaderFragment = new SearchScreenHeaderFragment_();
+        screenHeaderFragment.setResultsFound(matchCardList.size());
+
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.search_screen_header_container, dietHeaderFragment);
+        transaction.add(R.id.search_screen_header_container, screenHeaderFragment);
         transaction.add(R.id.search_screen_result_list_container, cardListFragment).commit();
     }
 
