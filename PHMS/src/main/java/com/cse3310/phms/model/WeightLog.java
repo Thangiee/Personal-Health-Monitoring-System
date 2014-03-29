@@ -32,7 +32,6 @@ public class WeightLog extends Model{
     @Column private double weight;
     @Column private User user;
     @Column private long time;
-    private Date date;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d,yyyy", Locale.ENGLISH);
     private SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:s,a", Locale.ENGLISH);
@@ -53,7 +52,6 @@ public class WeightLog extends Model{
         this.weight = weight;
         this.user = UserSingleton.INSTANCE.getCurrentUser();
         this.time = Calendar.getInstance().getTimeInMillis();
-        date = new Date(time);
 
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -66,6 +64,11 @@ public class WeightLog extends Model{
      */
     public double getWeight() {
         return weight;
+    }
+
+    public WeightLog setWeight(double weight) {
+        this.weight = weight;
+        return this;
     }
 
     /**
@@ -83,7 +86,12 @@ public class WeightLog extends Model{
      * @return the date
      */
     public Date getDate() {
-        return date;
+        return new Date(time);
+    }
+
+    public WeightLog setDate(Date date) {
+        this.time = date.getTime();
+        return this;
     }
 
     /**
@@ -93,7 +101,7 @@ public class WeightLog extends Model{
      * @return the format date
      */
     public String getFormatDate() {
-        return dateFormat.format(date);
+        return dateFormat.format(new Date(time));
     }
 
     /**
@@ -103,6 +111,6 @@ public class WeightLog extends Model{
      * @return the format time
      */
     public String getFormatTime() {
-        return timeFormat.format(date);
+        return timeFormat.format(new Date(time));
     }
 }

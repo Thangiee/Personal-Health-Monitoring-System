@@ -41,13 +41,17 @@ public class Diet extends Model{
         weightLog.save();
     }
 
+    public void addWeightLog(WeightLog weightLog) {
+        weightLog.save();
+    }
+
     /**
      * Gets weightLogs.
      *
      * @return list of weight logs
      */
     public List<WeightLog> getWeightLogs() {
-        return getMany(WeightLog.class, "User");
+        return getMany(WeightLog.class, "user");
     }
 
     /**
