@@ -45,7 +45,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // list of items to be display in the sliding menu
         add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
-        add(new DrawerItem(R.layout.weight_log_screen, "Weight Log", R.drawable.ic_action_line_chart));
+        add(new DrawerItem(R.layout.weight_log_screen, "Weight Logs", R.drawable.ic_action_line_chart));
         add(new DrawerItem(R.layout.frag_card_list, "Medication", R.drawable.ic_action_pill));
         add(new DrawerItem(R.layout.frag_card_list, "Appointment", R.drawable.ic_action_calendar_day));
         add(new DrawerItem(R.layout.frag_card_list, "Vital Signs", R.drawable.ic_action_warning));

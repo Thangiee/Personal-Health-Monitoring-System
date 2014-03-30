@@ -24,17 +24,40 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="250dp"
+            android:layout_height="175dp"
             android:id="@+id/weight_log_graph"
             android:padding="10dp">
     </LinearLayout>
 
-    <Button
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button1"
+            style="@style/text_view_btn"
+            android:text="Record Weight"
+            android:padding="8dp"
+            android:id="@+id/weight_log_screen_log_btn"
             android:layout_below="@+id/weight_log_graph"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="68dp"/>
+            android:layout_marginTop="10dp"/>
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/my_app_green"
+            android:textColor="@color/default_color"
+            android:text="Statistics"
+            android:textSize="16sp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingLeft="12dp"
+            android:id="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/textView">
+    </RelativeLayout>
 </RelativeLayout>

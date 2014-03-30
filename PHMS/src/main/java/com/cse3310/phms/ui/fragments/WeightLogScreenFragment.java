@@ -16,16 +16,28 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.andreabaccega.formedittextvalidator.EmptyValidator;
+import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.model.WeightLog;
 import com.cse3310.phms.model.utils.DateFormat;
+import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.Comparators.GraphViewDataComparator;
 import com.cse3310.phms.ui.utils.UserSingleton;
+import com.cse3310.phms.ui.utils.validators.NotZeroValidator;
+import com.cse3310.phms.ui.views.CalendarPickerDialog;
 import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphViewDataInterface;
 import com.jjoe64.graphview.GraphViewSeries;
@@ -36,6 +48,7 @@ import org.androidannotations.annotations.EFragment;
 
 import java.util.*;
 
+import static android.view.View.inflate;
 import static com.jjoe64.graphview.GraphView.GraphViewData;
 
 @EFragment(R.layout.weight_log_screen)
@@ -45,8 +58,14 @@ public class WeightLogScreenFragment extends SherlockFragment{
     private List<GraphViewData> data;
     private Map<String, WeightLog> weightLogs = new LinkedHashMap<String, WeightLog>();
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @AfterViews
-    void onAfterViews() {
+    void onSetupGraphView() {
         User user = UserSingleton.INSTANCE.getCurrentUser();
         data = new ArrayList<GraphViewData>();
 
@@ -70,24 +89,49 @@ public class WeightLogScreenFragment extends SherlockFragment{
         });
 
         graphView.setManualYAxis(true);
-        graphView.setManualYAxisBounds(getYMax(data) + 50, getYMin(data) - 50);
         graphView.addSeries(graphViewSeries);
         graphView.setDrawDataPoints(true);
-        graphView.setDataPointsRadius(15f);
+        graphView.setDataPointsRadius(5f);
         graphView.getGraphViewStyle().setNumHorizontalLabels(6);
-        graphView.getGraphViewStyle().setNumVerticalLabels(6);
+        graphView.getGraphViewStyle().setNumVerticalLabels(5);
         graphView.setDrawBackground(true);
         graphView.setBackgroundColor(Color.argb(100, 102, 255, 102));
+
+        if (data.size() != 0) {
+            graphView.setManualYAxisBounds(getYMax(data) + 25, getYMin(data) - 25);
+        } else {
+            graphView.setManualYAxisBounds(100, 0);
+        }
 
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.weight_log_graph);
         layout.addView(graphView);
     }
 
-    @Click(R.id.button1)
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.overflow_menu, menu);
+    }
+
+    @Click(R.id.weight_log_screen_log_btn)
     void onClick() {
-        GregorianCalendar calendar = new GregorianCalendar(2014, Calendar.APRIL, 2);
-        addLog(new WeightLog(400).setDate(calendar.getTime()));
-        Toast.makeText(getActivity(), "log", Toast.LENGTH_SHORT).show();
+        Calendar minDate = Calendar.getInstance();
+        minDate.add(Calendar.MONTH, -3);
+        Calendar maxDate = Calendar.getInstance();
+        maxDate.add(Calendar.DATE, 1);
+
+        final CalendarPickerDialog calendarPickerDialog = new CalendarPickerDialog(getActivity());
+        calendarPickerDialog.setDateRange(minDate.getTime(), maxDate.getTime());
+
+        calendarPickerDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                openWeightLogDialog(calendarPickerDialog.getCalendarPickerView().getSelectedDate());
+                calendarPickerDialog.dismiss();
+            }
+        });
+
+        calendarPickerDialog.show();
     }
 
     private double getYMin(List<GraphViewData> data) {
@@ -119,6 +163,46 @@ public class WeightLogScreenFragment extends SherlockFragment{
         // sort the x-axis by date
         Collections.sort(data, GraphViewDataComparator.X_AXIS_SORT);
         graphViewSeries.resetData(data.toArray(new GraphViewDataInterface[data.size()]));
-        graphView.setManualYAxisBounds(getYMax(data) + 50, getYMin(data) - 50);
+        graphView.setManualYAxisBounds(getYMax(data) + 25, getYMin(data) - 25);
+    }
+
+    private void openWeightLogDialog(final Date date) {
+        final View view = inflate(getActivity(), R.layout.weight_log_dialog, null);
+        final FormEditText formEditText = (FormEditText) view.findViewById(R.id.weight_log_dialog_et);
+        final boolean[] isValid = {false};
+        formEditText.addValidator(new NotZeroValidator("Can't weight 0"));
+        formEditText.addValidator(new EmptyValidator("Can't be empty"));
+        formEditText.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                isValid[0] = formEditText.testValidity();
+            }
+        });
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setView(view)
+                .setTitle("Weight")
+
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (isValid[0]) {
+                            addLog(new WeightLog(Double.parseDouble(formEditText.getText().toString()))
+                                    .setDate(date));
+                            dialogInterface.dismiss();
+                        } else {
+                            Toast.makeText(getActivity(), "Weight log was NOT recorded", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        alertDialog.show();
     }
 }
