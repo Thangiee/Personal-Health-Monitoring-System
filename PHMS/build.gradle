@@ -50,7 +50,7 @@ dependencies {
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
 
-    compile 'com.android.support:support-v4:19.0.1'
+    compile 'com.android.support:support-v4:19.1.0'
 
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
 
@@ -64,6 +64,8 @@ dependencies {
     compile 'se.emilsjolander:stickylistheaders:2.1.5'
 
     compile 'com.nhaarman.listviewanimations:library:2.6.0'
+
+    compile 'com.github.itsmechlark:android-times-square:1.1.1@aar'
 
     compile project(':PHMS:libs:LibWizardPager')
     compile project(':PHMS:libs:SlidingMenu')
