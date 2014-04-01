@@ -96,6 +96,10 @@ public class WeightLogScreenFragment extends SherlockFragment{
         graphView.getGraphViewStyle().setNumVerticalLabels(5);
         graphView.setDrawBackground(true);
         graphView.setBackgroundColor(Color.argb(100, 102, 255, 102));
+        int lightGray = getResources().getColor(R.color.gray);
+        graphView.getGraphViewStyle().setGridColor(lightGray);
+        graphView.getGraphViewStyle().setHorizontalLabelsColor(lightGray);
+        graphView.getGraphViewStyle().setVerticalLabelsColor(lightGray);
 
         if (data.size() != 0) {
             graphView.setManualYAxisBounds(getYMax(data) + 25, getYMin(data) - 25);
