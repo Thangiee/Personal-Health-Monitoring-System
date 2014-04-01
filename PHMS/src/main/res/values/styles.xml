@@ -83,4 +83,18 @@
         <item name="android:textColor">@color/default_color</item>
         <item name="android:background">@color/slide_menu_header_background</item>
     </style>
+
+    <!-- Weight log screen -->
+    <style name="weight_log_stats_title">
+        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+    </style>
+
+
+
+    <style name="divider">
+        <item name="android:layout_height">0.4dp</item>
+        <item name="android:background">#82a19c9a</item>
+    </style>
 </resources>
