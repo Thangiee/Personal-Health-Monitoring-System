@@ -29,7 +29,7 @@ import static com.cse3310.phms.model.utils.ManyToManyTable.DietAndFood;
 
 @Table(name = "Diet")
 public class Diet extends Model{
-    @Column private String decription;
+    @Column private double targetWeight;
 
     /**
      * Add a new weightLog object.
@@ -97,5 +97,23 @@ public class Diet extends Model{
             }
         }
         return false;
+    }
+
+    /**
+     * Gets target weight.
+     *
+     * @return the target weight
+     */
+    public double getTargetWeight() {
+        return targetWeight;
+    }
+
+    /**
+     * Sets target weight.
+     *
+     * @param targetWeight the target weight
+     */
+    public void setTargetWeight(double targetWeight) {
+        this.targetWeight = targetWeight;
     }
 }
