@@ -25,15 +25,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.activeandroid.ActiveAndroid;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.Food;
 import com.cse3310.phms.model.User;
-import com.cse3310.phms.model.WeightLog;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @EFragment(R.layout.home_screen)
 public class HomeScreenFragment extends SherlockFragment{
@@ -68,12 +65,29 @@ public class HomeScreenFragment extends SherlockFragment{
         User user = UserSingleton.INSTANCE.getCurrentUser();
         ActiveAndroid.beginTransaction();
         try {
-//            WeightLog weightLog = new WeightLog(150);
-//            weightLog.save();
-            GregorianCalendar calendar = new GregorianCalendar(2014, Calendar.APRIL, 15);
-            user.getDiet().addWeightLog(new WeightLog(400).setDate(calendar.getTime()));
-//            calendar.set(2014, Calendar.JULY, 6);
-//            user.getDiet().addWeightLog(new WeightLog(120).setDate(calendar.getTime()));
+            Food food = new Food("Applesauce");
+            food.save();
+            food = new Food("Apple juice");
+            food.save();
+            food = new Food("Apple");
+            food.save();
+            food = new Food("Beer");
+            food.save();
+            food = new Food("Bread");
+            food.save();
+            food = new Food("Bacon");
+            food.save();
+            food = new Food("corn");
+            food.save();
+            food = new Food("cheese");
+            food.save();
+            food = new Food("cake");
+            food.save();
+            food = new Food("cookies");
+            food.save();
+            food = new Food("chicken");
+            food.save();
+            user.getDiet().addFood(food);
             ActiveAndroid.setTransactionSuccessful();
         } finally {
             ActiveAndroid.endTransaction();

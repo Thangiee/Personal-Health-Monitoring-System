@@ -34,16 +34,19 @@
     </LinearLayout>
 
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             style="@style/text_view_btn"
             android:text="Record Weight"
             android:padding="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:id="@+id/weight_log_screen_log_btn"
             android:layout_above="@+id/textView"
-            android:layout_centerHorizontal="true"/>
+            android:layout_alignLeft="@+id/relativeLayout9"
+            android:layout_alignStart="@+id/relativeLayout9"
+            android:layout_toLeftOf="@+id/textView5"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"/>
 
     <TextView
             android:layout_width="fill_parent"
@@ -68,7 +71,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:orientation="vertical"
-            android:layout_below="@+id/textView">
+            android:layout_below="@+id/textView"
+            android:id="@+id/relativeLayout9">
 
         <RelativeLayout
                 android:orientation="horizontal"
@@ -141,8 +145,8 @@
                     style="@style/weight_log_stats_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Goal"
-                    android:id="@+id/weight_log_goal"
+                    android:text="Target"
+                    android:id="@+id/lbl"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="0dp"
                     android:layout_alignParentTop="true"
@@ -153,9 +157,9 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
-                    android:text="0"
-                    android:id="@+id/textView6"
-                    android:layout_below="@+id/weight_log_goal"
+                    android:text="N/A"
+                    android:id="@+id/weight_log_target"
+                    android:layout_below="@+id/lbl"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"/>
 
@@ -164,9 +168,9 @@
                     android:layout_height="wrap_content"
                     android:text="lbs"
                     android:id="@+id/textView7"
-                    android:layout_alignBaseline="@+id/textView6"
-                    android:layout_alignBottom="@+id/textView6"
-                    android:layout_toRightOf="@+id/textView6"/>
+                    android:layout_alignBaseline="@+id/weight_log_target"
+                    android:layout_alignBottom="@+id/weight_log_target"
+                    android:layout_toRightOf="@+id/weight_log_target"/>
         </RelativeLayout>
 
         <View
@@ -271,7 +275,7 @@
                     style="@style/weight_log_stats_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Avg. Week"
+                    android:text="Min Weight"
                     android:id="@+id/textView14"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="0dp"
@@ -284,7 +288,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     android:text="0"
-                    android:id="@+id/weight_log_avg_week"
+                    android:id="@+id/weight_log_min_weight"
                     android:layout_below="@+id/textView14"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"/>
@@ -294,9 +298,9 @@
                     android:layout_height="wrap_content"
                     android:text="lbs"
                     android:id="@+id/textView16"
-                    android:layout_alignBaseline="@+id/weight_log_avg_week"
-                    android:layout_alignBottom="@+id/weight_log_avg_week"
-                    android:layout_toRightOf="@+id/weight_log_avg_week"/>
+                    android:layout_alignBaseline="@+id/weight_log_min_weight"
+                    android:layout_alignBottom="@+id/weight_log_min_weight"
+                    android:layout_toRightOf="@+id/weight_log_min_weight"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -317,7 +321,7 @@
                     style="@style/weight_log_stats_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Avg. Month"
+                    android:text="Max Weight"
                     android:id="@+id/textView17"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="0dp"
@@ -330,7 +334,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     android:text="0"
-                    android:id="@+id/weight_log_avg_month"
+                    android:id="@+id/weight_log_max_weight"
                     android:layout_below="@+id/textView17"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"/>
@@ -340,9 +344,9 @@
                     android:layout_height="wrap_content"
                     android:text="lbs"
                     android:id="@+id/textView19"
-                    android:layout_alignBaseline="@+id/weight_log_avg_month"
-                    android:layout_alignBottom="@+id/weight_log_avg_month"
-                    android:layout_toRightOf="@+id/weight_log_avg_month"/>
+                    android:layout_alignBaseline="@+id/weight_log_max_weight"
+                    android:layout_alignBottom="@+id/weight_log_max_weight"
+                    android:layout_toRightOf="@+id/weight_log_max_weight"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -443,5 +447,25 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
     </RelativeLayout>
+
+    <TextView
+            style="@style/text_view_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Target Weight"
+            android:padding="8dp"
+            android:id="@+id/weight_log_screen_target_btn"
+            android:layout_alignTop="@+id/weight_log_screen_log_btn"
+            android:layout_toRightOf="@+id/textView5"
+            android:layout_alignRight="@+id/relativeLayout9"
+            android:layout_alignEnd="@+id/relativeLayout9"
+            android:layout_marginLeft="8dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

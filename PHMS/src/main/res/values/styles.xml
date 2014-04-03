@@ -86,7 +86,7 @@
 
     <!-- Weight log screen -->
     <style name="weight_log_stats_title">
-        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textColor">#A19C9A</item>
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginLeft">24dp</item>
     </style>
