@@ -19,13 +19,9 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.cse3310.phms.model.utils.ManyToManyTable;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.cse3310.phms.model.utils.ManyToManyTable.DietAndFood;
 
 @Table(name = "Diet")
 public class Diet extends Model{
@@ -59,17 +55,8 @@ public class Diet extends Model{
      *
      * @return list of foods
      */
-    public List<Food> getFoods(long userId) {
-        List<Food> foodList = new ArrayList<Food>();
-        List<DietAndFood> dietAndFoodList = DatabaseHandler.getAllRows(DietAndFood.class);
-
-        // Poor performance?
-        for (DietAndFood dietAndFood : dietAndFoodList) {
-            if (dietAndFood.getDietId() == userId) {
-                foodList.addAll(DatabaseHandler.getAllById(Food.class, dietAndFood.getFoodId()));
-            }
-        }
-        return foodList;
+    public List<Food> getFoods() {
+        return DatabaseHandler.getAllById(Food.class, "diet", getId());
     }
 
     /**
@@ -78,25 +65,16 @@ public class Diet extends Model{
      * @param food the food object be added
      */
     public void addFood(Food food) {
-        DietAndFood dietFood = new DietAndFood(this, food);
-        dietFood.save();
+        food.save();
     }
 
     /**
      * Remove food.
      *
      * @param food the food object be removed
-     * @return true if the food is successfully remove, else return false.
      */
-    public boolean removeFood(Food food) {
-        List<ManyToManyTable.DietAndFood> dietAndFoodList = DatabaseHandler.getAllRows(DietAndFood.class);
-        for (DietAndFood dietAndFood : dietAndFoodList) {
-            if (dietAndFood.getFoodId() == food.getId() && dietAndFood.getDietId() == this.getId()) {
-                DietAndFood.delete(DietAndFood.class, dietAndFood.getId());
-                return true;
-            }
-        }
-        return false;
+    public void removeFood(Food food) {
+        food.delete();
     }
 
     /**

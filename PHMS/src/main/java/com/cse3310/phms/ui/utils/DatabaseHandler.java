@@ -34,8 +34,8 @@ public class DatabaseHandler {
         return new Select().all().from(table).execute();
     }
 
-    public static <T extends Model> List<T> getAllById(Class<T> table, long id) {
-        return new Select().all().from(table).where("Id = ?", id).execute();
+    public static <T extends Model> List<T> getAllById(Class<T> table, String columnTitle, long id) {
+        return new Select().all().from(table).where(columnTitle + " = ?", id).execute();
     }
 
     public static <T extends Model> T getById(Class<T> table, long id) {

@@ -19,6 +19,7 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.ui.utils.UserSingleton;
 
 @Table(name = "Food")
 public class Food extends Model{
@@ -31,6 +32,8 @@ public class Food extends Model{
     @Column private double fiber;
     @Column private double sugars;
     @Column private String brand;
+    @Column private double time;
+    @Column private Diet diet;
 
     /**
      * Instantiates a new Food.
@@ -38,6 +41,7 @@ public class Food extends Model{
     public Food() {
         super();
         numOfServings = 1;
+        diet = UserSingleton.INSTANCE.getCurrentUser().getDiet();
     }
 
     /**
@@ -48,6 +52,7 @@ public class Food extends Model{
     public Food(String name) {
         this.name = name;
         numOfServings = 1;
+        diet = UserSingleton.INSTANCE.getCurrentUser().getDiet();
     }
 
     /**
@@ -179,12 +184,42 @@ public class Food extends Model{
         return this;
     }
 
+    /**
+     * Gets brand.
+     *
+     * @return the brand
+     */
     public String getBrand() {
         return brand;
     }
 
+    /**
+     * Sets brand.
+     *
+     * @param brand the brand
+     * @return the brand
+     */
     public Food setBrand(String brand) {
         this.brand = brand;
+        return this;
+    }
+
+    /**
+     * Gets time.
+     *
+     * @return the time time in milliseconds since epoch
+     */
+    public double getTime() {
+        return time;
+    }
+
+    /**
+     * Sets time.
+     *
+     * @param time the time in milliseconds since epoch
+     */
+    public Food setTime(double time) {
+        this.time = time;
         return this;
     }
 
