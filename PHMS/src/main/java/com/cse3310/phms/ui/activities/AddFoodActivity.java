@@ -32,9 +32,7 @@ import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
 
@@ -55,10 +53,13 @@ public class AddFoodActivity extends BaseActivity{
 
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
 
-        List<Card> cardList = new ArrayList<Card>(foodList.size());
+        Set<String> nameSet = new HashSet<String>(foodList.size());
+        List<Card> cardList = new ArrayList<Card>(nameSet.size());
         // create a foodCard for each of the food.
         for (final Food food : foodList) {
-            cardList.add(createFoodCard(food));
+            if (nameSet.add(food.getName())) {
+                cardList.add(createFoodCard(food));
+            }
         }
 
         Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT));
