@@ -66,7 +66,6 @@ public class SlidingMenuActivity extends BaseActivity {
         sm.setShadowDrawable(R.drawable.shadow);
         sm.setBehindOffset(260);
         sm.setFadeDegree(1.0f);
-        sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         setSlidingActionBarEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSlidingMenu().setActionBarSlideIcon(new ActionBarSlideIcon(
