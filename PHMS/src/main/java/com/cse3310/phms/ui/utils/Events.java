@@ -69,4 +69,7 @@ public class Events {
             this.foodCard = foodCard;
         }
     }
+
+    public static class SwitchDayEvent {
+    }
 }
