@@ -100,7 +100,7 @@ public class AddFoodActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 Toast.makeText(AddFoodActivity.this,
-                        "Added " + food.getName() + " to today's diet", Toast.LENGTH_SHORT).show();
+                        "Added " + food.getName() + " to food intakes", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(new Events.AddFoodCardEvent(foodCard));
             }
         });

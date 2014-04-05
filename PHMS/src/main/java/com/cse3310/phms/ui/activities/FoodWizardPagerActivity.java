@@ -61,8 +61,7 @@ public class FoodWizardPagerActivity extends BaseWizardPagerActivity{
                 .setFiber(fiber * servings)
                 .setSugars(sugars * servings)
                 .setNumOfServings(servings)
-                .setBrand(brand)
-                .save(); // save to the Database
+                .setBrand(brand);
 
         // if editing, remove the old card and add the new edited card
         if (super.editMode) {

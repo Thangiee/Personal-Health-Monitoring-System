@@ -37,9 +37,11 @@ import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
+import org.apache.commons.lang.time.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
@@ -49,6 +51,7 @@ public class DietScreenFragment extends SherlockFragment {
     private List<Card> cardList = new ArrayList<Card>();
     private CardListFragment_ cardListFragment;
     private DietScreenHeaderFragment_ dietHeaderFragment;
+    private DietDayIndicator dayIndicatorFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,11 +59,7 @@ public class DietScreenFragment extends SherlockFragment {
         setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().register(this);
 
-        User user = UserSingleton.INSTANCE.getCurrentUser();
-        List<Food> foodList = user.getDiet().getFoods(user.getId());    // get all the food in the user's diet
-        for (Food food : foodList) {
-            cardList.add(createFoodCard(food)); // create a card for each of the food
-        }
+        populateCardList(new Date()); // add today's foods to list
     }
 
     @Override
@@ -68,16 +67,26 @@ public class DietScreenFragment extends SherlockFragment {
         Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT)); // sort by food name then by brand name
 
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        dayIndicatorFragment = new DietDayIndicator();
         dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
         cardListFragment.initializeCards(cardList); // add cards to show in the CardListFragment
 
+        transaction.add(R.id.diet_screen_day_indicator_container, dayIndicatorFragment);
         // add header fragment
         transaction.add(R.id.diet_screen_header_container, dietHeaderFragment);
         // add fragment to display the cards
         transaction.add(R.id.diet_screen_food_list_container, cardListFragment);
         transaction.commit(); // do the transactions
+
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // add together nutrition of all the food cards
+        dietHeaderFragment.calculateTotal(cardList);
     }
 
     @Override
@@ -100,6 +109,20 @@ public class DietScreenFragment extends SherlockFragment {
         // Intent intent = new Intent(this, ActivityToStart.class);
         // startActivity(intent);
         AddFoodActivity_.intent(this).start();
+    }
+
+    // helper method to initialize cardList with food cards from a specify date
+    private void populateCardList(Date date) {
+        User user = UserSingleton.INSTANCE.getCurrentUser();
+        cardList.clear();
+
+        for (Food food : user.getDiet().getFoods()) { // iterate over all the food in the user's diet
+            // check if the day the food was added is the same
+            // as the current selected day
+            if (DateUtils.isSameDay(new Date((long) food.getTime()), date)) {
+                cardList.add(createFoodCard(food)); // if so, create a card for that food and add it to the list
+            }
+        }
     }
 
     // helper method to create and set up a food card
@@ -131,7 +154,7 @@ public class DietScreenFragment extends SherlockFragment {
         foodCard.setOnUndoSwipeListListener(new Card.OnUndoSwipeListListener() {
             @Override
             public void onUndoSwipe(Card card) {
-                UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(food);
+                UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(new Food(food));
                 dietHeaderFragment.add(foodCard.getFood());         // update the nutrition counter
             }
         });
@@ -145,11 +168,14 @@ public class DietScreenFragment extends SherlockFragment {
     // add the food to the user's diet and
     // add a card of that food to be display in the cardListFragment
     public void onEvent(Events.AddFoodCardEvent event) {
-        // add the food to the user's diet
-        UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(event.foodCard.getFood());
+        Food newFood = new Food(event.foodCard.getFood());
+        newFood.setTime(dayIndicatorFragment.getSelectedDay().getTime());
+
+        // add the food to the user's diet / save to the db
+        UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(newFood);
 
         // add the new food card to cardList
-        cardList.add(createFoodCard(event.foodCard.getFood()));
+        cardList.add(createFoodCard(newFood));
 
         // sort cardList using a comparator
         Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT)); // sort by food name then by brand name
@@ -160,7 +186,7 @@ public class DietScreenFragment extends SherlockFragment {
         cardListFragment.update();
 
         // update the nutrition counter
-        dietHeaderFragment.add(event.foodCard.getFood());
+        dietHeaderFragment.add(newFood);
     }
 
     // delete the food to the user's diet and
@@ -173,5 +199,23 @@ public class DietScreenFragment extends SherlockFragment {
 
         // update the nutrition counter
         dietHeaderFragment.minus(event.foodCard.getFood());
+    }
+
+    // re-initialise cardListFragment with cards from the
+    // selected date indicated by the dayIndicatorFragment
+    public void onEvent(Events.SwitchDayEvent event) {
+        populateCardList(dayIndicatorFragment.getSelectedDay());
+        // sort by food name then by brand name
+        Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT));
+        cardListFragment.clearCards(); // clear old cards
+        cardListFragment.initializeCards(cardList); // add new cards
+        dietHeaderFragment.calculateTotal(cardList); // update the nutrition counter
+
+        // refresh the cardListFragment to get undo listener
+        // to work properly after switching to a different day.
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.detach(cardListFragment);
+        transaction.attach(cardListFragment);
+        transaction.commit();
     }
 }
