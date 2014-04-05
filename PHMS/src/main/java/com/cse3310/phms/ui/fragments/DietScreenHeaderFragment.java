@@ -20,9 +20,8 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
-import com.cse3310.phms.model.User;
-import com.cse3310.phms.ui.utils.UserSingleton;
-import org.androidannotations.annotations.AfterViews;
+import com.cse3310.phms.ui.cards.FoodCard;
+import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -42,19 +41,20 @@ public class DietScreenHeaderFragment extends SherlockFragment{
     private double proteinsTotal = 0;
     private double sugarsTotal = 0;
 
-    @AfterViews
-    void calculateTotal() {
-        User user = UserSingleton.INSTANCE.getCurrentUser();
-        List<Food> foodList = user.getDiet().getFoods(user.getId());
+    public void calculateTotal(List<Card> cardList) {
+        // reset counters
+        caloriesTotal = 0;
+        fatsTotal = 0;
+        fibersTotal = 0;
+        proteinsTotal = 0;
+        sugarsTotal = 0;
 
-        for (Food food : foodList) {
-            add(food);
+        for (Card card : cardList) {
+            add(((FoodCard) card).getFood());
         }
-
-        setHeaderValues();
     }
 
-    void add(Food food) {
+    public void add(Food food) {
         caloriesTotal += food.getCalories();
         fatsTotal += food.getFat();
         fibersTotal += food.getFiber();
@@ -63,7 +63,7 @@ public class DietScreenHeaderFragment extends SherlockFragment{
         setHeaderValues();
     }
 
-    void minus(Food food) {
+    public void minus(Food food) {
         caloriesTotal -= food.getCalories();
         fatsTotal -= food.getFat();
         fibersTotal -= food.getFiber();

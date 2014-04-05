@@ -19,6 +19,7 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 
 import java.util.List;
@@ -74,7 +75,7 @@ public class Diet extends Model{
      * @param food the food object be removed
      */
     public void removeFood(Food food) {
-        food.delete();
+        new Delete().from(Food.class).where("Id = ?", food.getId()).execute();
     }
 
     /**

@@ -56,6 +56,24 @@ public class Food extends Model{
     }
 
     /**
+     * Instantiates a copy Food.
+     *
+     * @param thatFood food to be copy
+     */
+    public Food(Food thatFood) {
+        name = thatFood.getName();
+        calories = thatFood.getCalories();
+        numOfServings = thatFood.getNumOfServings();
+        protein = thatFood.getProtein();
+        fat = thatFood.getFat();
+        fiber = thatFood.getFiber();
+        sugars = thatFood.getSugars();
+        brand = thatFood.getBrand();
+        diet = thatFood.getDiet();
+        time = thatFood.getTime();
+    }
+
+    /**
      * Gets name.
      *
      * @return the name
@@ -221,6 +239,11 @@ public class Food extends Model{
     public Food setTime(double time) {
         this.time = time;
         return this;
+    }
+
+
+    public Diet getDiet() {
+        return diet;
     }
 
     @Override

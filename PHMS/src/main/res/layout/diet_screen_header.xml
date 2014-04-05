@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/my_app_green"
                 android:textColor="@color/default_color"
-                android:text="Today's Food Intakes"
+                android:text="Food Intakes"
                 android:textSize="16sp"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"

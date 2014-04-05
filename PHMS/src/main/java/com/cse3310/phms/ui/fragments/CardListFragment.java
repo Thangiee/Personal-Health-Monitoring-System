@@ -69,7 +69,7 @@ public class CardListFragment extends SherlockFragment {
     @AfterViews
     void setupAdapter() {
         // Set up adapter
-        adapter = new CardArrayAdapter(getActivity(), new ArrayList<Card>(mCardList));
+        adapter = new CardArrayAdapter(getActivity(), mCardList);
         adapter.setEnableUndo(true); // Enable undo controller!
         // Set up animation adapter
         AnimationAdapter animCardArrayAdapter = new SwingBottomInAnimationAdapter(adapter);
@@ -91,9 +91,9 @@ public class CardListFragment extends SherlockFragment {
     }
 
     public void addCard(Card card) {
+        card.setId("" + idCounter++);
         adapter.add(card);
         mSuggestionSet.add(card.getTitle());
-        initializeCard(card);
     }
 
     public void addCards(List<Card> cards) {
@@ -104,12 +104,10 @@ public class CardListFragment extends SherlockFragment {
 
     public void removeCard(Card card) {
         adapter.remove(card);
-        mCardList.remove(card);
     }
 
     public void clearCards() {
         adapter.clear();
-        mCardList.clear();
     }
 
     public void update() {
@@ -120,7 +118,7 @@ public class CardListFragment extends SherlockFragment {
         adapter.notifyDataSetChanged();
     }
 
-    public void setChangeSearchPriorities(boolean changeSearchPriorities) {
+    public void setChangeSearchProperties(boolean changeSearchPriorities) {
         this.mChangeSearchPriorities = changeSearchPriorities;
     }
 }
