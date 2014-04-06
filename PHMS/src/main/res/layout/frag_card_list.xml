@@ -29,6 +29,17 @@
                 android:layout_height="match_parent"
                 android:id="@+id/frag_card_list_view"/>
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Tap the '+' at the top to add a new item."
+                android:id="@+id/card_list_hint_tv"
+                android:padding="24dp"
+                android:visibility="invisible"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
     </RelativeLayout>
 
     <!-- Include undo message layout -->

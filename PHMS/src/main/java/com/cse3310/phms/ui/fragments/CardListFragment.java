@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
 import com.cse3310.phms.ui.utils.Events;
@@ -44,10 +45,13 @@ public class CardListFragment extends SherlockFragment {
     private Set<String> mSuggestionSet;
     private List<Card> mCardList = new ArrayList<Card>();
     private boolean mChangeSearchPriorities = true;
+    private boolean mShowEmptyListHint = false;
     private CardArrayAdapter adapter;
 
     @ViewById(R.id.frag_card_list_view)
     CardListView mCardListView;
+    @ViewById(R.id.card_list_hint_tv)
+    TextView emptyListHintTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +66,10 @@ public class CardListFragment extends SherlockFragment {
     public void onResume() {
         if (mChangeSearchPriorities) {
             update();
+        }
+
+        if (mShowEmptyListHint) {
+            emptyListHintTextView.setVisibility(mCardList.size() == 0 ? View.VISIBLE : View.INVISIBLE);
         }
         super.onResume();
     }
@@ -120,5 +128,9 @@ public class CardListFragment extends SherlockFragment {
 
     public void setChangeSearchProperties(boolean changeSearchPriorities) {
         this.mChangeSearchPriorities = changeSearchPriorities;
+    }
+
+    public void setShowEmptyListHint(boolean showHint) {
+        this.mShowEmptyListHint = showHint;
     }
 }
