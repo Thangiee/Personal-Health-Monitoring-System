@@ -70,6 +70,7 @@ public class DietScreenFragment extends SherlockFragment {
         dayIndicatorFragment = new DietDayIndicator();
         dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
+        cardListFragment.setShowEmptyListHint(true);
         cardListFragment.initializeCards(cardList); // add cards to show in the CardListFragment
 
         transaction.add(R.id.diet_screen_day_indicator_container, dayIndicatorFragment);

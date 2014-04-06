@@ -50,6 +50,7 @@ public class AddFoodActivity extends BaseActivity{
         EventBus.getDefault().registerSticky(this);
 
         CardListFragment_ cardListFragment = new CardListFragment_();
+        cardListFragment.setShowEmptyListHint(true);
 
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
 
