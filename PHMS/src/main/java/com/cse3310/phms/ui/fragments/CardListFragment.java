@@ -69,7 +69,8 @@ public class CardListFragment extends SherlockFragment {
         }
 
         if (mShowEmptyListHint) {
-            emptyListHintTextView.setVisibility(mCardList.size() == 0 ? View.VISIBLE : View.INVISIBLE);
+            // make hint message visible when mCardList is empty
+            emptyListHintTextView.setVisibility(mCardList.isEmpty() ? View.VISIBLE : View.INVISIBLE);
         }
         super.onResume();
     }
