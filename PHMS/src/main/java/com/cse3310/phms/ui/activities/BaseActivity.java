@@ -118,10 +118,12 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
     }
 
     public void doSearch() {
-        Toast.makeText(this, "Searching for " + mSearchWord, Toast.LENGTH_SHORT).show();
-        EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
-        Intent intent = new Intent(this, SearchCardsActivity.class);
-        startActivity(intent);
+        if (mSearchWord != null) {
+            Toast.makeText(this, "Searching for " + mSearchWord, Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().postSticky(new Events.initSearchWordEvent(mSearchWord));
+            Intent intent = new Intent(this, SearchCardsActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void setSuggestions(Collection<String> suggestions) {
