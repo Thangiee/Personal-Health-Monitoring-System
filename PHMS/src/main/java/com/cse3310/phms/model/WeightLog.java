@@ -21,20 +21,14 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.cse3310.phms.ui.utils.UserSingleton;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 @Table(name = "WeightLog")
 public class WeightLog extends Model{
     @Column private double weight;
     @Column private User user;
     @Column private long time;
-
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d,yyyy", Locale.ENGLISH);
-    private SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:s,a", Locale.ENGLISH);
 
     /**
      * Instantiates a new Weight log.
@@ -52,9 +46,6 @@ public class WeightLog extends Model{
         this.weight = weight;
         this.user = UserSingleton.INSTANCE.getCurrentUser();
         this.time = Calendar.getInstance().getTimeInMillis();
-
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     /**
@@ -92,25 +83,5 @@ public class WeightLog extends Model{
     public WeightLog setDate(Date date) {
         this.time = date.getTime();
         return this;
-    }
-
-    /**
-     * Gets formatted date of the weight log.
-     * Ex. March 10,2014
-     *
-     * @return the format date
-     */
-    public String getFormatDate() {
-        return dateFormat.format(new Date(time));
-    }
-
-    /**
-     * Gets formatted time of the weight log.
-     * Ex. 2:53:54,PM
-     *
-     * @return the format time
-     */
-    public String getFormatTime() {
-        return timeFormat.format(new Date(time));
     }
 }
