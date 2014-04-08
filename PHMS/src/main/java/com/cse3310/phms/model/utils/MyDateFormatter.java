@@ -49,7 +49,7 @@ public class MyDateFormatter {
      *
      * @return the format time
      */
-    public String formatTime(long milliseconds) {
+    public static String formatTime(long milliseconds) {
         return timeFormat.format(new Date(milliseconds));
     }
 }

@@ -19,17 +19,26 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.model.utils.MyDateFormatter;
 
 @Table(name = "Appointment")
-public class Appointment extends Model {
+public class Appointment extends Model implements Remindable{
     @Column private Doctor doctor;
     @Column private String purpose;
     @Column private long time;
 
+
     /**
      * Instantiates a new Appointment.
+     *
+     * @param doctor the doctor
+     * @param time the time
      */
-    public Appointment() {}
+    public Appointment(Doctor doctor, long time) {
+        this.doctor = doctor;
+        this.time = time;
+        this.purpose = "purpose not specified";
+    }
 
     /**
      * Instantiates a new Appointment.
@@ -102,5 +111,19 @@ public class Appointment extends Model {
     public Appointment setTime(long time) {
         this.time = time;
         return this;
+    }
+
+    @Override
+    public long reminderTime() {
+        return this.time;
+    }
+
+    @Override
+    public String reminderMessage() {
+        return String.format(
+                "Appointment with Dr.%s at %s.\nPurpose: %s",
+                doctor.getContactInfo().getLastName(),
+                MyDateFormatter.formatTime(time),
+                purpose);
     }
 }
