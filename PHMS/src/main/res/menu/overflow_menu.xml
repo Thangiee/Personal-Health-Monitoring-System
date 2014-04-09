@@ -28,4 +28,10 @@
             android:title="About us"
             android:orderInCategory="201"
             android:showAsAction="collapseActionView"/>
+
+    <item
+            android:id="@+id/sign_out"
+            android:title="Sign out"
+            android:orderInCategory="300"
+            android:showAsAction="collapseActionView"/>
 </menu>

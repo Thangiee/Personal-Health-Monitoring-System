@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.Keyboard;
@@ -112,6 +113,12 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
                 return true;
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
+                return true;
+            case R.id.sign_out:
+                LoginManager.logOut(); // set current user to null
+                LoginActivity_.intent(this).start(); // bring up the login screen
+                finish();
+                return true;
             default:
                 return false;
         }
@@ -179,7 +186,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
                 final int DRAWABLE_RIGHT = 2;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    // some magic...
+                    // some magic... :| to get the delete text icon to work
                     if (event.getX() >= (mAutoCompTextView.getRight() - mAutoCompTextView
                             .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         mAutoCompTextView.setText(""); // set search text view to empty string.
