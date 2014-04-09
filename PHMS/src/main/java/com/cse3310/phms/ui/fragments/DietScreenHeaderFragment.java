@@ -52,6 +52,8 @@ public class DietScreenHeaderFragment extends SherlockFragment{
         for (Card card : cardList) {
             add(((FoodCard) card).getFood());
         }
+
+        setHeaderValues();
     }
 
     public void add(Food food) {
