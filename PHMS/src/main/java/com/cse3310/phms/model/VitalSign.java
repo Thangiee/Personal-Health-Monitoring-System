@@ -17,8 +17,73 @@
 package com.cse3310.phms.model;
 
 import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = "VitalSign")
-public class VitalSign extends Model{
+public class VitalSign extends Model {
+
+    @Column private double bloodPressure;
+    @Column private double glucoseLevel;
+    @Column private double cholesterol;
+
+    /**
+     * Gets cholesterol.
+     *
+     * @return the cholesterol as a unit of mg/dL
+     */
+    public double getCholesterol() {
+        return cholesterol;
+    }
+
+    /**
+     * Sets cholesterol.
+     *
+     * @param cholesterol the cholesterol as a unit of mg/dL
+     * @return the this object
+     */
+    public VitalSign setCholesterol(final double cholesterol) {
+        this.cholesterol = cholesterol;
+        return this;
+    }
+
+    /**
+     * Gets glucose level.
+     *
+     * @return the glucose level as a unit of mg/dL
+     */
+    public double getGlucoseLevel() {
+        return glucoseLevel;
+    }
+
+    /**
+     * Sets glucose level.
+     *
+     * @param glucoseLevel the glucose level as a unit of mg/dL
+     * @return the this object
+     */
+    public VitalSign setGlucoseLevel(final double glucoseLevel) {
+        this.glucoseLevel = glucoseLevel;
+        return this;
+    }
+
+    /**
+     * Gets blood pressure.
+     *
+     * @return the blood pressure as a unit of mmHg
+     */
+    public double getBloodPressure() {
+        return bloodPressure;
+    }
+
+    /**
+     * Sets blood pressure.
+     *
+     * @param bloodPressure the blood pressure as a unit of mmHg
+     * @return the this object
+     */
+    public VitalSign setBloodPressure(final double bloodPressure) {
+        this.bloodPressure = bloodPressure;
+        return this;
+    }
 }
