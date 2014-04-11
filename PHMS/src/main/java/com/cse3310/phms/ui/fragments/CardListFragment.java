@@ -43,9 +43,9 @@ import java.util.Set;
 public class CardListFragment extends SherlockFragment {
     private static int idCounter = 0;
     private Set<String> mSuggestionSet;
-    private List<Card> mCardList = new ArrayList<Card>();
-    private boolean mChangeSearchPriorities = true;
-    private boolean mShowEmptyListHint = false;
+    protected List<Card> mCardList = new ArrayList<Card>();
+    private boolean mChangeSuggestions = true;
+    private boolean mShowHintOnEmpty = false;
     private CardArrayAdapter adapter;
 
     @ViewById(R.id.frag_card_list_view)
@@ -53,10 +53,29 @@ public class CardListFragment extends SherlockFragment {
     @ViewById(R.id.card_list_hint_tv)
     TextView emptyListHintTextView;
 
+    public static CardListFragment_ newInstance(List<Card> cardList, boolean showHintOnEmpty) {
+        return newInstance(cardList, showHintOnEmpty, true);
+    }
+
+    public static CardListFragment_ newInstance(List<Card> cardList, boolean showHintOnEmpty, boolean changeSuggestions) {
+        CardListFragment_ fragment = new CardListFragment_();
+        fragment.mCardList = new ArrayList<Card>(cardList);
+
+        Bundle args = new Bundle();
+        args.putBoolean("hint", showHintOnEmpty);
+        args.putBoolean("suggestions", changeSuggestions);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mShowHintOnEmpty = getArguments().getBoolean("hint");
+        mChangeSuggestions = getArguments().getBoolean("suggestions");
+
         mSuggestionSet = new HashSet<String>(mCardList.size()); // use to collect unique food to be use as search suggestions.
         for (Card card : mCardList) {
+            card.setId("" + idCounter++);
             mSuggestionSet.add(card.getTitle());
         }
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -64,11 +83,11 @@ public class CardListFragment extends SherlockFragment {
 
     @Override
     public void onResume() {
-        if (mChangeSearchPriorities) {
+        if (mChangeSuggestions) {
             update();
         }
 
-        if (mShowEmptyListHint) {
+        if (mShowHintOnEmpty) {
             // make hint message visible when mCardList is empty
             emptyListHintTextView.setVisibility(mCardList.isEmpty() ? View.VISIBLE : View.INVISIBLE);
         }
@@ -88,27 +107,13 @@ public class CardListFragment extends SherlockFragment {
         }
     }
 
-    public void initializeCard(Card card) {
-        card.setId("" + idCounter++);
-        mCardList.add(card);
-    }
-
-    public void initializeCards(List<Card> cards) {
-        for (Card card : cards) {
-            initializeCard(card);
-        }
-    }
-
-    public void addCard(Card card) {
-        card.setId("" + idCounter++);
-        adapter.add(card);
-        mSuggestionSet.add(card.getTitle());
-    }
-
     public void addCards(List<Card> cards) {
         for (Card card : cards) {
-            addCard(card);
+            card.setId("" + idCounter++);
+            mSuggestionSet.add(card.getTitle());
         }
+
+        adapter.addAll(cards);
     }
 
     public void removeCard(Card card) {
@@ -125,13 +130,5 @@ public class CardListFragment extends SherlockFragment {
         // setup the cards that will be searched if the user decide to search Sending to SearchCardsActivity
         EventBus.getDefault().postSticky(new Events.initCardsToSearchEvent(mCardList));
         adapter.notifyDataSetChanged();
-    }
-
-    public void setChangeSearchProperties(boolean changeSearchPriorities) {
-        this.mChangeSearchPriorities = changeSearchPriorities;
-    }
-
-    public void setShowEmptyListHint(boolean showHint) {
-        this.mShowEmptyListHint = showHint;
     }
 }

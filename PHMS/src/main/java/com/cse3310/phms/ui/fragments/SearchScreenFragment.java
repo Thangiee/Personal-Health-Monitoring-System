@@ -36,9 +36,7 @@ public class SearchScreenFragment extends SherlockFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Collections.sort(matchCardList, CardComparator.NAME_SORT);
-        CardListFragment_ cardListFragment = new CardListFragment_();
-        cardListFragment.initializeCards(matchCardList);
-        cardListFragment.setChangeSearchProperties(false); // don't change the suggestion or list of card to search on startup
+        CardListFragment_ cardListFragment = CardListFragment_.newInstance(matchCardList, false, false);
 
         SearchScreenHeaderFragment_ screenHeaderFragment = new SearchScreenHeaderFragment_();
         screenHeaderFragment.setResultsFound(matchCardList.size());

@@ -25,7 +25,7 @@ import com.cse3310.phms.model.Food;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 
-public class FoodCard extends Card{
+public class FoodCard extends Card {
 
     protected String mTitle;
     protected String mSubTitle;

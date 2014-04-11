@@ -69,9 +69,7 @@ public class DietScreenFragment extends SherlockFragment {
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         dayIndicatorFragment = new DietDayIndicatorFragment();
         dietHeaderFragment = new DietScreenHeaderFragment_();
-        cardListFragment = new CardListFragment_();
-        cardListFragment.setShowEmptyListHint(true);
-        cardListFragment.initializeCards(cardList); // add cards to show in the CardListFragment
+        cardListFragment = CardListFragment_.newInstance(cardList, true);
 
         transaction.add(R.id.diet_screen_day_indicator_container, dayIndicatorFragment);
         // add header fragment
@@ -208,8 +206,9 @@ public class DietScreenFragment extends SherlockFragment {
         populateCardList(dayIndicatorFragment.getSelectedDay());
         // sort by food name then by brand name
         Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT));
+
         cardListFragment.clearCards(); // clear old cards
-        cardListFragment.initializeCards(cardList); // add new cards
+        cardListFragment.addCards(cardList); // add new cards
         dietHeaderFragment.calculateTotal(cardList); // update the nutrition counter
 
         // refresh the cardListFragment to get undo listener

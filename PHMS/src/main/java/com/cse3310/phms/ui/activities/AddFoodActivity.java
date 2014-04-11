@@ -49,9 +49,6 @@ public class AddFoodActivity extends BaseActivity{
         setTitle("Add Food Intake");
         EventBus.getDefault().registerSticky(this);
 
-        CardListFragment_ cardListFragment = new CardListFragment_();
-        cardListFragment.setShowEmptyListHint(true);
-
         List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
 
         Set<String> nameSet = new HashSet<String>(foodList.size());
@@ -62,10 +59,9 @@ public class AddFoodActivity extends BaseActivity{
                 cardList.add(createFoodCard(food));
             }
         }
-
         Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT));
-        cardListFragment.initializeCards(cardList);
 
+        CardListFragment_ cardListFragment = CardListFragment_.newInstance(cardList, true);
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();
     }
 
