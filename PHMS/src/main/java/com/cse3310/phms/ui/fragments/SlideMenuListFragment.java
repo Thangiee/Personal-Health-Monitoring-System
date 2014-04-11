@@ -49,7 +49,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.card_list, "Medication", R.drawable.ic_action_pill));
         add(new DrawerItem(R.layout.card_list, "Appointment", R.drawable.ic_action_calendar_day));
         add(new DrawerItem(R.layout.card_list, "Vital Signs", R.drawable.ic_action_warning));
-        add(new DrawerItem(R.layout.card_list, "Contacts", R.drawable.ic_action_users));
+        add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
         add(new DrawerItem(R.layout.card_list, "Recipes", R.drawable.ic_action_list_2));
         add(new DrawerItem(R.layout.card_list, "Reminders", R.drawable.ic_action_alarm));
     }};
@@ -128,6 +128,9 @@ public class SlideMenuListFragment extends SherlockListFragment {
             case R.layout.weight_log_screen:
                 EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Weight Log"));
                 fragment = new WeightLogScreenFragment_();
+                break;
+            case R.layout.contact_screen:
+                fragment = new ContactScreenFragment_();
                 break;
         }
 

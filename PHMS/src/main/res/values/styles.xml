@@ -4,6 +4,7 @@
         <item name="textAppearanceFinish">@style/TextAppearanceFinish</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:activatedBackgroundIndicator">@drawable/list_item_background</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
 
     <style name="TextAppearanceFinish" parent="@style/TextAppearance.Sherlock.Small">
@@ -90,11 +91,32 @@
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginLeft">24dp</item>
     </style>
-
-
+    <!---->
 
     <style name="divider">
         <item name="android:layout_height">0.4dp</item>
         <item name="android:background">#82a19c9a</item>
     </style>
+
+    <!-- Tab page indicators -->
+    <style name="StyledIndicators" parent="@android:style/Theme.Light">
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+    </style>
+
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
+        <item name="android:textColor">#FF555555</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:dividerPadding">10dp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+
+    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
+        <item name="android:typeface">monospace</item>
+    </style>
+    <!---->
 </resources>
