@@ -19,6 +19,7 @@ package com.cse3310.phms.ui.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import com.cse3310.phms.R;
 import com.cse3310.phms.ui.fragments.BlankFragment;
 
 public class DietScreenAdapter extends FragmentPagerAdapter {
@@ -37,7 +38,7 @@ public class DietScreenAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new BlankFragment();
+        return BlankFragment.newInstance(R.color.my_app_green);
     }
 
     @Override

@@ -24,8 +24,20 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
 
 public class BlankFragment extends SherlockFragment{
+
+    public static BlankFragment newInstance(int color) {
+        BlankFragment fragment = new BlankFragment();
+        Bundle args = new Bundle();
+        args.putInt("color", color);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.blank_frag, container, false);
+        View view = inflater.inflate(R.layout.blank_frag, container, false);
+        int color = getArguments().getInt("color");
+        view.setBackgroundColor(getResources().getColor(color));
+        return view;
     }
 }
