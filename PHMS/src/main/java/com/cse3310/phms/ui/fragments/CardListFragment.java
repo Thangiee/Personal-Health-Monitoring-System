@@ -39,7 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@EFragment(R.layout.frag_card_list)
+@EFragment(R.layout.card_list)
 public class CardListFragment extends SherlockFragment {
     private static int idCounter = 0;
     private Set<String> mSuggestionSet;

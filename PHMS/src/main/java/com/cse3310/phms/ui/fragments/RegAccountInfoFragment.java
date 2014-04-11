@@ -67,7 +67,7 @@ public class RegAccountInfoFragment extends SherlockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(com.cse3310.phms.R.layout.frag_account_sign_up_page, container, false);
+        View rootView = inflater.inflate(com.cse3310.phms.R.layout.wizard_account_sign_up, container, false);
         ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
 
         mUsername = (FormEditText) rootView.findViewById(R.id.frag_account_sign_up_page_et_username);

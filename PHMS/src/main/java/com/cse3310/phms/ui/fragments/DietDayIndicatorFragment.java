@@ -33,7 +33,7 @@ import java.util.Date;
 
 import static com.cse3310.phms.ui.adapters.DietScreenAdapter.DAY;
 
-public class DietDayIndicator extends SherlockFragment {
+public class DietDayIndicatorFragment extends SherlockFragment {
     private Date selectedDay = Calendar.getInstance().getTime();
 
     @Override

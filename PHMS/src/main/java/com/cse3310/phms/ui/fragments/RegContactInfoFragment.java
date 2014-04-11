@@ -71,7 +71,7 @@ public class RegContactInfoFragment extends SherlockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.frag_contact_info_sign_up_page, container, false);
+        View rootView = inflater.inflate(R.layout.wizard_contact_info_sign_up, container, false);
         ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
 
         mEmail = (FormEditText) rootView.findViewById(R.id.frag_contact_info_sign_up_ed_email);

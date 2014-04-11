@@ -51,7 +51,7 @@ public class DietScreenFragment extends SherlockFragment {
     private List<Card> cardList = new ArrayList<Card>();
     private CardListFragment_ cardListFragment;
     private DietScreenHeaderFragment_ dietHeaderFragment;
-    private DietDayIndicator dayIndicatorFragment;
+    private DietDayIndicatorFragment dayIndicatorFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class DietScreenFragment extends SherlockFragment {
         Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT)); // sort by food name then by brand name
 
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        dayIndicatorFragment = new DietDayIndicator();
+        dayIndicatorFragment = new DietDayIndicatorFragment();
         dietHeaderFragment = new DietScreenHeaderFragment_();
         cardListFragment = new CardListFragment_();
         cardListFragment.setShowEmptyListHint(true);

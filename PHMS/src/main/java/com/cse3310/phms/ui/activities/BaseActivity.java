@@ -88,7 +88,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
         getSupportMenuInflater().inflate(R.menu.overflow_menu, menu);
         getSupportMenuInflater().inflate(R.menu.search_menu, menu);
         // set search field view to switch to after clicking the search icon
-        mSearchMenuItem = menu.getItem(SEARCH_ICON).setActionView(R.layout.act_layout_search);
+        mSearchMenuItem = menu.getItem(SEARCH_ICON).setActionView(R.layout.ab_search_layout);
 
         mAutoCompTextView = (AutoCompleteTextView) mSearchMenuItem.getActionView().findViewById(R.id.act_search_txt_auto_complete);
         mAutoCompTextView.addTextChangedListener(new TextWatcherAdapter() {

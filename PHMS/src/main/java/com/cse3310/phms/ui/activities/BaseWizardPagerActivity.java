@@ -54,7 +54,7 @@ public abstract class BaseWizardPagerActivity extends SherlockFragmentActivity i
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_wizard_screen);
+        setContentView(R.layout.wizard_screen);
         onSetupWizardModel();
 
 		if (savedInstanceState != null) {

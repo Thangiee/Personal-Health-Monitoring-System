@@ -37,7 +37,7 @@ import org.androidannotations.annotations.ViewById;
  * See Android Annotations for writing less code
  * https://github.com/excilys/androidannotations/wiki#introduction
  */
-@EActivity(R.layout.act_login_screen)   // set the activity layout
+@EActivity(R.layout.login_screen)   // set the activity layout
 public class LoginActivity extends Activity {
 
     @ViewById(R.id.act_login_screen_et_username)    // same as findViewById

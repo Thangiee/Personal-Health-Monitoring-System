@@ -75,7 +75,7 @@ public class RegPersonalInfoFragment extends SherlockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.frag_person_info_sign_up_page, container, false);
+        View rootView = inflater.inflate(R.layout.wizard_person_info_sign_up, container, false);
         ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
 
         mFirstName = (FormEditText) rootView.findViewById(R.id.frag_person_Info_sign_up_page_et_first_name);

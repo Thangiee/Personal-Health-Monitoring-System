@@ -25,19 +25,19 @@ import java.security.SecureRandom;
  * Niels Provos and David Mazieres.
  * <p>
  * This password hashing system tries to thwart off-line password
- * cracking using act_wizard_screen computationally-intensive hashing algorithm,
+ * cracking using wizard_screen computationally-intensive hashing algorithm,
  * based on Bruce Schneier's Blowfish cipher. The work factor of
  * the algorithm is parameterised, so it can be increased as
  * computers get faster.
  * <p>
- * Usage is really simple. To hash act_wizard_screen password for the first time,
- * call the hashpw method with act_wizard_screen random salt, like this:
+ * Usage is really simple. To hash wizard_screen password for the first time,
+ * call the hashpw method with wizard_screen random salt, like this:
  * <p>
  * <code>
  * String pw_hash = BCrypt.hashpw(plain_password, BCrypt.gensalt()); <br />
  * </code>
  * <p>
- * To check whether act_wizard_screen plaintext password matches one that has been
+ * To check whether wizard_screen plaintext password matches one that has been
  * hashed previously, use the checkpw method:
  * <p>
  * <code>
@@ -375,7 +375,7 @@ public class BCrypt {
 	private int S[];
 
 	/**
-	 * Encode act_wizard_screen byte array using bcrypt's slightly-modified base64
+	 * Encode wizard_screen byte array using bcrypt's slightly-modified base64
 	 * encoding scheme. Note that this is *not* compatible with
 	 * the standard MIME-base64 encoding.
 	 *
@@ -430,7 +430,7 @@ public class BCrypt {
 	}
 
 	/**
-	 * Decode act_wizard_screen string encoded using bcrypt's base64 scheme to act_wizard_screen
+	 * Decode wizard_screen string encoded using bcrypt's base64 scheme to wizard_screen
 	 * byte array. Note that this is *not* compatible with
 	 * the standard MIME-base64 encoding.
 	 * @param s	the string to decode
@@ -480,7 +480,7 @@ public class BCrypt {
 	}
 
 	/**
-	 * Blowfish encipher act_wizard_screen single 64-bit block encoded as
+	 * Blowfish encipher wizard_screen single 64-bit block encoded as
 	 * two 32-bit halves
 	 * @param lr	an array containing the two 32-bit half blocks
 	 * @param off	the position in the array of the blocks
@@ -509,9 +509,9 @@ public class BCrypt {
 	}
 
 	/**
-	 * Cycically extract act_wizard_screen word of key material
+	 * Cycically extract wizard_screen word of key material
 	 * @param data	the string to extract the data from
-	 * @param offp	act_wizard_screen "pointer" (as act_wizard_screen one-entry array) to the
+	 * @param offp	wizard_screen "pointer" (as wizard_screen one-entry array) to the
 	 * current offset into data
 	 * @return	the next word of material from data
 	 */
@@ -640,7 +640,7 @@ public class BCrypt {
 	}
 
 	/**
-	 * Hash act_wizard_screen password using the OpenBSD bcrypt scheme
+	 * Hash wizard_screen password using the OpenBSD bcrypt scheme
 	 * @param password	the password to hash
 	 * @param salt	the salt to hash with (perhaps generated
 	 * using BCrypt.gensalt)
@@ -697,7 +697,7 @@ public class BCrypt {
 	}
 
 	/**
-	 * Generate act_wizard_screen salt for use with the BCrypt.hashpw() method
+	 * Generate wizard_screen salt for use with the BCrypt.hashpw() method
 	 * @param log_rounds	the log2 of the number of rounds of
 	 * hashing to apply - the work factor therefore increases as
 	 * 2**log_rounds.
@@ -720,7 +720,7 @@ public class BCrypt {
 	}
 
 	/**
-	 * Generate act_wizard_screen salt for use with the BCrypt.hashpw() method
+	 * Generate wizard_screen salt for use with the BCrypt.hashpw() method
 	 * @param log_rounds	the log2 of the number of rounds of
 	 * hashing to apply - the work factor therefore increases as
 	 * 2**log_rounds.
@@ -731,8 +731,8 @@ public class BCrypt {
 	}
 
 	/**
-	 * Generate act_wizard_screen salt for use with the BCrypt.hashpw() method,
-	 * selecting act_wizard_screen reasonable default for the number of hashing
+	 * Generate wizard_screen salt for use with the BCrypt.hashpw() method,
+	 * selecting wizard_screen reasonable default for the number of hashing
 	 * rounds to apply
 	 * @return	an encoded salt value
 	 */
@@ -741,7 +741,7 @@ public class BCrypt {
 	}
 
 	/**
-	 * Check that act_wizard_screen plaintext password matches act_wizard_screen previously hashed
+	 * Check that wizard_screen plaintext password matches wizard_screen previously hashed
 	 * one
 	 * @param plaintext	the plaintext password to verify
 	 * @param hashed	the previously-hashed password

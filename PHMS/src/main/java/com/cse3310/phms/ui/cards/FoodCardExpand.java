@@ -28,7 +28,7 @@ public class FoodCardExpand extends CardExpand{
     private Food mFood;
 
     public FoodCardExpand(Context context, Food food) {
-        super(context, R.layout.frag_food_card_expand);
+        super(context, R.layout.food_card_expand);
         this.mFood = food;
     }
 

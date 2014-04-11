@@ -51,7 +51,7 @@ public class EditTextPageFragment extends SherlockFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.frag_edit_txt_page, container, false);
+        View rootView = inflater.inflate(R.layout.wizard_frag_edit_txt, container, false);
         ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
 
         mFormEditText = (FormEditText) rootView.findViewById(R.id.frag_edit_txt_field);

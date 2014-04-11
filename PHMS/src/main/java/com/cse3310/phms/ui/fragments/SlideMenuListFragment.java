@@ -46,12 +46,12 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
         add(new DrawerItem(R.layout.weight_log_screen, "Weight Logs", R.drawable.ic_action_line_chart));
-        add(new DrawerItem(R.layout.frag_card_list, "Medication", R.drawable.ic_action_pill));
-        add(new DrawerItem(R.layout.frag_card_list, "Appointment", R.drawable.ic_action_calendar_day));
-        add(new DrawerItem(R.layout.frag_card_list, "Vital Signs", R.drawable.ic_action_warning));
-        add(new DrawerItem(R.layout.frag_card_list, "Contacts", R.drawable.ic_action_users));
-        add(new DrawerItem(R.layout.frag_card_list, "Recipes", R.drawable.ic_action_list_2));
-        add(new DrawerItem(R.layout.frag_card_list, "Reminders", R.drawable.ic_action_alarm));
+        add(new DrawerItem(R.layout.card_list, "Medication", R.drawable.ic_action_pill));
+        add(new DrawerItem(R.layout.card_list, "Appointment", R.drawable.ic_action_calendar_day));
+        add(new DrawerItem(R.layout.card_list, "Vital Signs", R.drawable.ic_action_warning));
+        add(new DrawerItem(R.layout.card_list, "Contacts", R.drawable.ic_action_users));
+        add(new DrawerItem(R.layout.card_list, "Recipes", R.drawable.ic_action_list_2));
+        add(new DrawerItem(R.layout.card_list, "Reminders", R.drawable.ic_action_alarm));
     }};
 
     private int lastPosition = 0;
@@ -59,7 +59,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.frag_list_sliding_menu, container, false);
+        View view = inflater.inflate(R.layout.list_sliding_menu, container, false);
 
         // set the sliding menu header to show the current user's username and email.
         User user = UserSingleton.INSTANCE.getCurrentUser();
@@ -98,7 +98,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
             }
         });
 
-        FunDapter<DrawerItem> adapter = new FunDapter<DrawerItem>(getActivity(), drawerItems, R.layout.frag_list_item, dict);
+        FunDapter<DrawerItem> adapter = new FunDapter<DrawerItem>(getActivity(), drawerItems, R.layout.list_item, dict);
         setListAdapter(adapter);
 
         getListView().setItemChecked(0, true); // set home in sliding menu as default on start up
