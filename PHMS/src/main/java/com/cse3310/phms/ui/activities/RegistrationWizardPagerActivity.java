@@ -45,7 +45,7 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
 
         // extract all the information from the registration process and
         // use it to create a new user object.
-        PersonalInfo info = new PersonalInfo("ads", "ass")
+        PersonalInfo info = new PersonalInfo()
                 .setAge(Integer.parseInt(onGetPage("Personal Info").getData().getString(PersonalInfoPage.AGE_KEY)))
                 .setGender(PersonalInfo.Gender.valueOf(onGetPage("Personal Info").getData().getString(PersonalInfoPage.GENDER_KEY)))
                 .setWeight(Double.parseDouble(onGetPage("Personal Info").getData().getString(PersonalInfoPage.WEIGHT_KEY)))

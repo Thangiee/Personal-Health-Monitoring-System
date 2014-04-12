@@ -16,32 +16,30 @@
 
 package com.cse3310.phms.model;
 
-import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.ui.utils.UserSingleton;
 
-@Table(name = "Doctor")
-public class Doctor extends Model {
+@Table(name = "DoctorInfo")
+public class DoctorInfo extends Info {
     @Column private String hospital;
     @Column private String address;
-    @Column private Info contactInfo;
 
     /**
-     * Instantiates a new Doctor.
+     * Default constructor is required for ActiveAndroid
      */
-    public Doctor() {}
+    public DoctorInfo() {}
 
     /**
-     * Instantiates a new Doctor.
+     * Instantiates a new DoctorInfo.
      *
      * @param hospital the hospital
      * @param address the address
-     * @param contactInfo the contact info
      */
-    public Doctor(String hospital, String address, Info contactInfo) {
+    public DoctorInfo(String hospital, String address) {
         this.hospital = hospital;
         this.address = address;
-        this.contactInfo = contactInfo;
+        super.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
     /**
@@ -59,7 +57,7 @@ public class Doctor extends Model {
      * @param hospital the hospital name
      * @return the this doctor object
      */
-    public Doctor setHospital(String hospital) {
+    public DoctorInfo setHospital(String hospital) {
         this.hospital = hospital;
         return this;
     }
@@ -79,28 +77,8 @@ public class Doctor extends Model {
      * @param address the address
      * @return the this doctor object
      */
-    public Doctor setAddress(String address) {
+    public DoctorInfo setAddress(String address) {
         this.address = address;
-        return this;
-    }
-
-    /**
-     * Gets contact info.
-     *
-     * @return the contact info
-     */
-    public Info getContactInfo() {
-        return contactInfo;
-    }
-
-    /**
-     * Sets contact info.
-     *
-     * @param contactInfo the contact info
-     * @return the this doctor object
-     */
-    public Doctor setContactInfo(Info contactInfo) {
-        this.contactInfo = contactInfo;
         return this;
     }
 }

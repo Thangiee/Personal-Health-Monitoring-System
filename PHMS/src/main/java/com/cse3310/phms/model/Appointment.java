@@ -23,7 +23,7 @@ import com.cse3310.phms.model.utils.MyDateFormatter;
 
 @Table(name = "Appointment")
 public class Appointment extends Model implements Remindable{
-    @Column private Doctor doctor;
+    @Column private DoctorInfo mDoctorInfo;
     @Column private String purpose;
     @Column private long time;
 
@@ -31,11 +31,11 @@ public class Appointment extends Model implements Remindable{
     /**
      * Instantiates a new Appointment.
      *
-     * @param doctor the doctor
+     * @param doctorInfo the mDoctorInfo
      * @param time the time
      */
-    public Appointment(Doctor doctor, long time) {
-        this.doctor = doctor;
+    public Appointment(DoctorInfo doctorInfo, long time) {
+        this.mDoctorInfo = doctorInfo;
         this.time = time;
         this.purpose = "purpose not specified";
     }
@@ -43,33 +43,33 @@ public class Appointment extends Model implements Remindable{
     /**
      * Instantiates a new Appointment.
      *
-     * @param doctor the doctor
+     * @param doctorInfo the mDoctorInfo
      * @param purpose the purpose
      * @param time the time
      */
-    public Appointment(Doctor doctor, String purpose, long time) {
-        this.doctor = doctor;
+    public Appointment(DoctorInfo doctorInfo, String purpose, long time) {
+        this.mDoctorInfo = doctorInfo;
         this.purpose = purpose;
         this.time = time;
     }
 
     /**
-     * Gets doctor.
+     * Gets mDoctorInfo.
      *
-     * @return the doctor
+     * @return the mDoctorInfo
      */
-    public Doctor getDoctor() {
-        return doctor;
+    public DoctorInfo getDoctorInfo() {
+        return mDoctorInfo;
     }
 
     /**
-     * Sets doctor.
+     * Sets mDoctorInfo.
      *
-     * @param doctor the doctor
+     * @param doctorInfo the mDoctorInfo
      * @return this appointment object
      */
-    public Appointment setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public Appointment setDoctorInfo(DoctorInfo doctorInfo) {
+        this.mDoctorInfo = doctorInfo;
         return this;
     }
 
@@ -122,7 +122,7 @@ public class Appointment extends Model implements Remindable{
     public String reminderMessage() {
         return String.format(
                 "Appointment with Dr.%s at %s.\nPurpose: %s",
-                doctor.getContactInfo().getLastName(),
+                mDoctorInfo.getLastName(),
                 MyDateFormatter.formatTime(time),
                 purpose);
     }

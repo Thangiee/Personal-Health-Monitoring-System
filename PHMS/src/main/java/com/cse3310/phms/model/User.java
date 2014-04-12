@@ -19,6 +19,10 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.ui.utils.DatabaseHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "User")
 public class User extends Model {
@@ -115,5 +119,13 @@ public class User extends Model {
     public User setPersonalInfo(PersonalInfo personalInfo) {
         this.personalInfo = personalInfo;
         return this;
+    }
+
+    public List<DoctorInfo> getDoctors() {
+        return DatabaseHandler.getAllById(DoctorInfo.class, "user", this.getId());
+    }
+
+    public List<Info> getContacts() {
+        return new ArrayList<Info>();
     }
 }

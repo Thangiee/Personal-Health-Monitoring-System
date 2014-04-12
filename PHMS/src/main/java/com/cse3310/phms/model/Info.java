@@ -19,6 +19,7 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.ui.utils.UserSingleton;
 
 @Table(name = "Info")
 public class Info extends Model{
@@ -31,6 +32,7 @@ public class Info extends Model{
     private String email;
     @Column(name = "Phone")
     private String phone;
+    @Column User user;
 
     /**
      * Instantiates a new Info.
@@ -48,6 +50,7 @@ public class Info extends Model{
     public Info(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
     /**
