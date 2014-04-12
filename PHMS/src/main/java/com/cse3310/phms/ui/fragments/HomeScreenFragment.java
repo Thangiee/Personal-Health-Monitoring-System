@@ -25,6 +25,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.activeandroid.ActiveAndroid;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.Food;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.utils.UserSingleton;
@@ -87,6 +88,9 @@ public class HomeScreenFragment extends SherlockFragment{
             food.save();
             food = new Food("chicken");
             food.save();
+            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "fake");
+            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("Shit@google.com");
+            doctorInfo.save();
             ActiveAndroid.setTransactionSuccessful();
         } finally {
             ActiveAndroid.endTransaction();
