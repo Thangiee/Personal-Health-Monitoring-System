@@ -70,6 +70,13 @@ public class Events {
         }
     }
 
-    public static class SwitchDayEvent {
+    public static class SwitchDayEvent { }
+
+    public static class SwitchTabEvent {
+        public int position;
+
+        public SwitchTabEvent(int position) {
+            this.position = position;
+        }
     }
 }

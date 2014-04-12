@@ -24,7 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
+import com.cse3310.phms.ui.utils.Events;
 import com.viewpagerindicator.TabPageIndicator;
+import de.greenrobot.event.EventBus;
 
 public class TabsIndicatorFragment<T extends FragmentPagerAdapter> extends SherlockFragment {
 
@@ -45,7 +47,22 @@ public class TabsIndicatorFragment<T extends FragmentPagerAdapter> extends Sherl
 
         TabPageIndicator mIndicator = (TabPageIndicator) view.findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
+        mIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                EventBus.getDefault().postSticky(new Events.SwitchTabEvent(position));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return view;
     }
 }
