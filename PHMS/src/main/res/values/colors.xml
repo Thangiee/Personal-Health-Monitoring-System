@@ -59,4 +59,6 @@
 
     <!-- Staggered-->
     <color name="demo_card_staggered_subtitle">#66000000</color>
+
+    <color name="transparent">@android:color/transparent</color>
 </resources>
