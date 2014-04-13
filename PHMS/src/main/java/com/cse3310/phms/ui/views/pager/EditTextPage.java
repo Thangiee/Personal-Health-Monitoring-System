@@ -16,6 +16,7 @@ public class EditTextPage extends Page{
     public EditTextPage(ModelCallbacks callbacks, String title, Validator... validators) {
         super(callbacks, title);
         this.validators = validators;
+        this.setRequired(true);
     }
 
     @Override
