@@ -15,7 +15,6 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:validate="http://schemas.android.com/apk/res-auto"
               style="@style/WizardPageContainer">
 
     <TextView style="@style/WizardPageTitle"/>
@@ -32,7 +31,6 @@
 
             <com.andreabaccega.widget.FormEditText
                     android:id="@+id/frag_edit_txt_field"
-                    validate:testType="alphaNumeric"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="25"

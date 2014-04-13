@@ -38,6 +38,22 @@
                     android:value=".ui.activities.SlidingMenuActivity"/>
         </activity>
         <activity
+                android:name=".ui.activities.DoctorWizardPagerActivity"
+                android:label="@string/app_name"
+                android:noHistory="true">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.activities.SlidingMenuActivity"/>
+        </activity>
+        <activity
+                android:name=".ui.activities.ContactWizardPagerActivity"
+                android:label="@string/app_name"
+                android:noHistory="true">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.activities.SlidingMenuActivity"/>
+        </activity>
+        <activity
                 android:name=".ui.activities.SlidingMenuActivity"
                 android:launchMode="singleTop"
                 android:label="@string/app_name"/>

@@ -39,6 +39,7 @@ public class Info extends Model{
      */
     public Info() {
         super();
+        user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
     /**

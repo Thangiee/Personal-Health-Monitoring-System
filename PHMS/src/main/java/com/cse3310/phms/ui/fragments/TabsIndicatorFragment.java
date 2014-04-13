@@ -31,6 +31,7 @@ import de.greenrobot.event.EventBus;
 public class TabsIndicatorFragment<T extends FragmentPagerAdapter> extends SherlockFragment {
 
     protected T mAdapter;
+    private int mCurrentPosition;
 
     public static <T extends FragmentPagerAdapter> TabsIndicatorFragment newInstance(T adapter) {
         TabsIndicatorFragment<T> fragment = new TabsIndicatorFragment<T>();
@@ -55,6 +56,7 @@ public class TabsIndicatorFragment<T extends FragmentPagerAdapter> extends Sherl
 
             @Override
             public void onPageSelected(int position) {
+                mCurrentPosition = position;
                 EventBus.getDefault().postSticky(new Events.SwitchTabEvent(position));
             }
 
@@ -64,5 +66,9 @@ public class TabsIndicatorFragment<T extends FragmentPagerAdapter> extends Sherl
             }
         });
         return view;
+    }
+
+    public int getCurrentPosition() {
+        return mCurrentPosition;
     }
 }

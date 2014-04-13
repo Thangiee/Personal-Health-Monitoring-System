@@ -32,6 +32,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.Info;
 import com.cse3310.phms.model.User;
+import com.cse3310.phms.ui.activities.ContactWizardPagerActivity;
 import com.cse3310.phms.ui.activities.DoctorWizardPagerActivity;
 import com.cse3310.phms.ui.cards.ContactCard;
 import com.cse3310.phms.ui.cards.DoctorContactCard;
@@ -48,7 +49,10 @@ import java.util.List;
 @EFragment(R.layout.contact_screen)
 public class ContactScreenFragment extends SherlockFragment {
     private static final String[] TABS = new String[] { "DoctorInfo", "Emergency" };
+    private static final int DOC_TAB = 0;
+    private static final int EMERGENCY_TAB = 1;
     private CardListFragment_ mCardListFragment;
+    private TabsIndicatorFragment mTabsIndicatorFragment;
     private List<Card> mDoctorCardList  = new ArrayList<Card>();
     private List<Card> mContactCardList = new ArrayList<Card>();
 
@@ -63,11 +67,11 @@ public class ContactScreenFragment extends SherlockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentManager fm = getChildFragmentManager();
-        final TabsIndicatorFragment tabsIndicatorFragment = TabsIndicatorFragment.newInstance(new ContactScreenAdapter(fm));
+        mTabsIndicatorFragment = TabsIndicatorFragment.newInstance(new ContactScreenAdapter(fm));
         mCardListFragment = CardListFragment_.newInstance(mDoctorCardList, true);
 
         final FragmentTransaction transaction = fm.beginTransaction();
-        transaction.add(R.id.contact_screen_tabs_container, tabsIndicatorFragment);
+        transaction.add(R.id.contact_screen_tabs_container, mTabsIndicatorFragment);
         transaction.add(R.id.contact_screen_content_container, mCardListFragment);
         transaction.commit();
 
@@ -88,7 +92,12 @@ public class ContactScreenFragment extends SherlockFragment {
 
     @OptionsItem(R.id.add_icon)
     void menuAddContact() {
-        Intent intent = new Intent(getActivity(), DoctorWizardPagerActivity.class);
+        Intent intent;
+        if (mTabsIndicatorFragment.getCurrentPosition() == DOC_TAB)
+            intent = new Intent(getActivity(), DoctorWizardPagerActivity.class);
+        else
+            intent = new Intent(getActivity(), ContactWizardPagerActivity.class);
+
         startActivity(intent);
     }
 
@@ -125,6 +134,24 @@ public class ContactScreenFragment extends SherlockFragment {
         event.doctorContactCard.getDoctorInfo().delete();
         mDoctorCardList.remove(event.doctorContactCard);
         mCardListFragment.removeCard(event.doctorContactCard);
+        mCardListFragment.update();
+    }
+
+    public void onEvent(Events.AddContactCardEvent event) {
+        ContactCard newContactCard = new ContactCard(getActivity() ,event.contactCard.getContactInfo());
+        newContactCard.getContactInfo().save();
+
+        mContactCardList.add(event.contactCard);
+
+        mCardListFragment.clearCards();
+        mCardListFragment.addCards(mContactCardList);
+        mCardListFragment.update();
+    }
+
+    public void onEvent(Events.RemoveContactCardEvent event) {
+        event.contactCard.getContactInfo().delete();
+        mContactCardList.remove(event.contactCard);
+        mCardListFragment.removeCard(event.contactCard);
         mCardListFragment.update();
     }
 
