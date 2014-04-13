@@ -16,6 +16,7 @@
 
 package com.cse3310.phms.ui.utils;
 
+import com.cse3310.phms.ui.cards.DoctorContactCard;
 import com.cse3310.phms.ui.cards.FoodCard;
 import it.gmariotti.cardslib.library.internal.Card;
 
@@ -67,6 +68,22 @@ public class Events {
 
         public RemoveFoodCardEvent(FoodCard foodCard) {
             this.foodCard = foodCard;
+        }
+    }
+
+    public static class AddDoctorCardEvent {
+        public DoctorContactCard doctorContactCard;
+
+        public AddDoctorCardEvent(DoctorContactCard doctorContactCard) {
+            this.doctorContactCard = doctorContactCard;
+        }
+    }
+
+    public static class RemoveDoctorCardEvent {
+        public DoctorContactCard doctorContactCard;
+
+        public RemoveDoctorCardEvent(DoctorContactCard doctorContactCard) {
+            this.doctorContactCard = doctorContactCard;
         }
     }
 

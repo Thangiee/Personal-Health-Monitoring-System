@@ -171,7 +171,7 @@ public class DietScreenFragment extends SherlockFragment {
         newFood.setTime(dayIndicatorFragment.getSelectedDay().getTime());
 
         // add the food to the user's diet / save to the db
-        UserSingleton.INSTANCE.getCurrentUser().getDiet().addFood(newFood);
+        newFood.save();
 
         // add the new food card to cardList
         cardList.add(createFoodCard(newFood));

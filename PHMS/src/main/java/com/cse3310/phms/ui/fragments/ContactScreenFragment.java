@@ -16,6 +16,7 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.Info;
 import com.cse3310.phms.model.User;
+import com.cse3310.phms.ui.activities.DoctorWizardPagerActivity;
 import com.cse3310.phms.ui.cards.ContactCard;
 import com.cse3310.phms.ui.cards.DoctorContactCard;
 import com.cse3310.phms.ui.utils.Events;
@@ -38,6 +40,7 @@ import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +86,12 @@ public class ContactScreenFragment extends SherlockFragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @OptionsItem(R.id.add_icon)
+    void menuAddContact() {
+        Intent intent = new Intent(getActivity(), DoctorWizardPagerActivity.class);
+        startActivity(intent);
+    }
+
     private void populateCardLists() {
         User user = UserSingleton.INSTANCE.getCurrentUser();
         mDoctorCardList.clear();
@@ -99,10 +108,33 @@ public class ContactScreenFragment extends SherlockFragment {
     //===============================================================
     //                      EventBus Listeners
     //===============================================================
+    // ===> see DietScreenFragment's EventBus Listeners for details <===
+
+    public void onEvent(Events.AddDoctorCardEvent event) {
+        DoctorContactCard newContactCard = new DoctorContactCard(getActivity() ,event.doctorContactCard.getDoctorInfo());
+        newContactCard.getDoctorInfo().save();
+
+        mDoctorCardList.add(event.doctorContactCard);
+
+        mCardListFragment.clearCards();
+        mCardListFragment.addCards(mDoctorCardList);
+        mCardListFragment.update();
+    }
+
+    public void onEvent(Events.RemoveDoctorCardEvent event) {
+        event.doctorContactCard.getDoctorInfo().delete();
+        mDoctorCardList.remove(event.doctorContactCard);
+        mCardListFragment.removeCard(event.doctorContactCard);
+        mCardListFragment.update();
+    }
+
     public void onEvent(Events.SwitchTabEvent event) {
         populateCardLists();
 
-        mCardListFragment.clearCards();
+        if (mCardListFragment != null) {
+            mCardListFragment.clearCards();
+        }
+
         if (event.position == 0) {
             mCardListFragment.addCards(mDoctorCardList);
         } else {

@@ -43,4 +43,8 @@ public class DoctorContactCard extends Card{
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);    // click anywhere on the card to expand
     }
+
+    public DoctorInfo getDoctorInfo() {
+        return mDoctorInfo;
+    }
 }
