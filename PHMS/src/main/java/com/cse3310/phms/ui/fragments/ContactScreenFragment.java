@@ -48,7 +48,7 @@ import java.util.List;
 
 @EFragment(R.layout.contact_screen)
 public class ContactScreenFragment extends SherlockFragment {
-    private static final String[] TABS = new String[] { "DoctorInfo", "Emergency" };
+    private static final String[] TABS = new String[] { "Doctor", "Emergency" };
     private static final int DOC_TAB = 0;
     private static final int EMERGENCY_TAB = 1;
     private CardListFragment_ mCardListFragment;
