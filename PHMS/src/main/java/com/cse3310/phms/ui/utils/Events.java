@@ -17,6 +17,7 @@
 package com.cse3310.phms.ui.utils;
 
 import com.cse3310.phms.ui.cards.FoodCard;
+import com.cse3310.phms.ui.cards.MedicationCard;
 import it.gmariotti.cardslib.library.internal.Card;
 
 import java.util.Collection;
@@ -59,6 +60,22 @@ public class Events {
 
         public AddFoodCardEvent(FoodCard foodCard) {
             this.foodCard = foodCard;
+        }
+    }
+
+    public static class AddMedicationCardEvent {
+        public MedicationCard medicationCard;
+
+        public AddMedicationCardEvent(MedicationCard medicationCard) {
+            this.medicationCard = medicationCard;
+        }
+    }
+
+    public static class RemoveMedicationCardEvent {
+        public MedicationCard medicationCard;
+
+        public RemoveMedicationCardEvent(MedicationCard medicationCard) {
+            this.medicationCard = medicationCard;
         }
     }
 
