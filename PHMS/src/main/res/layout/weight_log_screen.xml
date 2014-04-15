@@ -41,12 +41,14 @@
             android:padding="8dp"
             android:id="@+id/weight_log_screen_log_btn"
             android:layout_above="@+id/textView"
-            android:layout_alignLeft="@+id/relativeLayout9"
-            android:layout_alignStart="@+id/relativeLayout9"
             android:layout_toLeftOf="@+id/textView5"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_margin="8dp"/>
 
     <TextView
             android:layout_width="fill_parent"
@@ -63,390 +65,394 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
 
-    <RelativeLayout
+    <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="vertical"
-            android:layout_below="@+id/textView"
-            android:id="@+id/relativeLayout9">
+            android:layout_below="@+id/textView">
 
         <RelativeLayout
-                android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/relativeLayout3"
-                android:layout_alignEnd="@+id/relativeLayout3"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical"
+                android:id="@+id/relativeLayout9">
 
-            <TextView
-                    android:layout_width="wrap_content"
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    style="@style/weight_log_stats_title"
-                    android:text="Current"
-                    android:id="@+id/textView2"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:id="@+id/weight_log_current"
-                    android:layout_below="@+id/textView2"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    />
+                    android:layout_alignRight="@+id/relativeLayout3"
+                    android:layout_alignEnd="@+id/relativeLayout3"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/weight_log_stats_title"
+                        android:text="Current"
+                        android:id="@+id/textView2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:id="@+id/weight_log_current"
+                        android:layout_below="@+id/textView2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="lbs"
+                        android:id="@+id/textView4"
+                        android:layout_alignBaseline="@+id/weight_log_current"
+                        android:layout_alignBottom="@+id/weight_log_current"
+                        android:layout_toRightOf="@+id/weight_log_current"/>
+
+            </RelativeLayout>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="lbs"
-                    android:id="@+id/textView4"
-                    android:layout_alignBaseline="@+id/weight_log_current"
-                    android:layout_alignBottom="@+id/weight_log_current"
-                    android:layout_toRightOf="@+id/weight_log_current"/>
-
-        </RelativeLayout>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/center_anchor"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"/>
-
-        <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout2"
-                android:layout_alignParentTop="true"
-                android:layout_alignLeft="@+id/center_anchor"
-                android:layout_alignStart="@+id/center_anchor"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-            <TextView
-                    style="@style/weight_log_stats_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Target"
-                    android:id="@+id/lbl"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
+                    android:id="@+id/center_anchor"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
+                    android:layout_centerHorizontal="true"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="N/A"
-                    android:id="@+id/weight_log_target"
-                    android:layout_below="@+id/lbl"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout2"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignLeft="@+id/center_anchor"
+                    android:layout_alignStart="@+id/center_anchor"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        style="@style/weight_log_stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Target"
+                        android:id="@+id/lbl"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="N/A"
+                        android:id="@+id/weight_log_target"
+                        android:layout_below="@+id/lbl"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="lbs"
+                        android:id="@+id/textView7"
+                        android:layout_alignBaseline="@+id/weight_log_target"
+                        android:layout_alignBottom="@+id/weight_log_target"
+                        android:layout_toRightOf="@+id/weight_log_target"/>
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    style="@style/divider"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/divider"/>
+
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout3"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_toLeftOf="@+id/relativeLayout2"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        style="@style/weight_log_stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BMI"
+                        android:id="@+id/textView8"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:id="@+id/weight_log_bmi"
+                        android:layout_below="@+id/textView8"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout4"
+                    android:layout_below="@+id/relativeLayout2"
+                    android:layout_alignLeft="@+id/relativeLayout2"
+                    android:layout_alignStart="@+id/relativeLayout2"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        style="@style/weight_log_stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight Status "
+                        android:id="@+id/textView11"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="Normal"
+                        android:id="@+id/weight_log_status"
+                        android:layout_below="@+id/textView11"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    style="@style/divider"
+                    android:id="@+id/divider2"
+                    android:layout_below="@+id/relativeLayout3"
+                    android:layout_alignRight="@+id/relativeLayout4"
+                    android:layout_alignEnd="@+id/relativeLayout4"/>
+
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout5"
+                    android:layout_alignTop="@+id/divider2"
+                    android:layout_toLeftOf="@+id/relativeLayout4"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        style="@style/weight_log_stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Min Weight"
+                        android:id="@+id/textView14"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:id="@+id/weight_log_min_weight"
+                        android:layout_below="@+id/textView14"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="lbs"
+                        android:id="@+id/textView16"
+                        android:layout_alignBaseline="@+id/weight_log_min_weight"
+                        android:layout_alignBottom="@+id/weight_log_min_weight"
+                        android:layout_toRightOf="@+id/weight_log_min_weight"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout6"
+                    android:layout_alignTop="@+id/divider2"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignLeft="@+id/relativeLayout4"
+                    android:layout_alignStart="@+id/relativeLayout4"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        style="@style/weight_log_stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Max Weight"
+                        android:id="@+id/textView17"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:id="@+id/weight_log_max_weight"
+                        android:layout_below="@+id/textView17"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="lbs"
+                        android:id="@+id/textView19"
+                        android:layout_alignBaseline="@+id/weight_log_max_weight"
+                        android:layout_alignBottom="@+id/weight_log_max_weight"
+                        android:layout_toRightOf="@+id/weight_log_max_weight"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout7"
+                    android:layout_below="@+id/relativeLayout6"
+                    android:layout_alignLeft="@+id/relativeLayout6"
+                    android:layout_alignStart="@+id/relativeLayout6"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        style="@style/weight_log_stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last 30 Days"
+                        android:id="@+id/textView20"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:id="@+id/weight_log_last_30_days"
+                        android:layout_below="@+id/textView20"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="lbs"
+                        android:id="@+id/textView22"
+                        android:layout_alignBaseline="@+id/weight_log_last_30_days"
+                        android:layout_alignBottom="@+id/weight_log_last_30_days"
+                        android:layout_toRightOf="@+id/weight_log_last_30_days"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="32dp"
+                    android:id="@+id/relativeLayout8"
+                    android:layout_below="@+id/relativeLayout5"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignRight="@+id/center_anchor"
+                    android:layout_alignEnd="@+id/center_anchor"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                <TextView
+                        style="@style/weight_log_stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last 7 Days"
+                        android:id="@+id/textView23"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:id="@+id/weight_log_last_7_days"
+                        android:layout_below="@+id/textView23"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="lbs"
+                        android:id="@+id/textView25"
+                        android:layout_alignBaseline="@+id/weight_log_last_7_days"
+                        android:layout_alignBottom="@+id/weight_log_last_7_days"
+                        android:layout_toRightOf="@+id/weight_log_last_7_days"/>
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    style="@style/divider"
+                    android:id="@+id/divider3"
+                    android:layout_below="@+id/relativeLayout7"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="lbs"
-                    android:id="@+id/textView7"
-                    android:layout_alignBaseline="@+id/weight_log_target"
-                    android:layout_alignBottom="@+id/weight_log_target"
-                    android:layout_toRightOf="@+id/weight_log_target"/>
         </RelativeLayout>
-
-        <View
-                android:layout_width="fill_parent"
-                style="@style/divider"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/divider"/>
-
-        <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout3"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_toLeftOf="@+id/relativeLayout2"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-            <TextView
-                    style="@style/weight_log_stats_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="BMI"
-                    android:id="@+id/textView8"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:id="@+id/weight_log_bmi"
-                    android:layout_below="@+id/textView8"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout4"
-                android:layout_below="@+id/relativeLayout2"
-                android:layout_alignLeft="@+id/relativeLayout2"
-                android:layout_alignStart="@+id/relativeLayout2"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-            <TextView
-                    style="@style/weight_log_stats_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Weight Status "
-                    android:id="@+id/textView11"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="Normal"
-                    android:id="@+id/weight_log_status"
-                    android:layout_below="@+id/textView11"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-        </RelativeLayout>
-
-        <View
-                android:layout_width="fill_parent"
-                style="@style/divider"
-                android:id="@+id/divider2"
-                android:layout_below="@+id/relativeLayout3"
-                android:layout_alignRight="@+id/relativeLayout4"
-                android:layout_alignEnd="@+id/relativeLayout4"/>
-
-        <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout5"
-                android:layout_alignTop="@+id/divider2"
-                android:layout_toLeftOf="@+id/relativeLayout4"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-            <TextView
-                    style="@style/weight_log_stats_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Min Weight"
-                    android:id="@+id/textView14"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:id="@+id/weight_log_min_weight"
-                    android:layout_below="@+id/textView14"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="lbs"
-                    android:id="@+id/textView16"
-                    android:layout_alignBaseline="@+id/weight_log_min_weight"
-                    android:layout_alignBottom="@+id/weight_log_min_weight"
-                    android:layout_toRightOf="@+id/weight_log_min_weight"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout6"
-                android:layout_alignTop="@+id/divider2"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignLeft="@+id/relativeLayout4"
-                android:layout_alignStart="@+id/relativeLayout4"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-            <TextView
-                    style="@style/weight_log_stats_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Max Weight"
-                    android:id="@+id/textView17"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:id="@+id/weight_log_max_weight"
-                    android:layout_below="@+id/textView17"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="lbs"
-                    android:id="@+id/textView19"
-                    android:layout_alignBaseline="@+id/weight_log_max_weight"
-                    android:layout_alignBottom="@+id/weight_log_max_weight"
-                    android:layout_toRightOf="@+id/weight_log_max_weight"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout7"
-                android:layout_below="@+id/relativeLayout6"
-                android:layout_alignLeft="@+id/relativeLayout6"
-                android:layout_alignStart="@+id/relativeLayout6"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-            <TextView
-                    style="@style/weight_log_stats_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Last 30 Days"
-                    android:id="@+id/textView20"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:id="@+id/weight_log_last_30_days"
-                    android:layout_below="@+id/textView20"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="lbs"
-                    android:id="@+id/textView22"
-                    android:layout_alignBaseline="@+id/weight_log_last_30_days"
-                    android:layout_alignBottom="@+id/weight_log_last_30_days"
-                    android:layout_toRightOf="@+id/weight_log_last_30_days"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:id="@+id/relativeLayout8"
-                android:layout_below="@+id/relativeLayout5"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/center_anchor"
-                android:layout_alignEnd="@+id/center_anchor"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-            <TextView
-                    style="@style/weight_log_stats_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Last 7 Days"
-                    android:id="@+id/textView23"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:id="@+id/weight_log_last_7_days"
-                    android:layout_below="@+id/textView23"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="lbs"
-                    android:id="@+id/textView25"
-                    android:layout_alignBaseline="@+id/weight_log_last_7_days"
-                    android:layout_alignBottom="@+id/weight_log_last_7_days"
-                    android:layout_toRightOf="@+id/weight_log_last_7_days"/>
-        </RelativeLayout>
-
-        <View
-                android:layout_width="fill_parent"
-                style="@style/divider"
-                android:id="@+id/divider3"
-                android:layout_below="@+id/relativeLayout7"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
-    </RelativeLayout>
+    </ScrollView>
 
     <TextView
             style="@style/text_view_btn"
@@ -457,9 +463,10 @@
             android:id="@+id/weight_log_screen_target_btn"
             android:layout_alignTop="@+id/weight_log_screen_log_btn"
             android:layout_toRightOf="@+id/textView5"
-            android:layout_alignRight="@+id/relativeLayout9"
-            android:layout_alignEnd="@+id/relativeLayout9"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="8dp"/>
 
     <TextView
             android:layout_width="wrap_content"
