@@ -83,7 +83,7 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/selectable_item_background"
             android:text="New Button"
             android:src="@drawable/ic_device_access_call"
             android:id="@+id/phone_img_btn"
@@ -95,7 +95,7 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/selectable_item_background"
             android:text="New Button"
             android:src="@drawable/ic_social_chat"
             android:id="@+id/chat_img_btn"
@@ -108,7 +108,7 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/selectable_item_background"
             android:text="New Button"
             android:src="@drawable/ic_content_edit"
             android:id="@+id/edit_img_btn"
@@ -119,7 +119,7 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/selectable_item_background"
             android:text="New Button"
             android:src="@drawable/ic_content_discard"
             android:id="@+id/trash_img_btn"
