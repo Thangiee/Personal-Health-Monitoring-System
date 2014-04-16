@@ -130,6 +130,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 fragment = new WeightLogScreenFragment_();
                 break;
             case R.layout.contact_screen:
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Contacts"));
                 fragment = new ContactScreenFragment_();
                 break;
         }
