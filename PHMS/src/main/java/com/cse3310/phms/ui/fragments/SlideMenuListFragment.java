@@ -132,6 +132,9 @@ public class SlideMenuListFragment extends SherlockListFragment {
             case R.layout.medication_screen:
                 fragment = new MedicationScreenFragment_();
                 break;
+            case R.layout.appointment_screen:
+                fragment = new AppointmentScreenFragment_();
+                break;
         }
 
         // post an event to change the title according to the screen
