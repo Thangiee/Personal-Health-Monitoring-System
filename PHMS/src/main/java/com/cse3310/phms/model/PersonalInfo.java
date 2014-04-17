@@ -23,14 +23,10 @@ import com.activeandroid.annotation.Table;
 public class PersonalInfo extends Info{
     public enum Gender { MALE, FEMALE }
 
-    @Column(name = "Gender")
-    private String gender;
-    @Column(name = "Age")
-    private int age;
-    @Column(name = "weight")
-    private double weight;
-    @Column(name = "height")
-    private double height;
+    @Column private String gender;
+    @Column private int age;
+    @Column private double weight;
+    @Column private double height;
 
     /**
      * Instantiates a new Personal info.

@@ -27,8 +27,8 @@ import java.util.Date;
 @Table(name = "WeightLog")
 public class WeightLog extends Model{
     @Column private double weight;
-    @Column private User user;
     @Column private long time;
+    @Column private User user; // used as a foreign key
 
     /**
      * Instantiates a new Weight log.

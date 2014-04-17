@@ -20,13 +20,18 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.cse3310.phms.model.utils.MyDateFormatter;
+import com.cse3310.phms.ui.utils.UserSingleton;
 
 @Table(name = "Appointment")
 public class Appointment extends Model implements Remindable{
     @Column private DoctorInfo mDoctorInfo;
     @Column private String purpose;
     @Column private long time;
+    @Column private User user;  // used as a foreign key
 
+    // require
+    public Appointment() {
+    }
 
     /**
      * Instantiates a new Appointment.
@@ -35,9 +40,7 @@ public class Appointment extends Model implements Remindable{
      * @param time the time
      */
     public Appointment(DoctorInfo doctorInfo, long time) {
-        this.mDoctorInfo = doctorInfo;
-        this.time = time;
-        this.purpose = "purpose not specified";
+        this(doctorInfo, time, "purpose not specified");
     }
 
     /**
@@ -47,10 +50,11 @@ public class Appointment extends Model implements Remindable{
      * @param purpose the purpose
      * @param time the time
      */
-    public Appointment(DoctorInfo doctorInfo, String purpose, long time) {
+    public Appointment(DoctorInfo doctorInfo, long time, String purpose) {
         this.mDoctorInfo = doctorInfo;
         this.purpose = purpose;
         this.time = time;
+        user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
     /**

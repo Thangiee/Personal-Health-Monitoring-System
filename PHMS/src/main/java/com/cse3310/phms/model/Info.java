@@ -24,15 +24,11 @@ import com.cse3310.phms.ui.utils.UserSingleton;
 @Table(name = "Info")
 public class Info extends Model{
 
-    @Column(name = "FirstName")
-    private String firstName;
-    @Column(name = "LastName")
-    private String lastName;
-    @Column(name = "Email")
-    private String email;
-    @Column(name = "Phone")
-    private String phone;
-    @Column User user;
+    @Column private String firstName;
+    @Column private String lastName;
+    @Column private String email;
+    @Column private String phone;
+    @Column protected User user; // used as a foreign key
 
     /**
      * Instantiates a new Info.
