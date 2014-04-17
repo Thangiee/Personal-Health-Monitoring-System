@@ -43,11 +43,11 @@ import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // list of items to be display in the sliding menu
-        add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
+        add(new DrawerItem(R.layout.home_screen, "PHMS", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
         add(new DrawerItem(R.layout.weight_log_screen, "Weight Logs", R.drawable.ic_action_line_chart));
         add(new DrawerItem(R.layout.medication_screen, "Medication", R.drawable.ic_action_pill));
-        add(new DrawerItem(R.layout.card_list, "Appointment", R.drawable.ic_action_calendar_day));
+        add(new DrawerItem(R.layout.appointment_screen, "Appointment", R.drawable.ic_action_calendar_day));
         add(new DrawerItem(R.layout.card_list, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
         add(new DrawerItem(R.layout.card_list, "Recipes", R.drawable.ic_action_list_2));
@@ -118,26 +118,24 @@ public class SlideMenuListFragment extends SherlockListFragment {
         // decide which screen to be switch to base on drawer item the user clicked
         switch (drawerItems.get(position).layoutId) {
             case R.layout.home_screen:
-                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS")); // post an event to change the title
                 fragment = new HomeScreenFragment_();
                 break;
             case R.layout.diet_screen:
-                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Diet"));
                 fragment = new DietScreenFragment_();
                 break;
             case R.layout.weight_log_screen:
-                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Weight Log"));
                 fragment = new WeightLogScreenFragment_();
                 break;
             case R.layout.contact_screen:
-                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Contacts"));
                 fragment = new ContactScreenFragment_();
                 break;
             case R.layout.medication_screen:
-                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Medication"));
                 fragment = new MedicationScreenFragment_();
                 break;
         }
+
+        // post an event to change the title according to the screen
+        EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent(drawerItems.get(position).title));
 
         // if the screen to switch to is the same as the current screen,
         // do nothing/don't recreate that screen.

@@ -40,7 +40,7 @@ public class CalendarPickerDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calendar_picker);
+        setContentView(R.layout.dialog_calendar_picker);
         setTitle("Pick a Date");
 
         TextView doneTextView = (TextView) findViewById(R.id.calendar_picker_done_tv_btn);
