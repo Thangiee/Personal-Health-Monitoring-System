@@ -46,16 +46,18 @@
     </style>
 
     <style name="Now_extras.card_expand_inner_layout.light_gray.bold">
-        <item name="android:background">#4A4B4D</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Now_extras.card_expand_inner_layout.dark">
-        <item name="android:background">#4A4B4D</item>
+        <item name="android:background">@drawable/gray_stripe_pattern</item>
         <item name="android:textColor">#FFF</item>
     </style>
 
-    <style name="Now_extras.card_expand_inner_layout.dark.bold" parent="@style/Now_extras.card_expand_inner_layout.dark">
+    <style name="Now_extras.card_expand_inner_layout.white">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">#FFFF</item>
         <item name="android:textStyle">bold</item>
     </style>
 

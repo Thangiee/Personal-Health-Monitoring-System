@@ -102,7 +102,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Now_extras.card_expand_inner_layout.dark.bold"
+                    style="@style/Now_extras.card_expand_inner_layout.white"
                     android:text="N/a"
                     android:id="@+id/doctor_card_expand_phone"
                     android:paddingBottom="5dp"
@@ -130,7 +130,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Now_extras.card_expand_inner_layout.dark.bold"
+                    style="@style/Now_extras.card_expand_inner_layout.white"
                     android:text="N/a"
                     android:id="@+id/doctor_card_expand_email"
                     android:paddingBottom="5dp"
@@ -157,7 +157,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Now_extras.card_expand_inner_layout.dark.bold"
+                    style="@style/Now_extras.card_expand_inner_layout.white"
                     android:text="N/a"
                     android:id="@+id/doctor_card_expand_hospital"
                     android:paddingBottom="5dp"
@@ -184,7 +184,7 @@
                     android:gravity="right"/>
 
             <TextView
-                    style="@style/Now_extras.card_expand_inner_layout.dark.bold"
+                    style="@style/Now_extras.card_expand_inner_layout.white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="N/a"

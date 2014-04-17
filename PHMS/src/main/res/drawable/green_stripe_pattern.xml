@@ -3,4 +3,6 @@
 <bitmap
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:src="@drawable/green_stripe"
-        android:tileMode="repeat"/>
+        android:tileMode="repeat"
+        android:dither="true"
+        android:antialias="true"/>

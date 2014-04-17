@@ -16,12 +16,9 @@
   ~ limitations under the License.
   -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-          android:exitFadeDuration="@android:integer/config_mediumAnimTime"
-          android:enterFadeDuration="@android:integer/config_mediumAnimTime">
-
-    <item android:state_activated="true" android:drawable="@drawable/green_stripe_pattern"/>
-    <item android:state_selected="true" android:drawable="@android:color/holo_red_light"/>
-    <item android:state_pressed="true" android:drawable="@android:color/holo_green_light"/>
-    <item android:drawable="@color/default_color"/>
-</selector>
+<bitmap
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:src="@drawable/gray_stripe"
+        android:tileMode="repeat"
+        android:dither="true"
+        android:antialias="true"/>
