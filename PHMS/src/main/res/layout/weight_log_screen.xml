@@ -53,7 +53,7 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/green_stripe_pattern"
+            android:background="@color/my_app_green"
             android:textColor="@color/default_color"
             android:text="Statistics"
             android:textSize="16sp"
