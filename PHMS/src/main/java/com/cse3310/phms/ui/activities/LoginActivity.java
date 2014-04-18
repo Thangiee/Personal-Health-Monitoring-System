@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
+import android.view.Window;
 import android.widget.Button;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
@@ -28,15 +29,13 @@ import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
 import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.*;
 
 /**
  * See Android Annotations for writing less code
  * https://github.com/excilys/androidannotations/wiki#introduction
  */
+@WindowFeature({ Window.FEATURE_NO_TITLE, Window.FEATURE_INDETERMINATE_PROGRESS })
 @EActivity(R.layout.login_screen)   // set the activity layout
 public class LoginActivity extends Activity {
 
@@ -48,6 +47,8 @@ public class LoginActivity extends Activity {
 
     @ViewById(R.id.act_login_screen_btn_login)
     Button mLoginButton;
+
+
 
     @AfterViews
     void onAfterViews() {
@@ -69,6 +70,8 @@ public class LoginActivity extends Activity {
             alertLoginFailed();
         }
     }
+
+
 
     @Click(R.id.act_login_screen_tv_sign_up)
     void clickedSignUpTextView() {
