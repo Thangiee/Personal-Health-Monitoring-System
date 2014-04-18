@@ -73,6 +73,15 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.activities.SlidingMenuActivity"/>
         </activity>
+        <activity
+                android:name=".ui.activities.AddAppointmentActivity_"
+                android:launchMode="singleTop"
+                android:windowSoftInputMode="adjustPan"
+                android:label="Add Food Intake">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.activities.SlidingMenuActivity"/>
+        </activity>
     </application>
 
 </manifest>
