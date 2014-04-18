@@ -25,6 +25,7 @@ import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.utils.MyDateFormatter;
 import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 
 public class AppointmentCard extends Card{
 
@@ -33,6 +34,7 @@ public class AppointmentCard extends Card{
     public AppointmentCard(Context context, Appointment appointment) {
         super(context, R.layout.card_inner_appointment);
         mAppointment = appointment;
+        addCardExpand(new TextAreaCardExpand(context, mAppointment.getPurpose()));
     }
 
     @Override
@@ -57,6 +59,9 @@ public class AppointmentCard extends Card{
 
         TextView locationTextView = (TextView) view.findViewById(R.id.appointment_card_location);
         locationTextView.setText(location);
+
+        ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
+        setViewToClickToExpand(viewToClickToExpand);    // click anywhere on the card to expand
     }
 
     public Appointment getAppointment() {
