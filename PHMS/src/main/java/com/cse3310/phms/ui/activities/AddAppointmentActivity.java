@@ -16,21 +16,24 @@
 
 package com.cse3310.phms.ui.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.Appointment;
+import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.utils.MyDateFormatter;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
+import com.cse3310.phms.ui.utils.UserSingleton;
+import org.androidannotations.annotations.*;
 
 import java.util.Date;
+import java.util.List;
 
 @EActivity(R.layout.add_appointment_form)
 public class AddAppointmentActivity extends SherlockFragmentActivity {
@@ -39,7 +42,9 @@ public class AddAppointmentActivity extends SherlockFragmentActivity {
     @ViewById(R.id.add_appointment_doc_Phone)   FormEditText mPhoneEditText;
     @ViewById(R.id.add_appointment_location)    FormEditText mLocationEditText;
     @ViewById(R.id.add_appointment_time)        FormEditText mTimeEditText;
+    @ViewById(R.id.add_appointment_purpose)     EditText mPurposeEditText;
 
+    private DoctorInfo mSelectedDoctor;
     private Date mSelectedDate;
 
     @Override
@@ -64,18 +69,58 @@ public class AddAppointmentActivity extends SherlockFragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        getSupportMenuInflater().inflate(R.menu.save_menu, menu);
+        return true;
     }
 
     @Click(R.id.add_appointment_select_btn)
     void handleSelectButtonClick() {
-        Toast.makeText(this, ":)", Toast.LENGTH_SHORT).show();
+        final List<DoctorInfo> doctorInfoList = UserSingleton.INSTANCE.getCurrentUser().getDoctors();
+        final CharSequence[] items = new CharSequence[doctorInfoList.size()];
+
+        // get all of the user's doctor name
+        int i = 0;
+        for (DoctorInfo doctorInfo : doctorInfoList) {
+            items[i++] = doctorInfo.getFullName();
+        }
+
+        // create a dialog with doctor names
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose a Doctor");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                // update the views with the info from the selected doctor from the dialog
+                mSelectedDoctor = doctorInfoList.get(item);
+                updateAppointmentViews(mSelectedDoctor);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
-    @Click(android.R.id.home)
+    @OptionsItem(android.R.id.home)
     void handleHomeButtonClick() {
-        Toast.makeText(this, "up", Toast.LENGTH_SHORT).show();
         NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
     }
 
+    @OptionsItem(R.id.save_icon)
+    void handleSaveIconClick() {
+        if (mSelectedDoctor != null) {
+            Appointment appointment = new Appointment();
+            appointment.setDoctorInfo(mSelectedDoctor)
+                    .setTime(mSelectedDate.getTime())
+                    .setPurpose(mPurposeEditText.getText().toString());
+
+            appointment.save(); // save to DB
+            finish(); // close the activity
+        }
+    }
+
+    private void updateAppointmentViews(DoctorInfo doctorInfo) {
+        mNameEditText.setText(doctorInfo.getFullName());
+        mPhoneEditText.setText(doctorInfo.getPhone());
+
+        String location = doctorInfo.getHospital() + " - " + doctorInfo.getAddress();
+        mLocationEditText.setText(location);
+    }
 }

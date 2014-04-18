@@ -89,6 +89,15 @@ public class Info extends Model{
     }
 
     /**
+     * Gets full name.
+     *
+     * @return the first and last name.
+     */
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    /**
      * Gets email.
      *
      * @return the email
