@@ -50,7 +50,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.card_list, "Appointment", R.drawable.ic_action_calendar_day));
         add(new DrawerItem(R.layout.card_list, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
-        add(new DrawerItem(R.layout.card_list, "Recipes", R.drawable.ic_action_list_2));
+        add(new DrawerItem(R.layout.estorage_screen, "eStorage", R.drawable.ic_action_list_2));
         add(new DrawerItem(R.layout.card_list, "Reminders", R.drawable.ic_action_alarm));
     }};
 
@@ -131,6 +131,12 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 break;
             case R.layout.contact_screen:
                 fragment = new ContactScreenFragment_();
+                break;
+
+            case R.layout.estorage_screen:
+               // Toast.makeText(getActivity(),"You clicked Recipe", Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("eStorage"));
+                fragment = new EStorageFragment_();
                 break;
         }
 

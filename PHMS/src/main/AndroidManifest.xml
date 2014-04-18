@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.cse3310.phms">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:allowBackup="true"
             android:name="com.activeandroid.app.Application"
@@ -57,6 +59,9 @@
                 android:name=".ui.activities.SlidingMenuActivity"
                 android:launchMode="singleTop"
                 android:label="@string/app_name"/>
+            android:name="com.cse3310.phms.ui.activities.SlidingMenuActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop" />
         <activity
                 android:name=".ui.activities.SearchCardsActivity"
                 android:label="Search"
@@ -73,6 +78,24 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.activities.SlidingMenuActivity"/>
         </activity>
+        <activity
+            android:name="com.cse3310.phms.ui.activities.WebViewActivity"
+            android:label="@string/title_activity_web_view"
+            android:noHistory="true">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.SlidingMenuActivity" />
+        </activity>
+        <activity
+                android:name=".ui.activities.UrlWizardPagerActivity"
+                android:label="@string/app_name"
+                android:noHistory="true">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.activities.SlidingMenuActivity"/>
+        </activity>
+
     </application>
 
 </manifest>

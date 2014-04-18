@@ -19,6 +19,7 @@ package com.cse3310.phms.ui.utils;
 import com.cse3310.phms.ui.cards.ContactCard;
 import com.cse3310.phms.ui.cards.DoctorContactCard;
 import com.cse3310.phms.ui.cards.FoodCard;
+import com.cse3310.phms.ui.cards.UrlCard;
 import it.gmariotti.cardslib.library.internal.Card;
 
 import java.util.Collection;
@@ -101,6 +102,20 @@ public class Events {
 
         public RemoveContactCardEvent(ContactCard contactCard) {
             this.contactCard = contactCard;
+        }
+    }
+    public static class AddUrlCardEvent {
+        public UrlCard urlCard;
+
+        public AddUrlCardEvent(UrlCard urlCard) {
+            this.urlCard = urlCard;
+        }
+    }
+    public static class RemoveUrlCardEvent {
+        public UrlCard urlCard;
+
+        public RemoveUrlCardEvent(UrlCard urlCard) {
+            this.urlCard = urlCard;
         }
     }
 
