@@ -118,12 +118,15 @@ public class SlideMenuListFragment extends SherlockListFragment {
         // decide which screen to be switch to base on drawer item the user clicked
         switch (drawerItems.get(position).layoutId) {
             case R.layout.home_screen:
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("PHMS")); // post an event to change the title
                 fragment = new HomeScreenFragment_();
                 break;
             case R.layout.diet_screen:
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Diet"));
                 fragment = new DietScreenFragment_();
                 break;
             case R.layout.weight_log_screen:
+                EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent("Weight Log"));
                 fragment = new WeightLogScreenFragment_();
                 break;
             case R.layout.contact_screen:

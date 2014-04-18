@@ -75,4 +75,13 @@ public class CalendarPickerDialog extends Dialog {
         this.minDate = minDate;
         this.maxDate = maxDate;
     }
+
+    /**
+     * Created by Zach on 4/17/2014.
+     */
+    public static class MedicationWizardModel {
+
+
+
+    }
 }

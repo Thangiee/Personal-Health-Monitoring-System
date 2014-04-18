@@ -20,7 +20,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
-                android:text="      Number of Pills:"
+                android:text="      Dosage:"
                 android:id="@+id/frag_pills_expand_lbl"
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"

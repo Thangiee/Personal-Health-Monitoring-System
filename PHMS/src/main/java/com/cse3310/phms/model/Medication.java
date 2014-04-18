@@ -17,10 +17,17 @@
 package com.cse3310.phms.model;
 
 import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = "Medication")
 public class Medication extends Model implements Remindable, Notifiable{
+
+    @Column private String medicationName;
+    @Column private int dosage;
+
+
+
     @Override
     public long reminderTime() {
         return 0;
@@ -29,5 +36,13 @@ public class Medication extends Model implements Remindable, Notifiable{
     @Override
     public String reminderMessage() {
         return null;
+    }
+
+    public String getMedicationName(){
+        return this.medicationName;
+    }
+
+    public int getDosage(){
+        return this.dosage;
     }
 }
