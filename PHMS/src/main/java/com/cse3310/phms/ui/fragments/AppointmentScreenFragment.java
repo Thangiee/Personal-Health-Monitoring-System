@@ -17,21 +17,31 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
+import com.cse3310.phms.model.Appointment;
+import com.cse3310.phms.ui.activities.AddAppointmentActivity_;
+import com.cse3310.phms.ui.cards.AppointmentCard;
+import com.cse3310.phms.ui.utils.DatabaseHandler;
+import com.cse3310.phms.ui.views.CardListDialogFragment_;
 import com.squareup.timessquare.CalendarPickerView;
+import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
+import org.apache.commons.lang.time.DateUtils;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 @EFragment(R.layout.appointment_screen)
-public class AppointmentScreenFragment extends SherlockFragment{
+public class AppointmentScreenFragment extends SherlockFragment implements CalendarPickerView.OnDateSelectedListener {
+    private boolean isAddMode = false;
+
     @ViewById(R.id.calendar_view)
     CalendarPickerView mCalendarPickerView;
 
@@ -44,27 +54,63 @@ public class AppointmentScreenFragment extends SherlockFragment{
     @AfterViews
     void onSetupCalendarPickerView() {
         Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
+        nextYear.add(Calendar.MONTH, 2);
+
+        Calendar minDate = Calendar.getInstance();
+        minDate.add(Calendar.MONTH, -2);
 
         Date today = new Date();
-        mCalendarPickerView.init(today, nextYear.getTime()).withSelectedDate(today);
-        mCalendarPickerView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(Date date) {
-                Toast.makeText(getActivity(), date.toString(), Toast.LENGTH_SHORT).show();
-            }
+        mCalendarPickerView.init(minDate.getTime(), nextYear.getTime()).withSelectedDate(today);
+        mCalendarPickerView.setOnDateSelectedListener(this);
 
-            @Override
-            public void onDateUnselected(Date date) {
+        Set<Date> dates = new HashSet<Date>();
+        Log.d("aaaaaaaa", "" + dates.size());
 
-            }
-        });
+        for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
+            dates.add(new Date(appointment.getTime()));
+        }
+
+        mCalendarPickerView.highlightDates(dates);
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.add_menu, menu);
         inflater.inflate(R.menu.overflow_menu, menu);
+    }
+
+    @OptionsItem(R.id.add_icon)
+    void menuAddAppointment() {
+        Toast.makeText(getActivity(), "Select a date to add a new appointment.", Toast.LENGTH_LONG).show();
+        isAddMode = true;
+    }
+
+    @Override
+    public void onDateSelected(Date date) {
+        if (isAddMode) {
+            AddAppointmentActivity_.intent(getActivity()).start();
+            isAddMode = false;
+        } else {
+            final List<Card> cardList = new ArrayList<Card>();
+            cardList.clear();
+
+            for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
+                if (DateUtils.isSameDay(date, new Date(appointment.getTime()))) {
+                    cardList.add(new AppointmentCard(getActivity(), appointment));
+                }
+            }
+
+            if (!cardList.isEmpty()) {
+                CardListDialogFragment_.newInstance(cardList).show(getFragmentManager(), "tag");
+            }
+        }
+    }
+
+    @Override
+    public void onDateUnselected(Date date) {
+
     }
 }

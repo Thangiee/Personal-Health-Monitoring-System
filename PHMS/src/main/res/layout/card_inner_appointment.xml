@@ -22,8 +22,8 @@
               android:layout_height="match_parent">
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_action_user_blue"
             android:id="@+id/imageView"
             android:layout_alignParentTop="true"
@@ -31,8 +31,8 @@
             android:layout_alignParentStart="true"/>
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_action_phone_blue"
             android:id="@+id/imageView1"
             android:layout_below="@+id/imageView"
@@ -40,8 +40,8 @@
             android:layout_alignParentStart="true"/>
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_action_location_blue"
             android:id="@+id/imageView2"
             android:layout_below="@+id/imageView1"
@@ -49,8 +49,8 @@
             android:layout_alignParentStart="true"/>
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_action_clock_blue"
             android:id="@+id/imageView3"
             android:layout_below="@+id/imageView2"
@@ -60,41 +60,37 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/appointment_card_name"
             android:layout_alignBottom="@+id/imageView"
             android:layout_toRightOf="@+id/imageView"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="4dp"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/appointment_card_phone"
             android:layout_above="@+id/imageView2"
             android:layout_toRightOf="@+id/imageView1"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="4dp"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/appointment_card_location"
             android:layout_alignBottom="@+id/imageView2"
             android:layout_toRightOf="@+id/imageView2"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="4dp"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/appointment_card_time"
             android:layout_alignBottom="@+id/imageView3"
             android:layout_toRightOf="@+id/imageView3"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="4dp"/>
 
 </RelativeLayout>
