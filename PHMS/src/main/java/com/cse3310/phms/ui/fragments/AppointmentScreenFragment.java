@@ -16,6 +16,7 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -91,7 +92,10 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
     @Override
     public void onDateSelected(Date date) {
         if (isAddMode) {
-            AddAppointmentActivity_.intent(getActivity()).start();
+            Intent intent = new Intent(getActivity(), AddAppointmentActivity_.class);
+            intent.putExtra("date", date);
+            startActivity(intent);
+
             isAddMode = false;
         } else {
             final List<Card> cardList = new ArrayList<Card>();

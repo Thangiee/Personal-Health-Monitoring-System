@@ -77,7 +77,7 @@
     <EditText
             android:id="@+id/add_appointment_purpose"
             android:descendantFocusability="beforeDescendants"
-            android:inputType="textMultiLine|textAutoComplete"
+            android:inputType="textMultiLine|textCapWords"
             android:lines="8"
             android:minLines="6"
             android:gravity="top|left"
