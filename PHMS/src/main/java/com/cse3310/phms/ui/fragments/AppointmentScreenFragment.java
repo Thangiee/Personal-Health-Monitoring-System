@@ -30,10 +30,7 @@ import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.views.CardListDialogFragment_;
 import com.squareup.timessquare.CalendarPickerView;
 import it.gmariotti.cardslib.library.internal.Card;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.*;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.util.*;
@@ -41,6 +38,7 @@ import java.util.*;
 @EFragment(R.layout.appointment_screen)
 public class AppointmentScreenFragment extends SherlockFragment implements CalendarPickerView.OnDateSelectedListener {
     private boolean isAddMode = false;
+    private Calendar mSelectedMonth;
 
     @ViewById(R.id.calendar_view)
     CalendarPickerView mCalendarPickerView;
@@ -49,35 +47,13 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-    }
 
-    @AfterViews
-    void onSetupCalendarPickerView() {
-
+        mSelectedMonth = Calendar.getInstance();
     }
 
     @Override
     public void onResume() {
-        Calendar maxDate = Calendar.getInstance();
-        maxDate.add(Calendar.MONTH, 2);
-
-        Calendar minDate = Calendar.getInstance();
-        minDate.add(Calendar.MONTH, -2);
-
-        Date today = new Date();
-
-        // set range of calendar and highlight current date
-        mCalendarPickerView.init(minDate.getTime(), maxDate.getTime()).withSelectedDate(today);
-        mCalendarPickerView.setOnDateSelectedListener(this);
-
-        // get all dates that have an appointment
-        Set<Date> dates = new HashSet<Date>();
-        for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
-            dates.add(new Date(appointment.getTime()));
-        }
-
-        // highlight those dates that have a least one appointment
-        mCalendarPickerView.highlightDates(dates);
+        updateCalendarPickerView();
         super.onResume();
     }
 
@@ -98,6 +74,59 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
     void menuAddAppointment() {
         Toast.makeText(getActivity(), "Select a date to add a new appointment.", Toast.LENGTH_LONG).show();
         isAddMode = true;
+    }
+
+    @Click(R.id.appointment_previous_btn)
+    void handlePreviousButtonClick() {
+        mSelectedMonth.add(Calendar.MONTH, -1);
+        updateCalendarPickerView();
+    }
+
+    @Click(R.id.appointment_next_btn)
+    void handleNextButtonClick() {
+        mSelectedMonth.add(Calendar.MONTH, 1);
+        updateCalendarPickerView();
+    }
+
+    private void updateCalendarPickerView() {
+        int year = mSelectedMonth.get(Calendar.YEAR);
+        int month = mSelectedMonth.get(Calendar.MONTH);
+        int numDays = mSelectedMonth.getActualMaximum(Calendar.DATE) + 1;
+
+        // get the first day of the month
+        Calendar minDate = Calendar.getInstance();
+        minDate.set(Calendar.YEAR, year);
+        minDate.set(Calendar.MONTH, month);
+        minDate.set(Calendar.DATE, 1);
+
+        // get the last day of the month
+        Calendar maxDate = Calendar.getInstance();
+        maxDate.set(Calendar.YEAR, year);
+        maxDate.set(Calendar.MONTH, month);
+        maxDate.set(Calendar.DATE, numDays);
+
+        // set range of calendar and highlight current date
+        mCalendarPickerView.init(minDate.getTime(), maxDate.getTime());
+        mCalendarPickerView.setOnDateSelectedListener(this);
+
+        // get all dates that have an appointment from the current selected month and year
+        Set<Date> dates = new HashSet<Date>();
+        for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
+            Date date = new Date(appointment.getTime());
+            if (isSameMonthAndYear(mSelectedMonth, date))
+                dates.add(date);
+        }
+
+        // highlight those dates that have a least one appointment
+        mCalendarPickerView.highlightDates(dates);
+    }
+
+    private boolean isSameMonthAndYear(Calendar month, Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+
+        return month.get(Calendar.MONTH) == cal.get(Calendar.MONTH) &&
+                month.get(Calendar.YEAR) == cal.get(Calendar.YEAR);
     }
 
     @Override

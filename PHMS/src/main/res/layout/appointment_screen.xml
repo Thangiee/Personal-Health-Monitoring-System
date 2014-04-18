@@ -16,7 +16,7 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -24,11 +24,52 @@
     <com.squareup.timessquare.CalendarPickerView
             android:id="@+id/calendar_view"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
             android:background="#FFFFFF"
-            />
-</LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/appointment_previous_btn"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Previous"
+            android:id="@+id/appointment_previous_btn"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/appointment_next_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            style="@style/text_view_btn"
+            android:padding="12dp"
+            android:layout_margin="4dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Next"
+            android:id="@+id/appointment_next_btn"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/center"
+            android:layout_alignStart="@+id/center"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="@style/text_view_btn"
+            android:padding="12dp"
+            android:layout_margin="4dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>
