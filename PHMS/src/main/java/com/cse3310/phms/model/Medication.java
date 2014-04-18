@@ -19,14 +19,45 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.ui.utils.UserSingleton;
 
 @Table(name = "Medication")
 public class Medication extends Model implements Remindable, Notifiable{
 
+    public Medication(String medicationName){
+        this.medicationName = medicationName;
+    }
+    @Column private long time;
     @Column private String medicationName;
-    @Column private int dosage;
+    @Column private double dosage;
+    @Column private User user; // used as a foreign key
+
+    public Medication(Medication medication) {
+        this.user = UserSingleton.INSTANCE.getCurrentUser();
+        medicationName = medication.getMedicationName();
+        dosage = medication.getDosage();
+        time = medication.getTime();
+    }
 
 
+
+    public Medication(){
+        this.user = UserSingleton.INSTANCE.getCurrentUser();
+    }
+
+    /**
+     * Gets user that owns the medication.
+     *
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    public Medication setTime(long time) {
+        this.time = time;
+        return this;
+    }
 
     @Override
     public long reminderTime() {
@@ -42,7 +73,19 @@ public class Medication extends Model implements Remindable, Notifiable{
         return this.medicationName;
     }
 
-    public int getDosage(){
+    public double getDosage(){
         return this.dosage;
+    }
+
+    public void setDosage(double dosage){
+        this.dosage = dosage;
+    }
+
+    public void setMedicationName(String medicationName){
+        this.medicationName = medicationName;
+    }
+
+    public long getTime() {
+        return time;
     }
 }

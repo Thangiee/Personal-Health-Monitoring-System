@@ -60,6 +60,7 @@ public class Diet extends Model{
         return DatabaseHandler.getAllById(Food.class, "diet", getId());
     }
 
+
     /**
      * Add food.
      *
@@ -77,6 +78,34 @@ public class Diet extends Model{
     public void removeFood(Food food) {
         new Delete().from(Food.class).where("Id = ?", food.getId()).execute();
     }
+
+    /**
+     * Gets medications.
+     *
+     * @return list of medications
+     */
+    public List<Medication> getMedications() {
+        return DatabaseHandler.getAllById(Medication.class, "user", getId());
+    }
+
+    /**
+     * Add medication.
+     *
+     * @param medication the medication object be added
+     */
+    public void addMedication(Medication medication) {
+        medication.save();
+    }
+
+    /**
+     * Remove medication.
+     *
+     * @param medication the medication object be removed
+     */
+    public void removeMedication(Medication medication) {
+        new Delete().from(Medication.class).where("Id = ?", medication.getId()).execute();
+    }
+
 
     /**
      * Gets target weight.
