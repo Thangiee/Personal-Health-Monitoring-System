@@ -30,27 +30,33 @@ import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.utils.MyDateFormatter;
 import com.cse3310.phms.ui.utils.UserSingleton;
+import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
+import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import org.androidannotations.annotations.*;
 
 import java.util.Date;
 import java.util.List;
 
 @EActivity(R.layout.add_appointment_form)
-public class AddAppointmentActivity extends SherlockFragmentActivity {
-    @ViewById(R.id.add_appointment_select_btn)  TextView mButtonTextView;
+public class AddAppointmentActivity extends SherlockFragmentActivity
+        implements TimePickerDialogFragment.TimePickerDialogHandler {
+    @ViewById(R.id.add_appointment_select_btn)  TextView mDoctorButtonTextView;
+    @ViewById(R.id.add_appointment_time_btn)    TextView mTimeButtonTextView;
     @ViewById(R.id.add_appointment_doc_name)    FormEditText mNameEditText;
     @ViewById(R.id.add_appointment_doc_Phone)   FormEditText mPhoneEditText;
     @ViewById(R.id.add_appointment_location)    FormEditText mLocationEditText;
-    @ViewById(R.id.add_appointment_time)        FormEditText mTimeEditText;
+    @ViewById(R.id.add_appointment_date)        FormEditText mDateEditText;
     @ViewById(R.id.add_appointment_purpose)     EditText mPurposeEditText;
 
     private DoctorInfo mSelectedDoctor;
     private Date mSelectedDate;
+    private static long MILLS_PER_HOUR = 3600000;
+    private static long MILLS_PER_MIN = 60000;
+    private long appointmentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // enable the up/home button in the actionbar
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,10 +67,12 @@ public class AddAppointmentActivity extends SherlockFragmentActivity {
     @AfterViews
     void onSetupViews() {
         if (mSelectedDate != null) {
-            String formattedTime = MyDateFormatter.formatDate(mSelectedDate.getTime()) + " - " +
-                                  MyDateFormatter.formatTime(mSelectedDate.getTime());
-            mTimeEditText.setText(formattedTime);
+            mSelectedDate.setTime(mSelectedDate.getTime() - (MILLS_PER_HOUR*5)); // set to 12:00 AM
+            appointmentTime = mSelectedDate.getTime();
+            mDateEditText.setText( MyDateFormatter.formatDate(appointmentTime));
         }
+
+        mTimeButtonTextView.setText(MyDateFormatter.formatTime(mSelectedDate.getTime()));
     }
 
     @Override
@@ -98,6 +106,14 @@ public class AddAppointmentActivity extends SherlockFragmentActivity {
         alert.show();
     }
 
+    @Click(R.id.add_appointment_time_btn)
+    void handleTimeButtonClick() {
+        TimePickerBuilder tpb = new TimePickerBuilder()
+                .setFragmentManager(getSupportFragmentManager())
+                .setStyleResId(R.style.BetterPickersDialogFragment_Light);
+        tpb.show();
+    }
+
     @OptionsItem(android.R.id.home)
     void handleHomeButtonClick() {
         NavUtils.navigateUpFromSameTask(this); // go back to previous activity when clicking the actionbar home
@@ -108,7 +124,7 @@ public class AddAppointmentActivity extends SherlockFragmentActivity {
         if (mSelectedDoctor != null) {
             Appointment appointment = new Appointment();
             appointment.setDoctorInfo(mSelectedDoctor)
-                    .setTime(mSelectedDate.getTime())
+                    .setTime(appointmentTime)
                     .setPurpose(mPurposeEditText.getText().toString());
 
             appointment.save(); // save to DB
@@ -122,5 +138,12 @@ public class AddAppointmentActivity extends SherlockFragmentActivity {
 
         String location = doctorInfo.getHospital() + " - " + doctorInfo.getAddress();
         mLocationEditText.setText(location);
+    }
+
+    @Override
+    public void onDialogTimeSet(int reference, int hourOfDay, int minute) {
+        long mills = hourOfDay * MILLS_PER_HOUR + minute * MILLS_PER_MIN;
+        appointmentTime = mSelectedDate.getTime() + mills;
+        mTimeButtonTextView.setText(MyDateFormatter.formatTime(appointmentTime));
     }
 }

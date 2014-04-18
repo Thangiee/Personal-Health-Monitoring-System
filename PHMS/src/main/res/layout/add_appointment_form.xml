@@ -65,14 +65,25 @@
             android:layout_marginBottom="4dp"/>
 
     <com.andreabaccega.widget.FormEditText
-            android:id="@+id/add_appointment_time"
+            android:id="@+id/add_appointment_date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Appointment Time"
+            android:text="Appointment Date"
             android:editable="false"
             android:enabled="false"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"/>
+
+    <TextView
+            style="@style/text_view_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="time"
+            android:layout_marginTop="4dp"
+            android:padding="12dp"
+            android:id="@+id/add_appointment_time_btn"
+            android:layout_gravity="center_horizontal"/>
 
     <EditText
             android:id="@+id/add_appointment_purpose"

@@ -69,6 +69,8 @@ dependencies {
 
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
 
+    compile 'com.doomonafireball.betterpickers:library:1.5.2'
+
     compile project(':PHMS:libs:LibWizardPager')
     compile project(':PHMS:libs:SlidingMenu')
 }
