@@ -39,7 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@EFragment(R.layout.card_list)
+@EFragment
 public class CardListFragment extends SherlockFragment {
     private static int idCounter = 0;
     private Set<String> mSuggestionSet;
@@ -58,12 +58,19 @@ public class CardListFragment extends SherlockFragment {
     }
 
     public static CardListFragment_ newInstance(List<Card> cardList, boolean showHintOnEmpty, boolean changeSuggestions) {
+        return newInstance(cardList, showHintOnEmpty, changeSuggestions, false);
+    }
+
+    public static CardListFragment_ newInstance(List<Card> cardList, boolean showHintOnEmpty, boolean changeSuggestions, boolean hideUndoBar) {
+        int layout = hideUndoBar ? R.layout.card_list_no_undo_bar : R.layout.card_list;
+
         CardListFragment_ fragment = new CardListFragment_();
         fragment.mCardList = new ArrayList<Card>(cardList);
 
         Bundle args = new Bundle();
         args.putBoolean("hint", showHintOnEmpty);
         args.putBoolean("suggestions", changeSuggestions);
+        args.putInt("layout-id", layout);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,13 +79,18 @@ public class CardListFragment extends SherlockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mShowHintOnEmpty = getArguments().getBoolean("hint");
         mChangeSuggestions = getArguments().getBoolean("suggestions");
+        int layoutId = getArguments().getInt("layout-id");
 
-        mSuggestionSet = new HashSet<String>(mCardList.size()); // use to collect unique food to be use as search suggestions.
+        View view = inflater.inflate(layoutId, container, false);
+
+        // collect unique card title to be use as search suggestions.
+        mSuggestionSet = new HashSet<String>(mCardList.size());
         for (Card card : mCardList) {
             card.setId("" + idCounter++);
             mSuggestionSet.add(card.getTitle());
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        return view;
     }
 
     @Override
