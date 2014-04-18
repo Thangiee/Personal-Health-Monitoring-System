@@ -26,8 +26,8 @@ public class MyDateFormatter {
     private static SimpleDateFormat timeFormat;
 
     static {
-        dateFormat = new SimpleDateFormat("MMMM d,yyyy", Locale.ENGLISH);
-        timeFormat = new SimpleDateFormat("h:mm:s,a", Locale.ENGLISH);
+        dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        timeFormat = new SimpleDateFormat("h:mma", Locale.ENGLISH);
 
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -35,7 +35,7 @@ public class MyDateFormatter {
 
     /**
      * Gets formatted date of the weight log.
-     * Ex. March 10,2014
+     * Ex. March 10, 2014
      *
      * @return the format date
      */
@@ -45,7 +45,7 @@ public class MyDateFormatter {
 
     /**
      * Gets formatted time of the weight log.
-     * Ex. 2:53:54,PM
+     * Ex. 2:53PM
      *
      * @return the format time
      */
