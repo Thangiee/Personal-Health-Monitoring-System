@@ -31,6 +31,36 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:id="@+id/relativeLayout">
+
+    </RelativeLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/anachor_center_center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+            android:id="@+id/log_in_fiels_container"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:paddingTop="16dp"
+            android:layout_alignTop="@+id/anachor_center_center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+        >
+
+        <com.cse3310.phms.ui.views.RoundCornerImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/linen_white"
+                android:id="@+id/login_field_bg"
+                android:alpha=".92"
+                android:scaleType="fitXY"
+                android:layout_margin="8dp"/>
+
         <com.andreabaccega.widget.FormEditText
                 validate:testType="alphaNumeric"
                 validate:emptyErrorString="Username can not be empty"
@@ -40,11 +70,15 @@
                 android:hint="User Name"
                 android:singleLine="true"
                 android:inputType="textCapWords"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="200dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginLeft="50dp"/>
+                android:layout_below="@+id/anachor_center"
+                android:layout_alignRight="@+id/login_field_bg"
+                android:layout_alignEnd="@+id/login_field_bg"
+                android:layout_alignLeft="@+id/login_field_bg"
+                android:layout_alignStart="@+id/login_field_bg"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                />
+
         <com.andreabaccega.widget.FormEditText
                 validate:testType="alphaNumeric"
                 validate:emptyErrorString="Password can not be empty"
@@ -55,34 +89,47 @@
                 android:inputType="textPassword"
                 android:password="true"
                 android:singleLine="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="50dp"
+                android:layout_below="@+id/act_login_screen_et_username"
                 android:layout_alignLeft="@+id/act_login_screen_et_username"
                 android:layout_alignStart="@+id/act_login_screen_et_username"
+                android:layout_marginTop="4dp"
                 android:layout_alignRight="@+id/act_login_screen_et_username"
                 android:layout_alignEnd="@+id/act_login_screen_et_username"/>
+
         <Button
-                style="?android:attr/buttonStyleSmall"
+                style="@style/text_view_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Log In"
                 android:id="@+id/act_login_screen_btn_login"
                 android:layout_below="@+id/act_login_screen_et_password"
+                android:layout_marginTop="4dp"
+                android:textSize="@dimen/btn_text_size"
+                android:layout_alignRight="@+id/anachor_center"
+                android:layout_alignEnd="@+id/anachor_center"
                 android:layout_alignLeft="@+id/act_login_screen_et_password"
                 android:layout_alignStart="@+id/act_login_screen_et_password"
-                android:layout_alignRight="@+id/act_login_screen_et_password"
-                android:layout_alignEnd="@+id/act_login_screen_et_password"
-                android:layout_marginTop="20dp"
-                android:textSize="@dimen/btn_text_size"/>
+                android:layout_marginRight="8dp"
+                />
+
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Sign Up for an Account"
+                android:text="Sign Up"
                 android:id="@+id/act_login_screen_tv_sign_up"
-                android:background="@drawable/selectable_item_background"
-                android:layout_below="@+id/act_login_screen_btn_login"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"/>
+                android:layout_alignTop="@+id/act_login_screen_btn_login"
+                android:layout_toRightOf="@+id/anachor_center"
+                style="@style/text_view_btn"
+                android:layout_marginLeft="8dp"
+                android:layout_alignRight="@+id/act_login_screen_et_password"
+                android:layout_alignEnd="@+id/act_login_screen_et_password"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/anachor_center"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 </RelativeLayout>

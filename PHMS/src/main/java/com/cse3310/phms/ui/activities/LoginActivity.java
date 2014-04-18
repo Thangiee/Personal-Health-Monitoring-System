@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.view.Window;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
 import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
+import com.cse3310.phms.ui.views.RoundCornerImageView;
 import org.androidannotations.annotations.*;
 
 /**
@@ -48,13 +50,20 @@ public class LoginActivity extends Activity {
     @ViewById(R.id.act_login_screen_btn_login)
     Button mLoginButton;
 
+    @ViewById(R.id.login_field_bg)
+    RoundCornerImageView mRoundCornerImageView;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @AfterViews
     void onAfterViews() {
         mUsernameEditText.addValidator(new NoSpaceValidator());
         mUsernameEditText.addValidator(new MinimumLengthValidator(3));
         mPasswordEditText.addValidator(new NoSpaceValidator());
+        mRoundCornerImageView.setImageResource(R.drawable.linen_white);
     }
 
     @Click(R.id.act_login_screen_btn_login)
@@ -70,8 +79,6 @@ public class LoginActivity extends Activity {
             alertLoginFailed();
         }
     }
-
-
 
     @Click(R.id.act_login_screen_tv_sign_up)
     void clickedSignUpTextView() {
