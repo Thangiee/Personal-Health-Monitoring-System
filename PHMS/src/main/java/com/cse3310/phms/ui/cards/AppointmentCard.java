@@ -34,7 +34,7 @@ public class AppointmentCard extends Card{
     public AppointmentCard(Context context, Appointment appointment) {
         super(context, R.layout.card_inner_appointment);
         mAppointment = appointment;
-        addCardExpand(new TextAreaCardExpand(context, mAppointment.getPurpose()));
+        addCardExpand(new TextAreaCardExpand(context, "Purpose: " + mAppointment.getPurpose()));
     }
 
     @Override

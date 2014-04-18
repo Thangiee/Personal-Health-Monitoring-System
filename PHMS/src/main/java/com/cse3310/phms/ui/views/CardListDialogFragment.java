@@ -27,7 +27,6 @@ import com.cse3310.phms.ui.fragments.CardListFragment_;
 import com.cse3310.phms.ui.utils.Events;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
@@ -36,37 +35,28 @@ import java.util.List;
 @EFragment(R.layout.dialog_appointment_list)
 public class CardListDialogFragment extends DialogFragment {
 
-    public static CardListDialogFragment_ newInstance(List<Card> cardList) {
+    public static CardListDialogFragment_ newInstance(List<Card> cardList, String title) {
         CardListDialogFragment_ fragment = new CardListDialogFragment_();
         EventBus.getDefault().postSticky(new Events.PostCardListEvent(cardList));
-
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getDialog().setTitle(getArguments().getString("title"));  // set the title
+
+        // cardlist from static factory
         Events.PostCardListEvent event = EventBus.getDefault().removeStickyEvent(Events.PostCardListEvent.class);
         List<Card> cardList = event.cardList;
 
-        System.out.println(cardList.size());
-
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        CardListFragment_ fragment = CardListFragment_.newInstance(cardList, false);
+        CardListFragment_ fragment = CardListFragment_.newInstance(cardList, false, false, true);
         transaction.add(R.id.appointment_card_list, fragment).commit();
 
-
         return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onResume() {
-
-        super.onResume();
-    }
-
-    @AfterViews
-    void onSetupCardList() {
-
     }
 
     @Click(R.id.dialog_card_list_dismiss_btn)

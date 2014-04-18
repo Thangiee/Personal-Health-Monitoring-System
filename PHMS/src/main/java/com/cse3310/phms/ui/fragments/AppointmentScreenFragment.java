@@ -150,7 +150,7 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
 
             // open up a dialog with a list of appointments for dates that have appointment
             if (!cardList.isEmpty()) {
-                CardListDialogFragment_.newInstance(cardList).show(getFragmentManager(), "tag");
+                CardListDialogFragment_.newInstance(cardList, "Appointments").show(getFragmentManager(), "tag");
             }
         }
     }
