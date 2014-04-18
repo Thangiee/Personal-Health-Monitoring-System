@@ -18,7 +18,6 @@ package com.cse3310.phms.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -54,27 +53,39 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
 
     @AfterViews
     void onSetupCalendarPickerView() {
-        Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.MONTH, 2);
+
+    }
+
+    @Override
+    public void onResume() {
+        Calendar maxDate = Calendar.getInstance();
+        maxDate.add(Calendar.MONTH, 2);
 
         Calendar minDate = Calendar.getInstance();
         minDate.add(Calendar.MONTH, -2);
 
         Date today = new Date();
-        mCalendarPickerView.init(minDate.getTime(), nextYear.getTime()).withSelectedDate(today);
+
+        // set range of calendar and highlight current date
+        mCalendarPickerView.init(minDate.getTime(), maxDate.getTime()).withSelectedDate(today);
         mCalendarPickerView.setOnDateSelectedListener(this);
 
+        // get all dates that have an appointment
         Set<Date> dates = new HashSet<Date>();
-        Log.d("aaaaaaaa", "" + dates.size());
-
         for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
             dates.add(new Date(appointment.getTime()));
         }
 
+        // highlight those dates that have a least one appointment
         mCalendarPickerView.highlightDates(dates);
+        super.onResume();
     }
 
-
+    @Override
+    public void onPause() {
+        mCalendarPickerView.setOnDateSelectedListener(null);
+        super.onPause();
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -92,21 +103,23 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
     @Override
     public void onDateSelected(Date date) {
         if (isAddMode) {
+            // start an activity to add new appointment
+            isAddMode = false;
             Intent intent = new Intent(getActivity(), AddAppointmentActivity_.class);
             intent.putExtra("date", date);
             startActivity(intent);
-
-            isAddMode = false;
-        } else {
+        } else { // use has not click the add icon i.e. not in add mode
             final List<Card> cardList = new ArrayList<Card>();
             cardList.clear();
 
+            // get appointment with the same date as the selected date
             for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
                 if (DateUtils.isSameDay(date, new Date(appointment.getTime()))) {
                     cardList.add(new AppointmentCard(getActivity(), appointment));
                 }
             }
 
+            // open up a dialog with a list of appointments for dates that have appointment
             if (!cardList.isEmpty()) {
                 CardListDialogFragment_.newInstance(cardList).show(getFragmentManager(), "tag");
             }
