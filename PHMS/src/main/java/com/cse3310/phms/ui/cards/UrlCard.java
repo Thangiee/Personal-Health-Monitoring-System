@@ -46,21 +46,19 @@ public class UrlCard extends Card {
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
-        title.setText(mUrlInfo.getTitle());
-        setTitle(title.getText().toString());
         TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
-        subTitle.setText(mUrlInfo.getUrl());
-        setSubTitle(subTitle.getText().toString());
         ImageButton mButton = (ImageButton) view.findViewById(R.id.card_inner_img_btn);
 
-        title.setText(mTitle);
-        subTitle.setText(mSubtitle);
+        title.setText(mUrlInfo.getTitle());
+        subTitle.setText(mUrlInfo.getUrl());
+
         mButton.setClickable(true);
         mButton.setOnClickListener(mBtnClickListener);
     }
 
-    public void setTitle(String Title) {
-        this.mTitle = Title;
+    public void setTitle(String title) {
+        super.setTitle(title);
+        this.mTitle = title;
     }
 
     public void setSubTitle(String subTitle) {
