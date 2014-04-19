@@ -22,7 +22,6 @@ import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
-import org.apache.commons.lang.time.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,11 +85,7 @@ public class MedicationScreenFragment extends SherlockFragment{
         cardList.clear();
 
         for (Medication medication : user.getDiet().getMedications()) { // iterate over all the medication in the user's diet
-            // check if the day the medication was added is the same
-            // as the current selected day
-            if (DateUtils.isSameDay(new Date((long) medication.getTime()), date)) {
-                cardList.add(createMedicationCard(medication)); // if so, create a card for that medication and add it to the list
-            }
+            cardList.add(createMedicationCard(medication));
         }
     }
 

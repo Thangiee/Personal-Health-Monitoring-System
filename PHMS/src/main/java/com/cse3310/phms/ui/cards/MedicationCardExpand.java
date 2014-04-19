@@ -15,7 +15,7 @@ public class MedicationCardExpand extends CardExpand{
     Medication medication;
 
     public MedicationCardExpand(Context context, Medication medication) {
-        super(context);
+        super(context, R.layout.medication_card_expand);
         this.medication = medication;
     }
 
@@ -26,7 +26,6 @@ public class MedicationCardExpand extends CardExpand{
         TextView dosageTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
 
         dosageTextView.setText(String.valueOf(medication.getDosage()));
-
     }
 
 
