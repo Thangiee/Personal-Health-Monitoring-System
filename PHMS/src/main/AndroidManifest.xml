@@ -117,7 +117,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.activities.SlidingMenuActivity"/>
         </activity>
-
+        <receiver android:name=".ui.services.ReminderAlarm" />
+        <receiver android:name=".ui.services.AlarmButtonReceiver" />
     </application>
-
 </manifest>
