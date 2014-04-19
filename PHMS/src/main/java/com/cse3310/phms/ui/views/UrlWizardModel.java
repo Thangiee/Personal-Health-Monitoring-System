@@ -20,12 +20,10 @@ import android.content.Context;
 import android.text.InputType;
 import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
 import co.juliansuarez.libwizardpager.wizard.model.PageList;
-import com.andreabaccega.formedittextvalidator.EmailValidator;
-import com.andreabaccega.formedittextvalidator.PersonNameValidator;
 import com.andreabaccega.formedittextvalidator.Validator;
+import com.andreabaccega.formedittextvalidator.WebUrlValidator;
 import com.cse3310.phms.model.EStorage;
 import com.cse3310.phms.ui.cards.UrlCard;
-import com.cse3310.phms.ui.utils.validators.PhoneValidator;
 import com.cse3310.phms.ui.views.pager.EditTextPage;
 import de.greenrobot.event.EventBus;
 
@@ -43,9 +41,7 @@ public class UrlWizardModel extends AbstractWizardModel {
 
     @Override
     protected PageList onNewRootPageList() {
-        Validator nameValidator = new PersonNameValidator("Not a valid name");
-        EmailValidator emailValidator = new EmailValidator("Invalid e-mail address");
-        PhoneValidator phoneValidator = new PhoneValidator(10);
+        Validator urlValidator = new WebUrlValidator("Not a valid URL.");
 
         // Check if a card was pass to this class to determine if the user
         // adding or editing a card.
@@ -54,13 +50,13 @@ public class UrlWizardModel extends AbstractWizardModel {
             EStorage UrlInfo = mUrlCard.getUrlInfo();
             // since we are editing the card, let pre-set all the values.
             return new PageList(
-                    new EditTextPage(this, URL_LINK).setValue(UrlInfo.getUrl()).setInputType(InputType.TYPE_CLASS_TEXT),
+                    new EditTextPage(this, URL_LINK, urlValidator).setValue(UrlInfo.getUrl()).setInputType(InputType.TYPE_CLASS_TEXT),
                     new EditTextPage(this, URL_TITLE).setValue(UrlInfo.getTitle()).setInputType(InputType.TYPE_CLASS_TEXT)
             );
         }
 
         return new PageList(
-                new EditTextPage(this, URL_LINK).setInputType(InputType.TYPE_CLASS_TEXT),
+                new EditTextPage(this, URL_LINK, urlValidator).setInputType(InputType.TYPE_CLASS_TEXT),
                 new EditTextPage(this, URL_TITLE).setInputType(InputType.TYPE_CLASS_TEXT)
         );
     }

@@ -37,12 +37,10 @@ public class UrlCard extends Card {
     protected View.OnClickListener mBtnClickListener;
 
 
-
     public UrlCard(Context context, EStorage urlInfo) {
         super(context, R.layout.card_inner_url);
         mUrlInfo = urlInfo;
         System.out.println(urlInfo.getTitle());
-       // addCardExpand(new ContactCardExpand(context, mContactInfo));
     }
 
     @Override
@@ -53,31 +51,27 @@ public class UrlCard extends Card {
         TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
         subTitle.setText(mUrlInfo.getUrl());
         setSubTitle(subTitle.getText().toString());
-        ImageButton mButton = (ImageButton) view.findViewById(R.id.card_inner_txt_btn);
+        ImageButton mButton = (ImageButton) view.findViewById(R.id.card_inner_img_btn);
 
         title.setText(mTitle);
         subTitle.setText(mSubtitle);
         mButton.setClickable(true);
         mButton.setOnClickListener(mBtnClickListener);
-
-       // ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
-      // setViewToClickToExpand(viewToClickToExpand);    // click anywhere on the card to expand
     }
 
-    public void setTitle(String Title){this.mTitle = Title;}
+    public void setTitle(String Title) {
+        this.mTitle = Title;
+    }
+
     public void setSubTitle(String subTitle) {
         this.mSubtitle = subTitle;
     }
 
-
-
     public void setBtnClickListener(View.OnClickListener mBtnClickListener) {
-
-    this.mBtnClickListener = mBtnClickListener;
+        this.mBtnClickListener = mBtnClickListener;
     }
 
-    public EStorage getUrlInfo()
-    {
+    public EStorage getUrlInfo() {
         return mUrlInfo;
     }
 }

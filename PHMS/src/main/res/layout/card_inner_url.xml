@@ -45,7 +45,7 @@
 
 
     <ImageButton
-            android:id="@+id/card_inner_txt_btn"
+            android:id="@+id/card_inner_img_btn"
             style="@style/inner_title"
             android:textSize="14sp"
             android:layout_marginRight="30dp"

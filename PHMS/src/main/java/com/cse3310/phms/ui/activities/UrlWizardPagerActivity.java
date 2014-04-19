@@ -57,21 +57,21 @@ public class UrlWizardPagerActivity extends BaseWizardPagerActivity {
         String urlLink = onGetPage(URL_LINK).getData().getString(SIMPLE_DATA_KEY);
         String urlTitle = onGetPage(URL_TITLE).getData().getString(SIMPLE_DATA_KEY);
 
+        if (!urlLink.contains("http://")) {
+            urlLink = "http://" + urlLink;
+        }
 
        EStorage urlInfo = new EStorage().setUrl(urlLink).setTitle(urlTitle);
 
         // if editing, remove the old card and add the new edited card
         if (super.editMode) {
             UrlCard oldUrlCard = ((UrlWizardModel) mWizardModel).getUrlCard();
-            // post an event to ContactScreenFragment to remove the old card
+            // post an event to remove the old card
             EventBus.getDefault().post(new Events.RemoveUrlCardEvent(oldUrlCard));
         }
 
-        // post an event to ContactScreenFragment to add a new card
-
-        System.out.println("check1_2");
+        // post an event to add the new card
         EventBus.getDefault().post(new Events.AddUrlCardEvent(new UrlCard(this, urlInfo)));
-        System.out.println("check1_3");
         finish();
     }
 }
