@@ -51,7 +51,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.card_list, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
         add(new DrawerItem(R.layout.estorage_screen, "eStorage", R.drawable.ic_action_database));
-        add(new DrawerItem(R.layout.card_list, "Reminders", R.drawable.ic_action_alarm));
+        add(new DrawerItem(R.layout.reminder_screen, "Reminders", R.drawable.ic_action_alarm));
     }};
 
     private int lastPosition = 0;
@@ -67,7 +67,6 @@ public class SlideMenuListFragment extends SherlockListFragment {
         usernameHeader.setText(Character.toUpperCase(user.getUsername().charAt(0)) + user.getUsername().substring(1)); // first char to upper case
         TextView emailHeader = (TextView) view.findViewById(R.id.frag_list_sliding_menu_tv_header_email);
         emailHeader.setText(user.getPersonalInfo().getEmail());
-
         return view;
     }
 
@@ -137,6 +136,9 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 break;
             case R.layout.appointment_screen:
                 fragment = new AppointmentScreenFragment_();
+                break;
+            case R.layout.reminder_screen:
+                fragment = new ReminderScreenFragment_();
                 break;
         }
 
