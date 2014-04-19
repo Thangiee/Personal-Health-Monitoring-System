@@ -127,4 +127,8 @@ public class User extends Model {
     public List<Info> getContacts() {
         return DatabaseHandler.getAllById(Info.class, "user", this.getId());
     }
+
+    public List<Appointment> getAppointments() {
+        return DatabaseHandler.getAllById(Appointment.class, "user", this.getId());
+    }
 }

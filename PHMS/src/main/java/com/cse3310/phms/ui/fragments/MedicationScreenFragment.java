@@ -145,7 +145,6 @@ public class MedicationScreenFragment extends SherlockFragment{
         cardListFragment.clearCards();
         cardListFragment.addCards(cardList);
         cardListFragment.update();
-
     }
 
     // delete the medication to the user's diet and
@@ -155,27 +154,5 @@ public class MedicationScreenFragment extends SherlockFragment{
         cardList.remove(event.medicationCard);
         cardListFragment.removeCard(event.medicationCard);
         cardListFragment.update();
-
-
     }
-
-    // re-initialise cardListFragment with cards from the
-    // selected date indicated by the dayIndicatorFragment
-    public void onEvent(Events.SwitchDayEvent event) {
-        populateCardList(dayIndicatorFragment.getSelectedDay());
-        // sort by food name then by brand name
-        Collections.sort(cardList, CardComparator.NAME_SORT);
-
-        cardListFragment.clearCards(); // clear old cards
-        cardListFragment.addCards(cardList); // add new cards
-
-
-        // refresh the cardListFragment to get undo listener
-        // to work properly after switching to a different day.
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.detach(cardListFragment);
-        transaction.attach(cardListFragment);
-        transaction.commit();
-    }
-
 }
