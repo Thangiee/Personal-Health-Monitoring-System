@@ -31,6 +31,7 @@ public class Appointment extends Model implements Remindable{
 
     // require
     public Appointment() {
+        user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
     /**

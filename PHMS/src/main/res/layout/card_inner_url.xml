@@ -51,10 +51,11 @@
             android:layout_marginRight="30dp"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:src="@drawable/ic_action_webgo"
-            android:background="@android:color/transparent"
+            android:src="@drawable/ic_action_goright"
+            android:background="@drawable/selectable_item_background"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
+            android:scaleType="fitXY"
             android:layout_width="60dp"
             android:layout_height="60dp"/>
     <!--  <ImageButton
