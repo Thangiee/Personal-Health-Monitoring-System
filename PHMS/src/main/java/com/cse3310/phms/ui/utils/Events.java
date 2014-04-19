@@ -16,14 +16,11 @@
 
 package com.cse3310.phms.ui.utils;
 
-import com.cse3310.phms.ui.cards.ContactCard;
-import com.cse3310.phms.ui.cards.DoctorContactCard;
-import com.cse3310.phms.ui.cards.FoodCard;
-import com.cse3310.phms.ui.cards.UrlCard;
-import com.cse3310.phms.ui.cards.MedicationCard;
+import com.cse3310.phms.ui.cards.*;
 import it.gmariotti.cardslib.library.internal.Card;
 
 import java.util.Collection;
+import java.util.List;
 
 public class Events {
     public static class SlidingMenuItemSelectedEvent {
@@ -143,6 +140,14 @@ public class Events {
 
         public SwitchTabEvent(int position) {
             this.position = position;
+        }
+    }
+
+    public static class PostCardListEvent {
+        public List<Card> cardList;
+
+        public PostCardListEvent(List<Card> cardList) {
+            this.cardList = cardList;
         }
     }
 }
