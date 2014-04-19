@@ -30,6 +30,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.utils.MyDateFormatter;
+import com.cse3310.phms.ui.services.ReminderAlarm;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
@@ -131,6 +132,8 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
 
             appointment.save(); // save to DB
             Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
+
+            new ReminderAlarm(this, appointment, R.drawable.ic_action_calendar_day); // set alarm for this appointment
             finish(); // close the activity
         }
     }
