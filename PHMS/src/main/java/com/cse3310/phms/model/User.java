@@ -131,4 +131,24 @@ public class User extends Model {
     public List<Appointment> getAppointments() {
         return DatabaseHandler.getAllById(Appointment.class, "user", this.getId());
     }
+
+    public List<EStorage> getEStorage()
+    {
+        return DatabaseHandler.getAllById(EStorage.class, "user", this.getId());
+    }
+
+    public List<Health> getHealth()
+    {
+        return DatabaseHandler.getAllById(Health.class, "user", this.getId());
+    }
+
+    public List<Recipe> getRecipe()
+    {
+        return DatabaseHandler.getAllById(Recipe.class, "user", this.getId());
+    }
+
+    public List<DietDesc> getDietDesc()
+    {
+        return DatabaseHandler.getAllById(DietDesc.class, "user", this.getId());
+    }
 }

@@ -18,52 +18,47 @@ package com.cse3310.phms.model;
 
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Recipe")
-public class Recipe extends EStorage{
+/**
+ * Created by Owner on 4/17/14.
+ */
+@Table(name = "DietDesc")
+public class DietDesc extends EStorage {
 
-    public Recipe()
+
+    public DietDesc()
     {
-        //super();
+       // super();
        // user = UserSingleton.INSTANCE.getCurrentUser();
     }
-/*
-    public Recipe(String url, String title)
+
+   /* public DietDesc(String url, String title)
     {
         this.url = url;
         this.title = title;
         super.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
-    public Recipe(EStorage thatUrl)
-    {
-        this.url = thatUrl.getUrl();
-        this.title = thatUrl.getTitle();
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public DietDesc setTitle(String title) {
+        this.title = title;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public EStorage setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public EStorage setUrl(String url) {
+    public DietDesc setUrl(String url) {
         this.url = url;
         return this;
     }
-
     @Override
     public String toString()
     {
         String temp = "Title-" + title + "," + url;
         return temp;
-    }
-*/
-
+    }*/
 }
