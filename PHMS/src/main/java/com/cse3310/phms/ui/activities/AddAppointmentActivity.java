@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.andreabaccega.widget.FormEditText;
@@ -122,12 +123,15 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
     @OptionsItem(R.id.save_icon)
     void handleSaveIconClick() {
         if (mSelectedDoctor != null) {
-            Appointment appointment = new Appointment();
-            appointment.setDoctorInfo(mSelectedDoctor)
-                    .setTime(appointmentTime)
-                    .setPurpose(mPurposeEditText.getText().toString());
+            Appointment appointment = new Appointment(mSelectedDoctor, appointmentTime);
+
+            // use default text if no purpose text is enter
+            if (!mPurposeEditText.getText().toString().isEmpty()) {
+                appointment.setPurpose(mPurposeEditText.getText().toString());
+            }
 
             appointment.save(); // save to DB
+            Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
             finish(); // close the activity
         }
     }

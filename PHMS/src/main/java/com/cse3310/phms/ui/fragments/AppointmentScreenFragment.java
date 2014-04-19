@@ -27,6 +27,7 @@ import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.activities.AddAppointmentActivity_;
 import com.cse3310.phms.ui.cards.AppointmentCard;
+import com.cse3310.phms.ui.utils.Comparators.AppointmentCardComparator;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.cse3310.phms.ui.views.CardListDialogFragment_;
 import com.squareup.timessquare.CalendarPickerView;
@@ -155,6 +156,7 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
 
             // open up a dialog with a list of appointments for dates that have appointment
             if (!cardList.isEmpty()) {
+                Collections.sort(cardList, AppointmentCardComparator.TIME_SORT);
                 CardListDialogFragment_.newInstance(cardList, "Appointments").show(getFragmentManager(), "tag");
             }
         }
