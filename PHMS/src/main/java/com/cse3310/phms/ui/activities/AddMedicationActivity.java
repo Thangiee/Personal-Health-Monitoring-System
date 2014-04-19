@@ -1,5 +1,6 @@
 package com.cse3310.phms.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -7,8 +8,16 @@ import com.actionbarsherlock.view.Menu;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Medication;
 import com.cse3310.phms.ui.cards.MedicationCard;
+import com.cse3310.phms.ui.fragments.CardListFragment_;
+import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
 import de.greenrobot.event.EventBus;
+import it.gmariotti.cardslib.library.internal.Card;
+import org.androidannotations.annotations.OptionsItem;
+
+import java.util.*;
+
+import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
 
 /**
  * Created by Zach on 4/13/2014.
@@ -18,7 +27,23 @@ public class AddMedicationActivity extends BaseActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Add Medication");
+        EventBus.getDefault().registerSticky(this);
 
+        List<Medication> medicationList = DatabaseHandler.getAllRows(Medication.class); // get all the food in the DB
+
+        Set<String> nameSet = new HashSet<String>(medicationList.size());
+        List<Card> cardList = new ArrayList<Card>(nameSet.size());
+        // create a foodCard for each of the food.
+        for (final Medication medication : medicationList) {
+            if (nameSet.add(medication.getMedicationName())) {
+                cardList.add(createMedicationCard(medication));
+            }
+        }
+        Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT));
+
+        CardListFragment_ cardListFragment = CardListFragment_.newInstance(cardList, true);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();
 
     }
 
@@ -34,13 +59,13 @@ public class AddMedicationActivity extends BaseActivity{
         super.onDestroy();
     }
 
-//    @OptionsItem(R.id.add_icon)
-//    void menuAddButton() {
-//        // start a new activity to add create new food after clicking on the add icon
-//        Intent intent = new Intent(this, FoodWizardPagerActivity.class);
-//        startActivity(intent);
-//        finish();   // kill the current activity
-//    }
+    @OptionsItem(R.id.add_icon)
+    void menuAddButton() {
+        // start a new activity to add create new food after clicking on the add icon
+        Intent intent = new Intent(this, MedicationWizardPagerActivity.class);
+        startActivity(intent);
+        finish();   // kill the current activity
+    }
 
 
     private MedicationCard createMedicationCard(final Medication medication) {

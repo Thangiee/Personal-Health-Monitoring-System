@@ -9,7 +9,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
-import com.cse3310.phms.ui.activities.AddFoodActivity_;
+import com.cse3310.phms.ui.activities.AddMedicationActivity;
 import com.cse3310.phms.ui.utils.Events;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
@@ -60,7 +60,7 @@ public class MedicationScreenFragment extends SherlockFragment{
 
     // add the food to the user's diet and
     // add a card of that food to be display in the cardListFragment
-    public void onEvent(Events.AddFoodCardEvent event) {
+    public void onEvent(Events.AddMedicationCardEvent event) {
 
 
     }
@@ -71,7 +71,7 @@ public class MedicationScreenFragment extends SherlockFragment{
         // otherwise do it the normal way:
         // Intent intent = new Intent(this, ActivityToStart.class);
         // startActivity(intent);
-        AddFoodActivity_.intent(this).start();
+        AddMedicationActivity_.intent(this).start();
     }
 
 }

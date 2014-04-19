@@ -23,8 +23,12 @@ import com.activeandroid.annotation.Table;
 @Table(name = "Medication")
 public class Medication extends Model implements Remindable, Notifiable{
 
+    public Medication(String medicationName){
+        this.medicationName = medicationName;
+    }
+
     @Column private String medicationName;
-    @Column private int dosage;
+    @Column private double dosage;
 
 
 
@@ -42,7 +46,15 @@ public class Medication extends Model implements Remindable, Notifiable{
         return this.medicationName;
     }
 
-    public int getDosage(){
+    public double getDosage(){
         return this.dosage;
+    }
+
+    public void setDosage(double dosage){
+        this.dosage = dosage;
+    }
+
+    public void setMedicationName(String medicationName){
+        this.medicationName = medicationName;
     }
 }
