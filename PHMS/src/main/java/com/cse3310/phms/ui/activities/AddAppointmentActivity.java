@@ -68,7 +68,6 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
     @AfterViews
     void onSetupViews() {
         if (mSelectedDate != null) {
-            mSelectedDate.setTime(mSelectedDate.getTime() - (MILLS_PER_HOUR*5)); // set to 12:00 AM
             appointmentTime = mSelectedDate.getTime();
             mDateEditText.setText( MyDateFormatter.formatDate(appointmentTime));
         }
