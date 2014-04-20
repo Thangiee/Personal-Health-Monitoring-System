@@ -15,8 +15,8 @@ import static android.text.InputType.TYPE_CLASS_TEXT;
  */
 public class MedicationWizardModel extends AbstractWizardModel{
     private MedicationCard medicationCard;
-    public static final String NAME_KEY = "Medication Name";
-    public static final String DOSAGE_KEY = "Dosage";
+    public static final String NAME_KEY = "Medication Name", FREQUENCY_KEY = "Frequency";
+    public static final String DOSAGE_KEY = "Dosage", DOSAGE_TYPE_KEY = "Dosage Type", FREQUENCY_TYPE_KEY = "Frequency Type";
 
     public MedicationWizardModel(Context context) {
         super(context);
@@ -25,18 +25,24 @@ public class MedicationWizardModel extends AbstractWizardModel{
     @Override
     protected PageList onNewRootPageList() {
         medicationCard = EventBus.getDefault().removeStickyEvent(MedicationCard.class);
-        if (medicationCard != null) {     // a foodCard was passed; therefore the user pressed the edit button.
+        if (medicationCard != null) {     // a medicationCard was passed; therefore the user pressed the edit button.
             Medication medication = medicationCard.getMedication();
 
             return new PageList(
                     new EditTextPage(this, NAME_KEY).setValue(medication.getMedicationName()).setInputType(TYPE_CLASS_TEXT).setRequired(true),
-                    new EditTextPage(this, DOSAGE_KEY).setValue(String.valueOf(medication.getDosage())).setRequired(true)
+                    new EditTextPage(this, DOSAGE_KEY).setValue(String.valueOf(medication.getDosage())).setRequired(true),
+                    new EditTextPage(this, DOSAGE_TYPE_KEY).setValue(medication.getDosageType()).setInputType(TYPE_CLASS_TEXT).setRequired(true),
+                    new EditTextPage(this, FREQUENCY_KEY).setValue(String.valueOf(medication.getFrequency())).setRequired(true),
+                    new EditTextPage(this, FREQUENCY_TYPE_KEY).setValue(medication.getFrequencyType()).setInputType(TYPE_CLASS_TEXT).setRequired(true)
             );
         }
         else{
             return new PageList(
                     new EditTextPage(this, NAME_KEY).setInputType(TYPE_CLASS_TEXT).setRequired(true), // change input type to text
-                    new EditTextPage(this, DOSAGE_KEY).setRequired(true)
+                    new EditTextPage(this, DOSAGE_KEY).setRequired(true),
+                    new EditTextPage(this, DOSAGE_TYPE_KEY).setValue("(Pills/Oz)").setInputType(TYPE_CLASS_TEXT).setRequired(true),
+                    new EditTextPage(this, FREQUENCY_KEY).setRequired(true),
+                    new EditTextPage(this, FREQUENCY_TYPE_KEY).setValue("(Times per day)").setInputType(TYPE_CLASS_TEXT).setRequired(true)
             );
         }
     }
