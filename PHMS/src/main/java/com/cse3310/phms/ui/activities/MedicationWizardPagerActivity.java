@@ -36,7 +36,7 @@ public class MedicationWizardPagerActivity extends BaseWizardPagerActivity{
         double dosage  = Double.parseDouble(onGetPage(DOSAGE_KEY).getData().getString(SIMPLE_DATA_KEY));
         String dosageType = onGetPage(DOSAGE_TYPE_KEY).getData().getString(SIMPLE_DATA_KEY);
         Double frequency = Double.parseDouble(onGetPage(FREQUENCY_KEY).getData().getString(SIMPLE_DATA_KEY));
-        String frequencyType = onGetPage(NAME_KEY).getData().getString(SIMPLE_DATA_KEY);
+        String frequencyType = onGetPage(FREQUENCY_TYPE_KEY).getData().getString(SIMPLE_DATA_KEY);
 
         Log.d("DEBUG", "" + frequency + "-" + frequencyType);
         // create the medication object
