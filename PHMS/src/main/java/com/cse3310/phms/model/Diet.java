@@ -107,6 +107,28 @@ public class Diet extends Model{
     }
 
 
+    public List<Vitals> getVitals() {
+        return DatabaseHandler.getAllById(Vitals.class, "user", getId());
+    }
+
+    /**
+     * Add medication.
+     *
+     * @param medication the medication object be added
+     */
+    public void Vitals(Vitals medication) {
+        medication.save();
+    }
+
+    /**
+     * Remove medication.
+     *
+     * @param medication the medication object be removed
+     */
+    public void removeVitals(Vitals medication) {
+        new Delete().from(Vitals.class).where("Id = ?", medication.getId()).execute();
+    }
+
     /**
      * Gets target weight.
      *
