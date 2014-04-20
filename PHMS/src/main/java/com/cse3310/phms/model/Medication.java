@@ -29,7 +29,10 @@ public class Medication extends Model implements Remindable, Notifiable{
     }
     @Column private long time;
     @Column private String medicationName;
+    @Column private String frequencyType;
+    @Column private String dosageType;
     @Column private double dosage;
+    @Column private double frequency;
     @Column private User user; // used as a foreign key
 
     public Medication(Medication medication) {
@@ -87,5 +90,29 @@ public class Medication extends Model implements Remindable, Notifiable{
 
     public long getTime() {
         return time;
+    }
+
+    public double getFrequency(){
+        return this.frequency;
+    }
+
+    public void setFrequency(double frequency){
+        this.frequency = frequency;
+    }
+
+    public String getFrequencyType(){
+        return this.frequencyType;
+    }
+
+    public void setFrequencyType(String frequencyType){
+        this.frequencyType = frequencyType;
+    }
+
+    public String getDosageType(){
+        return this.dosageType;
+    }
+
+    public void setDosageType(String dosageType){
+        this.dosageType = dosageType;
     }
 }

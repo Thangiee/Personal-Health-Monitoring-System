@@ -18,7 +18,7 @@ import org.androidannotations.annotations.OptionsItem;
 
 import java.util.*;
 
-import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
+import static com.cse3310.phms.ui.utils.Comparators.MedicationCardComparator.*;
 
 /**
  * Created by Zach on 4/13/2014.
@@ -33,17 +33,17 @@ public class AddMedicationActivity extends BaseActivity{
         setTitle("Add Medication");
         EventBus.getDefault().registerSticky(this);
 
-        List<Medication> medicationList = DatabaseHandler.getAllRows(Medication.class); // get all the food in the DB
+        List<Medication> medicationList = DatabaseHandler.getAllRows(Medication.class); // get all the medication in the DB
 
         Set<String> nameSet = new HashSet<String>(medicationList.size());
         List<Card> cardList = new ArrayList<Card>(nameSet.size());
-        // create a foodCard for each of the food.
+        // create a medicationCard for each of the medications.
         for (final Medication medication : medicationList) {
             if (nameSet.add(medication.getMedicationName())) {
                 cardList.add(createMedicationCard(medication));
             }
         }
-        Collections.sort(cardList, getComparator(NAME_SORT, BRAND_SORT));
+        Collections.sort(cardList, getComparator(NAME_SORT));
 
         CardListFragment_ cardListFragment = CardListFragment_.newInstance(cardList, true);
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_front_container, cardListFragment).commit();
@@ -64,7 +64,7 @@ public class AddMedicationActivity extends BaseActivity{
 
     @OptionsItem(R.id.add_icon)
     void menuAddButton() {
-        // start a new activity to add create new food after clicking on the add icon
+        // start a new activity to add create new medications after clicking on the add icon
         Intent intent = new Intent(this, MedicationWizardPagerActivity.class);
         startActivity(intent);
         finish();   // kill the current activity
