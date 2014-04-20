@@ -48,7 +48,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.weight_log_screen, "Weight Logs", R.drawable.ic_action_line_chart));
         add(new DrawerItem(R.layout.medication_screen, "Medication", R.drawable.ic_action_pill));
         add(new DrawerItem(R.layout.appointment_screen, "Appointment", R.drawable.ic_action_calendar_day));
-        add(new DrawerItem(R.layout.card_list, "Vital Signs", R.drawable.ic_action_warning));
+        add(new DrawerItem(R.layout.vitals_screen, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
         add(new DrawerItem(R.layout.estorage_screen, "eStorage", R.drawable.ic_action_database));
         add(new DrawerItem(R.layout.reminder_screen, "Reminders", R.drawable.ic_action_alarm));
@@ -139,6 +139,9 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 break;
             case R.layout.reminder_screen:
                 fragment = new ReminderScreenFragment_();
+                break;
+            case R.layout.vitals_screen:
+                fragment = new VitalsScreenFragment_();
                 break;
         }
 

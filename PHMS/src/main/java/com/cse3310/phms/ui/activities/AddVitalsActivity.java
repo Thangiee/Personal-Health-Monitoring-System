@@ -9,24 +9,23 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.Vitals;
 import com.cse3310.phms.ui.cards.VitalsCard;
 import com.cse3310.phms.ui.fragments.CardListFragment_;
-//import com.cse3310.phms.ui.fragments.CardListFragment;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
+
 import java.util.*;
 
-import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.BRAND_SORT;
-import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.NAME_SORT;
-import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.getComparator;
+import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
+
+//import com.cse3310.phms.ui.fragments.CardListFragment;
 
 /**
  * Created by E&N on 4/20/2014.
  */
+@EActivity
 public class AddVitalsActivity extends BaseActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {

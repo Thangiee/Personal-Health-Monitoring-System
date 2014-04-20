@@ -36,7 +36,7 @@ import java.util.List;
 public class VitalsScreenFragment extends SherlockFragment{
     private CardListFragment cardListFragment;
     private List<Card> cardList = new ArrayList<Card>();
-    private DietDayIndicatorFragment dayIndicatorFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,6 @@ public class VitalsScreenFragment extends SherlockFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         cardListFragment = CardListFragment.newInstance(cardList, true);
-        dayIndicatorFragment = new DietDayIndicatorFragment();
         transaction.add(R.id.vitals_screen_vitals_list_container, cardListFragment);
 
         transaction.commit();

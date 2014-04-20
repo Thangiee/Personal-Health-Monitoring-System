@@ -29,6 +29,8 @@ public class Vitals extends Model {
     @Column private double cholesterol;
     @Column private double bodyTemp;
     @Column private double pulse;
+    @Column private double respiratory;
+    @Column private double glucose;
     @Column private String VitalsName;
     @Column private User user; // used as a foreign key
 
@@ -37,6 +39,10 @@ public class Vitals extends Model {
         VitalsName = vitals.getVitalsName();
         bloodPressure = vitals.getBloodPressure();
         glucose = vitals.getGlucose();
+    }
+
+    public Vitals(){
+        this.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
     public String getVitalsName() {
@@ -51,16 +57,6 @@ public class Vitals extends Model {
         this.user = user;
     }
 
-
-    public Vitals(){
-        this.user = UserSingleton.INSTANCE.getCurrentUser();
-    }
-
-    /**
-     * Gets user that owns the medication.
-     *
-     * @return the user
-     */
     public User getUser() {
         return user;
     }
@@ -96,9 +92,6 @@ public class Vitals extends Model {
     public void setGlucose(double glucose) {
         this.glucose = glucose;
     }
-
-    @Column private double respiratory;
-    @Column private double glucose;
 
     /**
      * Gets cholesterol.
