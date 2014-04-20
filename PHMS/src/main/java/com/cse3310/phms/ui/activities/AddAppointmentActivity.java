@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.andreabaccega.widget.FormEditText;
@@ -29,6 +30,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.DoctorInfo;
 import com.cse3310.phms.model.utils.MyDateFormatter;
+import com.cse3310.phms.ui.services.ReminderAlarm;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
@@ -67,7 +69,6 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
     @AfterViews
     void onSetupViews() {
         if (mSelectedDate != null) {
-            mSelectedDate.setTime(mSelectedDate.getTime() - (MILLS_PER_HOUR*5)); // set to 12:00 AM
             appointmentTime = mSelectedDate.getTime();
             mDateEditText.setText( MyDateFormatter.formatDate(appointmentTime));
         }
@@ -122,12 +123,17 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
     @OptionsItem(R.id.save_icon)
     void handleSaveIconClick() {
         if (mSelectedDoctor != null) {
-            Appointment appointment = new Appointment();
-            appointment.setDoctorInfo(mSelectedDoctor)
-                    .setTime(appointmentTime)
-                    .setPurpose(mPurposeEditText.getText().toString());
+            Appointment appointment = new Appointment(mSelectedDoctor, appointmentTime);
+
+            // use default text if no purpose text is enter
+            if (!mPurposeEditText.getText().toString().isEmpty()) {
+                appointment.setPurpose(mPurposeEditText.getText().toString());
+            }
 
             appointment.save(); // save to DB
+            Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
+
+            new ReminderAlarm(this, appointment, R.drawable.ic_action_calendar_day); // set alarm for this appointment
             finish(); // close the activity
         }
     }

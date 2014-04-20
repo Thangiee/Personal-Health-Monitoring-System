@@ -70,6 +70,12 @@ public class SlidingMenuActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSlidingMenu().setActionBarSlideIcon(new ActionBarSlideIcon(
                 this, R.drawable.ic_navigation_drawer, R.string.open_content_desc, R.string.close_content_desc));
+        getSlidingMenu().setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
+            @Override
+            public void onOpened() {
+                setTitle("PHMS");
+            }
+        });
     }
 
     @Override

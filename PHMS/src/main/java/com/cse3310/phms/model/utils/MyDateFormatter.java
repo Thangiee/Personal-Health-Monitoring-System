@@ -19,7 +19,6 @@ package com.cse3310.phms.model.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class MyDateFormatter {
     private static SimpleDateFormat dateFormat;
@@ -28,9 +27,6 @@ public class MyDateFormatter {
     static {
         dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
         timeFormat = new SimpleDateFormat("h:mma", Locale.ENGLISH);
-
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     /**

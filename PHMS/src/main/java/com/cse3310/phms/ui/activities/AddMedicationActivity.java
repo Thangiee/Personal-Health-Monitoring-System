@@ -23,6 +23,7 @@ import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
 /**
  * Created by Zach on 4/13/2014.
  */
+
 @EActivity
 public class AddMedicationActivity extends BaseActivity{
 

@@ -15,11 +15,10 @@ import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 public class MedicationCard extends Card{
     protected String mBtnTitle, mSubTitle;
     protected View.OnClickListener mBtnClickListener;
-
     private Medication medication;
 
     public MedicationCard(Context context, Medication medication) {
-        super(context);
+        super(context, R.layout.card_inner_medication);
 
         this.medication = medication;
         addCardExpand(new MedicationCardExpand(getContext(), this.medication)); // add the view to expand when the card is clicked
@@ -27,12 +26,11 @@ public class MedicationCard extends Card{
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
-        TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
-        TextView mButton = (TextView) view.findViewById(R.id.card_inner_txt_btn);
+        TextView title = (TextView) view.findViewById(R.id.medication_inner_txt_title);
+        TextView mButton = (TextView) view.findViewById(R.id.medication_inner_txt_btn);
 
         title.setText(mTitle);
-        subTitle.setText(mSubTitle);
+//        subTitle.setText(mSubTitle);
         mButton.setText(mBtnTitle);
         mButton.setClickable(true);
         mButton.setOnClickListener(mBtnClickListener);
