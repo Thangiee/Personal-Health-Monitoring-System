@@ -24,9 +24,15 @@ public class MedicationCardExpand extends CardExpand{
         if (view == null) return;
 
         TextView dosageTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
+        TextView dosageTypeTextView = (TextView) view.findViewById(R.id.frag_dosage_type_expand_lbl);
+        TextView frequencyTextView = (TextView) view.findViewById(R.id.frag_frequency_expand_count);
+        TextView frequencyTypeTextView = (TextView) view.findViewById(R.id.frag_frequency_type_expand_lbl);
+
+
 
         dosageTextView.setText(String.valueOf(medication.getDosage()));
+        dosageTypeTextView.setText(medication.getDosageType());
+        frequencyTextView.setText(String.valueOf(medication.getFrequency()));
+        frequencyTypeTextView.setText(medication.getFrequencyType());
     }
-
-
 }

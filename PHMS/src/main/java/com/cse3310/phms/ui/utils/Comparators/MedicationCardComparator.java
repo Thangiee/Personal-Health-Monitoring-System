@@ -13,5 +13,23 @@ public enum MedicationCardComparator implements Comparator<Card> {
         public int compare(Card card, Card card2) {
             return card.getTitle().toLowerCase().compareTo(card2.getTitle().toLowerCase());
         }
+    };
+
+    public static Comparator<Card> getComparator(final MedicationCardComparator... multipleOptions) {
+        return new Comparator<Card>() {
+            @Override
+            public int compare(Card lhs, Card rhs) {
+                for (MedicationCardComparator comparator : multipleOptions) {
+                    int result = comparator.compare(lhs, rhs);
+                    if (result != 0) {
+                        return result;
+                    }
+                }
+                return 0;
+            }
+        };
     }
+
 }
+
+
