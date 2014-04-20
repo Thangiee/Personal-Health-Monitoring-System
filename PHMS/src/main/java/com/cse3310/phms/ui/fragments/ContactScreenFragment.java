@@ -63,6 +63,7 @@ public class ContactScreenFragment extends SherlockFragment {
         setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().registerSticky(this);
         localBus = new EventBus();
+        populateCardLists();
     }
 
     @Override

@@ -32,13 +32,13 @@ public class DoctorContactCard extends Card{
         super(context, R.layout.card_inner_contact);
         mDoctorInfo = doctorInfo;
         addCardExpand(new DoctorContactCardExpand(context, doctorInfo));
+        setTitle(mDoctorInfo.getFullName()); // use for searching
     }
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView name = (TextView) view.findViewById(R.id.card_inner_name_tv);
-        name.setText(mDoctorInfo.getFirstName() + " " + mDoctorInfo.getLastName());
-        setTitle(name.getText().toString());
+        name.setText(mDoctorInfo.getFullName());
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);    // click anywhere on the card to expand
