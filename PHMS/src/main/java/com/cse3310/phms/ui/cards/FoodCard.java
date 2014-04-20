@@ -60,7 +60,7 @@ public class FoodCard extends Card {
     }
 
     public void setTitle(String title) {
-        super.setTitle(title);
+        super.setTitle(title); // use for searching
         this.mTitle = title;
     }
 

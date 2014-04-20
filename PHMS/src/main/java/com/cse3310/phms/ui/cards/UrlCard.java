@@ -17,12 +17,16 @@
 package com.cse3310.phms.ui.cards;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.EStorage;
+import com.cse3310.phms.ui.activities.WebViewActivity;
+import com.cse3310.phms.ui.utils.Events;
+import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 
 
@@ -31,45 +35,41 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class UrlCard extends Card {
     private EStorage mUrlInfo;
-    private String mTitle;
-    private String mSubtitle;
-    private ImageButton mButton;
-    protected View.OnClickListener mBtnClickListener;
-
 
     public UrlCard(Context context, EStorage urlInfo) {
         super(context, R.layout.card_inner_url);
         mUrlInfo = urlInfo;
-        System.out.println(urlInfo.getTitle());
+        setSwipeable(true);
+        setTitle(mUrlInfo.getTitle()); // use for searching
     }
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView title = (TextView) view.findViewById(R.id.card_inner_txt_title);
-        title.setText(mUrlInfo.getTitle());
-        setTitle(title.getText().toString());
         TextView subTitle = (TextView) view.findViewById(R.id.card_inner_txt_sub);
-        subTitle.setText(mUrlInfo.getUrl());
-        setSubTitle(subTitle.getText().toString());
         ImageButton mButton = (ImageButton) view.findViewById(R.id.card_inner_img_btn);
 
-        title.setText(mTitle);
-        subTitle.setText(mSubtitle);
+        title.setText(mUrlInfo.getTitle());
+        subTitle.setText(mUrlInfo.getUrl());
+
         mButton.setClickable(true);
-        mButton.setOnClickListener(mBtnClickListener);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("urlpass", mUrlInfo.getUrl());
+                mContext.startActivity(intent);
+            }
+        });
+
+        setOnSwipeListener(new OnSwipeListener() {
+            @Override
+            public void onSwipe(Card card) {
+                EventBus.getDefault().postSticky(new Events.RemoveUrlCardEvent(UrlCard.this));
+            }
+        });
     }
 
-    public void setTitle(String Title) {
-        this.mTitle = Title;
-    }
-
-    public void setSubTitle(String subTitle) {
-        this.mSubtitle = subTitle;
-    }
-
-    public void setBtnClickListener(View.OnClickListener mBtnClickListener) {
-        this.mBtnClickListener = mBtnClickListener;
-    }
 
     public EStorage getUrlInfo() {
         return mUrlInfo;

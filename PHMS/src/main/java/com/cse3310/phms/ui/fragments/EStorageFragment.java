@@ -31,7 +31,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.*;
 import com.cse3310.phms.ui.activities.UrlWizardPagerActivity;
-import com.cse3310.phms.ui.activities.WebViewActivity;
 import com.cse3310.phms.ui.cards.UrlCard;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
@@ -48,29 +47,31 @@ import java.util.List;
  */
 @EFragment(R.layout.estorage_screen)
 public class EStorageFragment extends SherlockFragment {
-    private static final String[] TABS = new String[] { "HEALTH ARTICLES", "RECIPES","DIET DESC." };
+    private static final String[] TABS = new String[]{"HEALTH ARTICLES", "RECIPES", "DIET DESC."};
     private static final int HEALTH_TAB = 0;
     private static final int RECIPE_TAB = 1;
     private static final int DIET_TAB = 2;
     private CardListFragment_ mCardListFragment;
     private TabsIndicatorFragment mTabsIndicatorFragment;
-    private List<Card> mHealthCardList  = new ArrayList<Card>();
+    private List<Card> mHealthCardList = new ArrayList<Card>();
     private List<Card> mRecipeCardList = new ArrayList<Card>();
     private List<Card> mDietCardList = new ArrayList<Card>();
+    private EventBus localBus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().registerSticky(this);
+        localBus = new EventBus();
         populateCardLists();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentManager fm = getChildFragmentManager();
-        mTabsIndicatorFragment = TabsIndicatorFragment.newInstance(new EStorageScreenAdapter(fm));
-        mCardListFragment = CardListFragment_.newInstance(mHealthCardList, true);
+        mTabsIndicatorFragment = TabsIndicatorFragment.newInstance(new EStorageScreenAdapter(fm), localBus);
+        mCardListFragment = CardListFragment_.newInstance(mHealthCardList, true, true, true);
 
         final FragmentTransaction transaction = fm.beginTransaction();
         transaction.add(R.id.webview_screen_tabs_container, mTabsIndicatorFragment);
@@ -79,6 +80,19 @@ public class EStorageFragment extends SherlockFragment {
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+    @Override
+    public void onResume() {
+        localBus.register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        localBus.unregister(this);
+        super.onPause();
+    }
+
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
@@ -94,15 +108,13 @@ public class EStorageFragment extends SherlockFragment {
     @OptionsItem(R.id.add_icon)
     void menuAddContact() {
         Intent intent;
-        if (mTabsIndicatorFragment.getCurrentPosition() == HEALTH_TAB){
+        if (mTabsIndicatorFragment.getCurrentPosition() == HEALTH_TAB) {
             intent = new Intent(getActivity(), UrlWizardPagerActivity.class);
             intent.putExtra("tabInt", HEALTH_TAB);
-        }
-        else if (mTabsIndicatorFragment.getCurrentPosition() == RECIPE_TAB){
+        } else if (mTabsIndicatorFragment.getCurrentPosition() == RECIPE_TAB) {
             intent = new Intent(getActivity(), UrlWizardPagerActivity.class);
             intent.putExtra("tabInt", RECIPE_TAB);
-        }
-        else{
+        } else {
             intent = new Intent(getActivity(), UrlWizardPagerActivity.class);
             intent.putExtra("tabInt", DIET_TAB);
         }
@@ -121,47 +133,19 @@ public class EStorageFragment extends SherlockFragment {
 
         mRecipeCardList.clear();
         for (Recipe recipeInfo : user.getRecipe()) {
-           //mRecipeCardList.add(new UrlCard(getActivity(), (EStorage)recipeInfo));
+            //mRecipeCardList.add(new UrlCard(getActivity(), (EStorage)recipeInfo));
             mRecipeCardList.add(createUrlCard(recipeInfo));
         }
 
         mDietCardList.clear();
         for (DietDesc dietInfo : user.getDietDesc()) {
-           // mDietCardList.add(new UrlCard(getActivity(), dietInfo));
+            // mDietCardList.add(new UrlCard(getActivity(), dietInfo));
             mDietCardList.add(createUrlCard(dietInfo));
         }
     }
-    private UrlCard createUrlCard(final EStorage estorage)
-    {
-        final UrlCard urlCard = new UrlCard(getActivity(), estorage);
-        urlCard.setTitle(estorage.getTitle());
-        urlCard.setSubTitle(estorage.getUrl());
-        urlCard.setSwipeable(true);
-        urlCard.setBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String url = estorage.getUrl();
-                Intent intent  = new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("urlpass", url);
-                startActivity(intent);
-            }
-        });
-        urlCard.setOnSwipeListener(new Card.OnSwipeListener() {
-            @Override
-            public void onSwipe(Card card) {
-                EventBus.getDefault().postSticky(new Events.RemoveUrlCardEvent(urlCard));
-            }
-        });
-
-        urlCard.setOnUndoSwipeListListener(new Card.OnUndoSwipeListListener() {
-            @Override
-            public void onUndoSwipe(Card card) {
-                UserSingleton.INSTANCE.getCurrentUser().getEStorage().add(new EStorage(estorage));
-
-            }
-        });
-        return urlCard;
+    private UrlCard createUrlCard(final EStorage estorage) {
+        return new UrlCard(getActivity(), estorage);
     }
 
     //===============================================================
@@ -172,12 +156,10 @@ public class EStorageFragment extends SherlockFragment {
 
     public void onEvent(Events.AddUrlCardEvent event) {
 
-        UrlCard newUrlCard = new UrlCard(getActivity(),event.urlCard.getUrlInfo());
-        System.out.println(newUrlCard.getUrlInfo().getTitle()+ " "+newUrlCard.getUrlInfo().getUrl());
+        UrlCard newUrlCard = new UrlCard(getActivity(), event.urlCard.getUrlInfo());
         int whatTab = mTabsIndicatorFragment.getCurrentPosition();
 
-        if(whatTab == 0)
-        {
+        if (whatTab == 0) {
             Health newUrl = new Health();
             newUrl.setTitle(newUrlCard.getUrlInfo().getTitle());
             newUrl.setUrl(newUrlCard.getUrlInfo().getUrl());
@@ -188,9 +170,7 @@ public class EStorageFragment extends SherlockFragment {
             mCardListFragment.clearCards();
             mCardListFragment.addCards(mHealthCardList);
             mCardListFragment.update();
-        }
-        else if(whatTab == 1)
-        {
+        } else if (whatTab == 1) {
             Recipe newUrl = new Recipe();
             newUrl.setTitle(newUrlCard.getUrlInfo().getTitle());
             newUrl.setUrl(newUrlCard.getUrlInfo().getUrl());
@@ -201,9 +181,7 @@ public class EStorageFragment extends SherlockFragment {
             mCardListFragment.clearCards();
             mCardListFragment.addCards(mRecipeCardList);
             mCardListFragment.update();
-        }
-        else
-        {
+        } else {
             DietDesc newUrl = new DietDesc();
             newUrl.setTitle(newUrlCard.getUrlInfo().getTitle());
             newUrl.setUrl(newUrlCard.getUrlInfo().getUrl());
@@ -234,11 +212,9 @@ public class EStorageFragment extends SherlockFragment {
 
         if (event.position == 0) {
             mCardListFragment.addCards(mHealthCardList);
-        } else if(event.position == 1) {
+        } else if (event.position == 1) {
             mCardListFragment.addCards(mRecipeCardList);
-        }
-        else
-        {
+        } else {
             mCardListFragment.addCards(mDietCardList);
         }
 

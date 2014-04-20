@@ -31,11 +31,13 @@ import de.greenrobot.event.EventBus;
 public class TabsIndicatorFragment<T extends FragmentPagerAdapter> extends SherlockFragment {
 
     protected T mAdapter;
+    private EventBus mTabsIndicatorEventBus;
     private int mCurrentPosition;
 
-    public static <T extends FragmentPagerAdapter> TabsIndicatorFragment newInstance(T adapter) {
+    public static <T extends FragmentPagerAdapter> TabsIndicatorFragment newInstance(T adapter, EventBus eventBus) {
         TabsIndicatorFragment<T> fragment = new TabsIndicatorFragment<T>();
         fragment.mAdapter = adapter;
+        fragment.mTabsIndicatorEventBus = eventBus;
         return fragment;
     }
 
@@ -57,7 +59,7 @@ public class TabsIndicatorFragment<T extends FragmentPagerAdapter> extends Sherl
             @Override
             public void onPageSelected(int position) {
                 mCurrentPosition = position;
-                EventBus.getDefault().postSticky(new Events.SwitchTabEvent(position));
+                mTabsIndicatorEventBus.post(new Events.SwitchTabEvent(position));
             }
 
             @Override

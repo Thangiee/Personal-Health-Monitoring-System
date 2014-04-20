@@ -55,19 +55,21 @@ public class ContactScreenFragment extends SherlockFragment {
     private TabsIndicatorFragment mTabsIndicatorFragment;
     private List<Card> mDoctorCardList  = new ArrayList<Card>();
     private List<Card> mContactCardList = new ArrayList<Card>();
+    private EventBus localBus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().registerSticky(this);
+        localBus = new EventBus();
         populateCardLists();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentManager fm = getChildFragmentManager();
-        mTabsIndicatorFragment = TabsIndicatorFragment.newInstance(new ContactScreenAdapter(fm));
+        mTabsIndicatorFragment = TabsIndicatorFragment.newInstance(new ContactScreenAdapter(fm), localBus);
         mCardListFragment = CardListFragment_.newInstance(mDoctorCardList, true);
 
         final FragmentTransaction transaction = fm.beginTransaction();
@@ -76,6 +78,18 @@ public class ContactScreenFragment extends SherlockFragment {
         transaction.commit();
 
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        localBus.register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        localBus.unregister(this);
+        super.onPause();
     }
 
     @Override
