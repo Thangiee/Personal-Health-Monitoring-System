@@ -13,6 +13,7 @@ import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
 import java.util.*;
@@ -22,6 +23,8 @@ import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
 /**
  * Created by Zach on 4/13/2014.
  */
+
+@EActivity
 public class AddMedicationActivity extends BaseActivity{
 
     @Override
