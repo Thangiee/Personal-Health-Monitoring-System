@@ -2,11 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.cse3310.phms.ui.activities.WebViewActivity" >
 
+    <item
+            android:id="@+id/action_refresh"
+            android:orderInCategory="100"
+            android:showAsAction="always"
+            android:icon="@drawable/ic_action_refresh"
+            android:title="Refresh"/>
+
+    <item
+            android:id="@+id/action_fullscreen"
+            android:orderInCategory="100"
+            android:showAsAction="always"
+            android:icon="@drawable/ic_action_fullscreen"
+            android:title="Full Screen"/>
+
+
 
     <item android:id="@+id/open_browser"
           android:title="Open in browser"
           android:orderInCategory="100"
           android:showAsAction="never"/>
+
+    <item android:id="@+id/copy_url"
+          android:title="Copy URL"
+          android:orderInCategory="100"
+          android:showAsAction="never"/>
+
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"

@@ -51,13 +51,13 @@ public class UrlCard extends Card {
 
         title.setText(mUrlInfo.getTitle());
         subTitle.setText(mUrlInfo.getUrl());
-
         mButton.setClickable(true);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, WebViewActivity.class);
                 intent.putExtra("urlpass", mUrlInfo.getUrl());
+                intent.putExtra("newLabel",mUrlInfo.getTitle());
                 mContext.startActivity(intent);
             }
         });

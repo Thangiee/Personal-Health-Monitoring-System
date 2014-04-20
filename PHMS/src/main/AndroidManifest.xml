@@ -103,8 +103,7 @@
         <activity
             android:name="com.cse3310.phms.ui.activities.WebViewActivity"
             android:label="@string/title_activity_web_view"
-            android:noHistory="true">
-
+            android:noHistory="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.SlidingMenuActivity" />
