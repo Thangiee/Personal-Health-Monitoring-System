@@ -40,6 +40,9 @@ public class Medication extends Model implements Remindable, Notifiable{
         medicationName = medication.getMedicationName();
         dosage = medication.getDosage();
         time = medication.getTime();
+        dosageType = medication.getDosageType();
+        frequencyType = medication.getFrequencyType();
+        frequency = medication.getFrequency();
     }
 
 

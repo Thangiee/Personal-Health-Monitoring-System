@@ -29,7 +29,6 @@ public class MedicationCardExpand extends CardExpand{
         TextView frequencyTypeTextView = (TextView) view.findViewById(R.id.frag_frequency_type_expand_lbl);
 
 
-
         dosageTextView.setText(String.valueOf(medication.getDosage()));
         dosageTypeTextView.setText(medication.getDosageType());
         frequencyTextView.setText(String.valueOf(medication.getFrequency()));
