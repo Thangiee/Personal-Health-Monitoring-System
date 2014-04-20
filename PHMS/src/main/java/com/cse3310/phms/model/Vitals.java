@@ -19,13 +19,86 @@ package com.cse3310.phms.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.ui.utils.UserSingleton;
 
 @Table(name = "VitalSign")
-public class VitalSign extends Model {
+public class Vitals extends Model {
 
     @Column private double bloodPressure;
     @Column private double glucoseLevel;
     @Column private double cholesterol;
+    @Column private double bodyTemp;
+    @Column private double pulse;
+    @Column private String VitalsName;
+    @Column private User user; // used as a foreign key
+
+    public Vitals(Vitals vitals) {
+        this.user = UserSingleton.INSTANCE.getCurrentUser();
+        VitalsName = vitals.getVitalsName();
+        bloodPressure = vitals.getBloodPressure();
+        glucose = vitals.getGlucose();
+    }
+
+    public String getVitalsName() {
+        return VitalsName;
+    }
+
+    public void setVitalsName(String vitalsName) {
+        VitalsName = vitalsName;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+    public Vitals(){
+        this.user = UserSingleton.INSTANCE.getCurrentUser();
+    }
+
+    /**
+     * Gets user that owns the medication.
+     *
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    public double getBodyTemp() {
+        return bodyTemp;
+    }
+
+    public void setBodyTemp(double bodyTemp) {
+        this.bodyTemp = bodyTemp;
+    }
+
+    public double getPulse() {
+        return pulse;
+    }
+
+    public void setPulse(double pulse) {
+        this.pulse = pulse;
+    }
+
+    public double getRespiratory() {
+        return respiratory;
+    }
+
+    public void setRespiratory(double respiratory) {
+        this.respiratory = respiratory;
+    }
+
+    public double getGlucose() {
+        return glucose;
+    }
+
+    public void setGlucose(double glucose) {
+        this.glucose = glucose;
+    }
+
+    @Column private double respiratory;
+    @Column private double glucose;
 
     /**
      * Gets cholesterol.
@@ -42,7 +115,7 @@ public class VitalSign extends Model {
      * @param cholesterol the cholesterol as a unit of mg/dL
      * @return the this object
      */
-    public VitalSign setCholesterol(final double cholesterol) {
+    public Vitals setCholesterol(final double cholesterol) {
         this.cholesterol = cholesterol;
         return this;
     }
@@ -62,7 +135,7 @@ public class VitalSign extends Model {
      * @param glucoseLevel the glucose level as a unit of mg/dL
      * @return the this object
      */
-    public VitalSign setGlucoseLevel(final double glucoseLevel) {
+    public Vitals setGlucoseLevel(final double glucoseLevel) {
         this.glucoseLevel = glucoseLevel;
         return this;
     }
@@ -82,7 +155,7 @@ public class VitalSign extends Model {
      * @param bloodPressure the blood pressure as a unit of mmHg
      * @return the this object
      */
-    public VitalSign setBloodPressure(final double bloodPressure) {
+    public Vitals setBloodPressure(final double bloodPressure) {
         this.bloodPressure = bloodPressure;
         return this;
     }

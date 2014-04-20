@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:stretchColumns="1,2"
+             android:layout_column="1"
+             android:background="@drawable/gray_stripe_pattern">
+
+    <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
+                android:text="      Dosage:"
+                android:id="@+id/frag_dosage_expand_lbl"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="right"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
+                android:text="0"
+                android:id="@+id/frag_dosage_expand_count"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="left"/>
+    </TableRow>
+</TableLayout>

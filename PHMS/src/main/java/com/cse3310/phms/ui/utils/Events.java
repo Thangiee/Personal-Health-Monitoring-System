@@ -78,6 +78,21 @@ public class Events {
             this.medicationCard = medicationCard;
         }
     }
+    public static class AddVitalsCardEvent {
+        public VitalsCard vitalsCard;
+
+        public AddVitalsCardEvent(VitalsCard vitalsCard) {
+            this.vitalsCard = vitalsCard;
+        }
+    }
+
+    public static class RemoveVitalsCardEvent {
+        public VitalsCard vitalsCard;
+
+        public RemoveVitalsCardEvent(VitalsCard vitalsCard) {
+            this.vitalsCard = vitalsCard;
+        }
+    }
 
     public static class RemoveFoodCardEvent {
         public FoodCard foodCard;
