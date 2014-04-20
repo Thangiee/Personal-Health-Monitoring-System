@@ -17,6 +17,7 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +26,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -145,10 +147,14 @@ public class ContactScreenFragment extends SherlockFragment {
     }
 
     public void onEvent(Events.RemoveDoctorCardEvent event) {
-        event.doctorContactCard.getDoctorInfo().delete();
-        mDoctorCardList.remove(event.doctorContactCard);
-        mCardListFragment.removeCard(event.doctorContactCard);
-        mCardListFragment.update();
+        try {
+            event.doctorContactCard.getDoctorInfo().delete();
+            mDoctorCardList.remove(event.doctorContactCard);
+            mCardListFragment.removeCard(event.doctorContactCard);
+            mCardListFragment.update();
+        } catch (SQLiteConstraintException e) {
+            Toast.makeText(getActivity(), "Can't delete, other components depend on this entry.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onEvent(Events.AddContactCardEvent event) {
