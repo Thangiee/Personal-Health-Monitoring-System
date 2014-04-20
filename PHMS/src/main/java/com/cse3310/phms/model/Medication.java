@@ -24,9 +24,6 @@ import com.cse3310.phms.ui.utils.UserSingleton;
 @Table(name = "Medication")
 public class Medication extends Model implements Remindable, Notifiable{
 
-    public Medication(String medicationName){
-        this.medicationName = medicationName;
-    }
     @Column private long time;
     @Column private String medicationName;
     @Column private String frequencyType;
@@ -38,11 +35,12 @@ public class Medication extends Model implements Remindable, Notifiable{
     public Medication(Medication medication) {
         this.user = UserSingleton.INSTANCE.getCurrentUser();
         medicationName = medication.getMedicationName();
+        frequencyType = medication.getFrequencyType();
+        dosageType = medication.getDosageType();
         dosage = medication.getDosage();
+        frequency = medication.getFrequency();
         time = medication.getTime();
     }
-
-
 
     public Medication(){
         this.user = UserSingleton.INSTANCE.getCurrentUser();

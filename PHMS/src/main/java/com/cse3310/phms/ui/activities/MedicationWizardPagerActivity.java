@@ -1,6 +1,7 @@
 package com.cse3310.phms.ui.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import com.cse3310.phms.model.Medication;
 import com.cse3310.phms.ui.cards.MedicationCard;
 import com.cse3310.phms.ui.utils.Events;
@@ -37,22 +38,23 @@ public class MedicationWizardPagerActivity extends BaseWizardPagerActivity{
         Double frequency = Double.parseDouble(onGetPage(FREQUENCY_KEY).getData().getString(SIMPLE_DATA_KEY));
         String frequencyType = onGetPage(NAME_KEY).getData().getString(SIMPLE_DATA_KEY);
 
-
+        Log.d("DEBUG", "" + frequency + "-" + frequencyType);
         // create the medication object
-        Medication medication = new Medication(name);
+        Medication medication = new Medication();
+        medication.setMedicationName(name);
         medication.setDosage(dosage);
         medication.setDosageType(dosageType);
         medication.setFrequency(frequency);
         medication.setFrequencyType(frequencyType);
 
+        Log.d("DEBUG", "medication:" + medication.getFrequency() + "-" + medication.getFrequencyType());
+
         // if editing, remove the old card and add the new edited card
         if (super.editMode) {
             MedicationCard oldMedication = ((MedicationWizardModel) mWizardModel).getMedicationCard();
-            // post an event to DietScreenFragment to remove the old card
             EventBus.getDefault().post(new Events.RemoveMedicationCardEvent(oldMedication));
         }
 
-        // post an event to DietScreenFragment to add a new card
         EventBus.getDefault().post(new Events.AddMedicationCardEvent(new MedicationCard(this, medication)));
         finish();
     }
