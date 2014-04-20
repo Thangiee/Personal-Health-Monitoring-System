@@ -30,48 +30,57 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.Remindable;
 
 public class ReminderAlarm extends BroadcastReceiver {
-    public static final int ID = 1;
     private final String REMINDER_BUNDLE = "MyReminderBundle";
 
     public ReminderAlarm() {
     }
 
     public ReminderAlarm(Context context, Remindable remindable, int icon) {
-        final int id = (int) System.currentTimeMillis();
+        final int id = (int) remindable.reminderTime();
 
         Bundle bundle = new Bundle();
+        bundle.putString("title", remindable.reminderTitle());
         bundle.putString("message", remindable.reminderMessage());
         bundle.putInt("icon", icon);
 
         Intent intent = new Intent(context, ReminderAlarm.class);
         intent.putExtra(REMINDER_BUNDLE, bundle);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, remindable.reminderTime(), pendingIntent);    // set the alarm
     }
 
+    public static void cancelReminder(Context context, Remindable remindable) {
+        Intent intent = new Intent(context, ReminderAlarm.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) remindable.reminderTime(),
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         //Create an Intent for the BroadcastReceiver
         Intent buttonIntent = new Intent(context, AlarmButtonReceiver.class);
-        buttonIntent.putExtra("id", ID);
 
         //Create the PendingIntent
-        PendingIntent btnPendingIntent = PendingIntent.getBroadcast(context, 0, buttonIntent, 0);
+        PendingIntent btnPendingIntent = PendingIntent.getBroadcast(context, 1, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // get sound for notification
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
         Bundle bundle = intent.getBundleExtra(REMINDER_BUNDLE);
+        String title = bundle.getString("title");
         String message = bundle.getString("message");
         int icon = bundle.getInt("icon");
 
         Notification.Builder builder = new Notification.Builder(context)
                 .setSmallIcon(icon)
+                .setAutoCancel(true)
                 .setSound(alarmSound)
-                .setContentTitle("Reminder!")
+                .setContentTitle(title)
                 .addAction(R.drawable.ic_check_light, "Dismiss", btnPendingIntent); //Pass this PendingIntent to addAction method of Intent Builder//
 
         Notification notification = new Notification.BigTextStyle(builder)
@@ -82,6 +91,6 @@ public class ReminderAlarm extends BroadcastReceiver {
         notification.flags |= Notification.FLAG_INSISTENT;  // repeat sound?
 
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify(ID, notification);    // fire the notification
+        nm.notify(1 , notification);    // fire the notification
     }
 }
