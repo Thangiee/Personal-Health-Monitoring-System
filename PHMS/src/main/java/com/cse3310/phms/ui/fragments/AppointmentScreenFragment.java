@@ -24,13 +24,17 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Appointment;
+import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.activities.AddAppointmentActivity_;
 import com.cse3310.phms.ui.cards.AppointmentCard;
-import com.cse3310.phms.ui.utils.DatabaseHandler;
+import com.cse3310.phms.ui.utils.UserSingleton;
 import com.cse3310.phms.ui.views.CardListDialogFragment_;
 import com.squareup.timessquare.CalendarPickerView;
 import it.gmariotti.cardslib.library.internal.Card;
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.ViewById;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.util.*;
@@ -39,6 +43,7 @@ import java.util.*;
 public class AppointmentScreenFragment extends SherlockFragment implements CalendarPickerView.OnDateSelectedListener {
     private boolean isAddMode = false;
     private Calendar mSelectedMonth;
+    private User mUser = UserSingleton.INSTANCE.getCurrentUser();
 
     @ViewById(R.id.calendar_view)
     CalendarPickerView mCalendarPickerView;
@@ -111,7 +116,7 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
 
         // get all dates that have an appointment from the current selected month and year
         Set<Date> dates = new HashSet<Date>();
-        for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
+        for (Appointment appointment : mUser.getAppointments()) {
             Date date = new Date(appointment.getTime());
             if (isSameMonthAndYear(mSelectedMonth, date))
                 dates.add(date);
@@ -142,7 +147,7 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
             cardList.clear();
 
             // get appointment with the same date as the selected date
-            for (Appointment appointment : DatabaseHandler.getAllRows(Appointment.class)) {
+            for (Appointment appointment : mUser.getAppointments()) {
                 if (DateUtils.isSameDay(date, new Date(appointment.getTime()))) {
                     cardList.add(new AppointmentCard(getActivity(), appointment));
                 }
@@ -150,7 +155,7 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
 
             // open up a dialog with a list of appointments for dates that have appointment
             if (!cardList.isEmpty()) {
-                CardListDialogFragment_.newInstance(cardList).show(getFragmentManager(), "tag");
+                CardListDialogFragment_.newInstance(cardList, "Appointments").show(getFragmentManager(), "tag");
             }
         }
     }

@@ -23,10 +23,11 @@ import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Food;
+import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.cards.FoodCard;
 import com.cse3310.phms.ui.fragments.CardListFragment_;
-import com.cse3310.phms.ui.utils.DatabaseHandler;
 import com.cse3310.phms.ui.utils.Events;
+import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EActivity;
@@ -49,7 +50,8 @@ public class AddFoodActivity extends BaseActivity{
         setTitle("Add Food Intake");
         EventBus.getDefault().registerSticky(this);
 
-        List<Food> foodList = DatabaseHandler.getAllRows(Food.class); // get all the food in the DB
+        User user = UserSingleton.INSTANCE.getCurrentUser();
+        List<Food> foodList = user.getDiet().getFoods(); // get all the food in the DB
 
         Set<String> nameSet = new HashSet<String>(foodList.size());
         List<Card> cardList = new ArrayList<Card>(nameSet.size());

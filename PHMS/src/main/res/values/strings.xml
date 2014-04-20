@@ -3,12 +3,11 @@
 
     <string name="app_name">PHMS</string>
     <string name="hello_world">Hello world!</string>
+    <string name="hello_world2">Hello world!</string>
     <string name="action_settings">Settings</string>
-
     <string name="next">Next</string>
     <string name="prev">Previous</string>
     <string name="finish">Submit</string>
-
     <string name="cant_be_empty">This field can not be empty.</string>
     <string name="open_content_desc">Close</string>
     <string name="close_content_desc">Open</string>
@@ -22,7 +21,6 @@
         <item>7</item>
         <item>8</item>
     </string-array>
-
     <string-array name="in">
         <item>0</item>
         <item>1</item>
@@ -37,4 +35,12 @@
         <item>10</item>
         <item>11</item>
     </string-array>
+
+    <string name="title_activity_web_view">WebViewActivity</string>
+    <string name="web_view_tab1">Tab1</string>
+    <string name="title_activity_estorage">EstorageActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
 </resources>

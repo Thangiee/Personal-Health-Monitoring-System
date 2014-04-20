@@ -25,15 +25,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.activeandroid.ActiveAndroid;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Appointment;
-import com.cse3310.phms.model.DoctorInfo;
-import com.cse3310.phms.model.User;
+import com.cse3310.phms.model.*;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-
-import java.util.Calendar;
 
 @EFragment(R.layout.home_screen)
 public class HomeScreenFragment extends SherlockFragment{
@@ -65,40 +61,43 @@ public class HomeScreenFragment extends SherlockFragment{
 
 
     private void initializeTestData() {
-        User user = UserSingleton.INSTANCE.getCurrentUser();
+        //User user = UserSingleton.INSTANCE.getCurrentUser();
         ActiveAndroid.beginTransaction();
         try {
-//            Food food = new Food("Applesauce");
-//            food.save();
-//            food = new Food("Apple juice");
-//            food.save();
-//            food = new Food("Apple");
-//            food.save();
-//            food = new Food("Beer");
-//            food.save();
-//            food = new Food("Bread");
-//            food.save();
-//            food = new Food("Bacon");
-//            food.save();
-//            food = new Food("corn");
-//            food.save();
-//            food = new Food("cheese");
-//            food.save();
-//            food = new Food("cake");
-//            food.save();
-//            food = new Food("cookies");
-//            food.save();
-//            food = new Food("chicken");
-//            food.save();
+            Food food = new Food("Applesauce");
+            food.save();
+            food = new Food("Apple juice");
+            food.save();
+            food = new Food("Apple");
+            food.save();
+            food = new Food("Beer");
+            food.save();
+            food = new Food("Bread");
+            food.save();
+            food = new Food("Bacon");
+            food.save();
+            food = new Food("corn");
+            food.save();
+            food = new Food("cheese");
+            food.save();
+            food = new Food("cake");
+            food.save();
+            food = new Food("cookies");
+            food.save();
+            food = new Food("chicken");
+            food.save();
             DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "fake");
             doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("Shit@google.com");
             doctorInfo.save();
-
-            Calendar today = Calendar.getInstance();
-            today.add(Calendar.DATE, 5);
-
-            Appointment appointment = new Appointment(doctorInfo, today.getTimeInMillis());
-            appointment.save();
+            Health urlInfo1 = new Health();
+            urlInfo1.setUrl("http://www.nhl.com").setTitle("Hockey Chizz");
+            urlInfo1.save();
+            Recipe urlInfo2 = new Recipe();
+            urlInfo2.setUrl("http://www.google.com").setTitle("Search Mode");
+            urlInfo2.save();
+            DietDesc urlInfo3 = new DietDesc();
+            urlInfo3.setUrl("http://www.espn.com").setTitle("Sports Stuff and things");
+            urlInfo3.save();
             ActiveAndroid.setTransactionSuccessful();
         } finally {
             ActiveAndroid.endTransaction();

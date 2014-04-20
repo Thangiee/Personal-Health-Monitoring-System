@@ -28,7 +28,9 @@ public class DoctorInfo extends Info {
     /**
      * Default constructor is required for ActiveAndroid
      */
-    public DoctorInfo() {}
+    public DoctorInfo() {
+        super();
+    }
 
     /**
      * Instantiates a new DoctorInfo.
