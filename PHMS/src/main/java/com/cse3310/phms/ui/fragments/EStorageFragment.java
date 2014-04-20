@@ -31,7 +31,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.*;
 import com.cse3310.phms.ui.activities.UrlWizardPagerActivity;
-import com.cse3310.phms.ui.activities.WebViewActivity;
 import com.cse3310.phms.ui.cards.UrlCard;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
@@ -57,20 +56,22 @@ public class EStorageFragment extends SherlockFragment {
     private List<Card> mHealthCardList = new ArrayList<Card>();
     private List<Card> mRecipeCardList = new ArrayList<Card>();
     private List<Card> mDietCardList = new ArrayList<Card>();
+    private EventBus localBus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().registerSticky(this);
+        localBus = new EventBus();
         populateCardLists();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentManager fm = getChildFragmentManager();
-        mTabsIndicatorFragment = TabsIndicatorFragment.newInstance(new EStorageScreenAdapter(fm));
-        mCardListFragment = CardListFragment_.newInstance(mHealthCardList, true);
+        mTabsIndicatorFragment = TabsIndicatorFragment.newInstance(new EStorageScreenAdapter(fm), localBus);
+        mCardListFragment = CardListFragment_.newInstance(mHealthCardList, true, true, true);
 
         final FragmentTransaction transaction = fm.beginTransaction();
         transaction.add(R.id.webview_screen_tabs_container, mTabsIndicatorFragment);
@@ -78,6 +79,18 @@ public class EStorageFragment extends SherlockFragment {
         transaction.commit();
 
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        localBus.register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        localBus.unregister(this);
+        super.onPause();
     }
 
     @Override
@@ -132,35 +145,7 @@ public class EStorageFragment extends SherlockFragment {
     }
 
     private UrlCard createUrlCard(final EStorage estorage) {
-        final UrlCard urlCard = new UrlCard(getActivity(), estorage);
-        urlCard.setTitle(estorage.getTitle());
-        urlCard.setSubTitle(estorage.getUrl());
-        urlCard.setSwipeable(true);
-        urlCard.setBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String url = estorage.getUrl();
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("urlpass", url);
-                startActivity(intent);
-            }
-        });
-        urlCard.setOnSwipeListener(new Card.OnSwipeListener() {
-            @Override
-            public void onSwipe(Card card) {
-                EventBus.getDefault().postSticky(new Events.RemoveUrlCardEvent(urlCard));
-            }
-        });
-
-        urlCard.setOnUndoSwipeListListener(new Card.OnUndoSwipeListListener() {
-            @Override
-            public void onUndoSwipe(Card card) {
-                UserSingleton.INSTANCE.getCurrentUser().getEStorage().add(new EStorage(estorage));
-
-            }
-        });
-        return urlCard;
+        return new UrlCard(getActivity(), estorage);
     }
 
     //===============================================================
