@@ -124,6 +124,11 @@ public class Appointment extends Model implements Remindable{
     }
 
     @Override
+    public String reminderTitle() {
+        return "Appointment";
+    }
+
+    @Override
     public String reminderMessage() {
         return String.format(
                 "Appointment with Dr.%s at %s.\nPurpose: %s",
