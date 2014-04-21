@@ -43,9 +43,10 @@
     <color name="card_activated_kitkat">#ADE1F4</color>
 
     <!-- color card -->
-    <color name="orange">#FFBB33</color>
+    <color name="light_orange">#FFBB33</color>
+    <color name="orange">#FF8800</color>
     <color name="green">#669900</color>
-    <color name="light_green">#98CC00</color>
+    <color name="light_green">#99CC00</color>
     <color name="light_purple">#A966CC</color>
     <color name="light_blue">#33B4E4</color>
     <color name="red">#FF4343</color>

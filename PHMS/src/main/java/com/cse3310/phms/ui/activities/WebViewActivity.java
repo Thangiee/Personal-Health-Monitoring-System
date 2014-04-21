@@ -8,15 +8,15 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.cse3310.phms.R;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.widget.Toast;
+
 
 public class WebViewActivity extends Activity implements FragmentManager.OnBackStackChangedListener {
 
@@ -26,6 +26,7 @@ public class WebViewActivity extends Activity implements FragmentManager.OnBackS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_web_view);
 
         webView = (WebView) findViewById(R.id.webView);
@@ -37,18 +38,48 @@ public class WebViewActivity extends Activity implements FragmentManager.OnBackS
 
         WebViewClient webClient = new WebViewClient()
         {
+
+            @Override
+            public void onPageFinished(WebView webView, String url)
+            {
+                super.onPageFinished(webView, url);
+                setProgressBarIndeterminateVisibility(false);
+            }
             @Override
             public boolean shouldOverrideUrlLoading(WebView webView, String url)
             {
+                webView.loadUrl(url);
                 return false;
             }
         };
         webView.setWebViewClient(webClient);
+        setTitle(intent.getExtras().getString("newLabel"));
+
         webView.loadUrl(url);
+        setProgressBarIndeterminateVisibility(true);
 
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if((keyCode == KeyEvent.KEYCODE_BACK) && !getActionBar().isShowing())
+        {
+            getActionBar().show();
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            return true;
+        }
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack())
+        {
+            webView.goBack();
+            setProgressBarIndeterminateVisibility(true);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 
@@ -70,9 +101,30 @@ public class WebViewActivity extends Activity implements FragmentManager.OnBackS
                 return true;
 
             case R.id.open_browser:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(webView.getOriginalUrl()));
                 startActivity(browserIntent);
+               // finish();
             return true;
+
+            case R.id.copy_url:
+                String urlText = webView.getOriginalUrl();
+                ClipData urlClip = ClipData.newPlainText("urlClip", urlText);
+                ClipboardManager urlClipBoard = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                urlClipBoard.setPrimaryClip(urlClip);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_fullscreen:
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                getActionBar().hide();
+
+                return true;
+
+            case R.id.action_refresh:
+                webView.reload();
+                setProgressBarIndeterminateVisibility(true);
+
+                return true;
 
             case android.R.id.home:
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
@@ -118,14 +170,6 @@ public class WebViewActivity extends Activity implements FragmentManager.OnBackS
         getFragmentManager().popBackStack();
         return true;
     }
-
-
-    public void setUrl(String temp)
-    {
-        url = temp;
-    }
-
-
 
     /**
      * A placeholder fragment containing a simple view.

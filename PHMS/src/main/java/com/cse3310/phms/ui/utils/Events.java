@@ -148,6 +148,14 @@ public class Events {
         }
     }
 
+    public static class RemoveReminderCardEvent {
+        public ReminderCard reminderCard;
+
+        public RemoveReminderCardEvent(ReminderCard reminderCard) {
+            this.reminderCard = reminderCard;
+        }
+    }
+
     public static class SwitchDayEvent { }
 
     public static class SwitchTabEvent {

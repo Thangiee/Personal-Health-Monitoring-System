@@ -19,6 +19,7 @@ package com.cse3310.phms.ui.fragments;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -26,20 +27,26 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.activeandroid.ActiveAndroid;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.*;
-import com.cse3310.phms.ui.utils.UserSingleton;
+import com.cse3310.phms.model.utils.MyDateFormatter;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.Date;
+
 @EFragment(R.layout.home_screen)
 public class HomeScreenFragment extends SherlockFragment{
-
+    @ViewById(R.id.frag_enterDateHere_lbl)
+    TextView dateView;
     @ViewById(R.id.initialize_test_data)
     Button testButton;
+    Date date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        date = new Date();
+        //dateView.setText("Todays Date is:/n " + MyDateFormatter.formatDate(date.getTime()));
         setHasOptionsMenu(true);
     }
 
@@ -47,6 +54,11 @@ public class HomeScreenFragment extends SherlockFragment{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.overflow_menu, menu);
+    }
+
+    @AfterViews
+    void OnAfterViews() {
+        dateView.setText(String.valueOf("Todays is:\n " + MyDateFormatter.formatDate(date.getTime())));
     }
 
     @AfterViews

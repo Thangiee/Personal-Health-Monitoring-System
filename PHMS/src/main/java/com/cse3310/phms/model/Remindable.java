@@ -29,6 +29,13 @@ public interface Remindable {
     public long reminderTime();
 
     /**
+     * Title to display when the reminder is notified.
+     *
+     * @return the string title
+     */
+    public String reminderTitle();
+
+    /**
      * Message to display when the reminder is notified.
      *
      * @return the string message

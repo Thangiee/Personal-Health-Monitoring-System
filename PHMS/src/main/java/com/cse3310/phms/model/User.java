@@ -21,6 +21,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.cse3310.phms.ui.utils.DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "User")
@@ -146,5 +147,10 @@ public class User extends Model {
 
     public List<DietDesc> getDietDesc() {
         return DatabaseHandler.getAllById(DietDesc.class, "user", this.getId());
+    }
+
+    public List<Remindable> getReminders() {
+        List<Remindable> remindableList = new ArrayList<Remindable>(getAppointments());
+        return remindableList;
     }
 }

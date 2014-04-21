@@ -24,10 +24,9 @@ import android.content.Intent;
 public class AlarmButtonReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        int notificationId = intent.getIntExtra("id", 1);
 
         // cancel notification
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(notificationId);
+        manager.cancel(1);
     }
 }

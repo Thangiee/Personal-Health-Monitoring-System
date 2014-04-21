@@ -69,6 +69,11 @@ public class Medication extends Model implements Remindable, Notifiable{
     }
 
     @Override
+    public String reminderTitle() {
+        return null;
+    }
+
+    @Override
     public String reminderMessage() {
         return null;
     }
