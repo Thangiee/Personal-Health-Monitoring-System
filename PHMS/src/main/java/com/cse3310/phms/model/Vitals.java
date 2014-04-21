@@ -29,29 +29,24 @@ public class Vitals extends Model {
     @Column private double cholesterol;
     @Column private double bodyTemp;
     @Column private double pulse;
-    @Column private double respiratory;
-    @Column private double glucose;
-    @Column private String VitalsName;
+
+
     @Column private User user; // used as a foreign key
 
     public Vitals(Vitals vitals) {
         this.user = UserSingleton.INSTANCE.getCurrentUser();
-        VitalsName = vitals.getVitalsName();
         bloodPressure = vitals.getBloodPressure();
-        glucose = vitals.getGlucose();
+        glucoseLevel = vitals.getGlucoseLevel();
+        cholesterol = vitals.getCholesterol();
+        bodyTemp = vitals.getBodyTemp();
+        pulse = vitals.getPulse();
+
     }
 
     public Vitals(){
         this.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
-    public String getVitalsName() {
-        return VitalsName;
-    }
-
-    public void setVitalsName(String vitalsName) {
-        VitalsName = vitalsName;
-    }
 
     public void setUser(User user) {
         this.user = user;
@@ -77,21 +72,6 @@ public class Vitals extends Model {
         this.pulse = pulse;
     }
 
-    public double getRespiratory() {
-        return respiratory;
-    }
-
-    public void setRespiratory(double respiratory) {
-        this.respiratory = respiratory;
-    }
-
-    public double getGlucose() {
-        return glucose;
-    }
-
-    public void setGlucose(double glucose) {
-        this.glucose = glucose;
-    }
 
     /**
      * Gets cholesterol.

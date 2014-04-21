@@ -21,9 +21,17 @@ public class VitalsCardExpand extends CardExpand{
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         if (view == null) return;
+        TextView cholesterolTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
+        TextView bloodTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
+        TextView glucoseTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
+        TextView pulseTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
+        TextView bodyTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
 
-        TextView dosageTextView = (TextView) view.findViewById(R.id.frag_dosage_expand_count);
+        cholesterolTextView.setText(String.valueOf(vitals.getCholesterol()));
+        bloodTextView.setText(String.valueOf(vitals.getBloodPressure()));
+        glucoseTextView.setText(String.valueOf(vitals.getGlucoseLevel()));
+        pulseTextView.setText(String.valueOf(vitals.getPulse()));
+        bodyTextView.setText(String.valueOf(vitals.getBodyTemp()));
 
-        dosageTextView.setText(String.valueOf(vitals.getCholesterol()));
     }
 }

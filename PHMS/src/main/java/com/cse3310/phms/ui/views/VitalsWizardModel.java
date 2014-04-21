@@ -15,9 +15,8 @@ import static android.text.InputType.TYPE_CLASS_TEXT;
  */
 public class VitalsWizardModel extends AbstractWizardModel{
     private VitalsCard vitalsCard;
-    public static final String NAME_KEY = "Vitals Name";
-    public static final String DOSAGE_KEY = "Dosage";
-
+    public static final String CHOLESTEROL_KEY = "Cholesterol Level", GLUCOSE_KEY = "Glucose Level";
+    public static final String BLOOD_KEY = "Blood Pressure", BODY_KEY="Body Temperature", PULSE_KEY = "Pulse Rate";
     public VitalsWizardModel(Context context) {
         super(context);
     }
@@ -29,14 +28,22 @@ public class VitalsWizardModel extends AbstractWizardModel{
             Vitals vitals = vitalsCard.getVitals();
 
             return new PageList(
-                    new EditTextPage(this, NAME_KEY).setValue(vitals.getVitalsName()).setInputType(TYPE_CLASS_TEXT).setRequired(true),
-                    new EditTextPage(this, DOSAGE_KEY).setValue(String.valueOf(vitals.getCholesterol())).setRequired(true)
+                    new EditTextPage(this, BLOOD_KEY).setValue(String.valueOf(vitals.getBloodPressure())).setRequired(true),
+                    new EditTextPage(this, GLUCOSE_KEY).setValue(String.valueOf(vitals.getCholesterol())).setRequired(true),
+                    new EditTextPage(this, CHOLESTEROL_KEY).setValue(String.valueOf(vitals.getCholesterol())).setRequired(true),
+                    new EditTextPage(this, BODY_KEY).setValue(String.valueOf(vitals.getCholesterol())).setRequired(true),
+                    new EditTextPage(this, PULSE_KEY).setValue(String.valueOf(vitals.getCholesterol())).setRequired(true)
+
             );
         }
         else{
             return new PageList(
-                    new EditTextPage(this, NAME_KEY).setInputType(TYPE_CLASS_TEXT).setRequired(true), // change input type to text
-                    new EditTextPage(this, DOSAGE_KEY).setRequired(true)
+                    new EditTextPage(this, BLOOD_KEY).setRequired(true),
+                    new EditTextPage(this, GLUCOSE_KEY).setRequired(true),
+                    new EditTextPage(this, CHOLESTEROL_KEY).setRequired(true),
+                    new EditTextPage(this, BODY_KEY).setRequired(true),
+                    new EditTextPage(this, PULSE_KEY).setRequired(true)
+
             );
         }
     }

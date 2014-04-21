@@ -13,6 +13,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.Vitals;
 import com.cse3310.phms.model.User;
 //import com.cse3310.phms.ui.activities.AddVitalsActivity_;
+import com.cse3310.phms.ui.activities.AddVitalsActivity_;
 import com.cse3310.phms.ui.activities.VitalsWizardPagerActivity;
 import com.cse3310.phms.ui.cards.VitalsCard;
 import com.cse3310.phms.ui.utils.Comparators.CardComparator;
@@ -72,9 +73,9 @@ public class VitalsScreenFragment extends SherlockFragment{
     void menuAddVitals() {
         // called activity must use Android annotation to use this format
         // otherwise do it the normal way:
-        // Intent intent = new Intent(this, ActivityToStart.class);
+        //Intent intent = new Intent(this, AddVitalsActivity.);
         // startActivity(intent);
-        //AddVitalsActivity_.intent(this).start();
+        AddVitalsActivity_.intent(this).start();
     }
 
 
@@ -91,7 +92,7 @@ public class VitalsScreenFragment extends SherlockFragment{
     // helper method to create and set up a vitals card
     private VitalsCard createVitalsCard(final Vitals vitals) {
         final VitalsCard vitalsCard = new VitalsCard(getActivity(), vitals);
-        vitalsCard.setTitle(vitals.getVitalsName());
+        vitalsCard.setTitle("vitals");
         vitalsCard.setButtonTitle("Edit");
         vitalsCard.setSwipeable(true);
 
