@@ -63,6 +63,13 @@ public class MedicationScreenFragment extends SherlockFragment{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Medication");
+    }
+
+    @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();

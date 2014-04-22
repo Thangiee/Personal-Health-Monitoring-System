@@ -180,6 +180,13 @@ public class WeightLogScreenFragment extends SherlockFragment{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Weight Logs");
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.overflow_menu, menu);

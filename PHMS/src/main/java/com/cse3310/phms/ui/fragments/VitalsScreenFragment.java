@@ -56,6 +56,13 @@ public class VitalsScreenFragment extends SherlockFragment{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Vital Signs");
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.add_menu, menu);    // add the add icon to the action bar menu
         super.onCreateOptionsMenu(menu, inflater);

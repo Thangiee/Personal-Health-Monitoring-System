@@ -23,14 +23,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class Events {
-    public static class SlidingMenuItemSelectedEvent {
-        public String newTitle;
-
-        public SlidingMenuItemSelectedEvent(String newTitle) {
-            this.newTitle = newTitle;
-        }
-    }
-
     public static class initCardsToSearchEvent {
         public Collection<Card> cardsToSearch;
 

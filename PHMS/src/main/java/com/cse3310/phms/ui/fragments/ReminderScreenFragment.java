@@ -65,6 +65,8 @@ public class ReminderScreenFragment extends SherlockFragment {
     public void onResume() {
         EventBus.getDefault().register(this);
         super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Reminders");
     }
 
     @Override

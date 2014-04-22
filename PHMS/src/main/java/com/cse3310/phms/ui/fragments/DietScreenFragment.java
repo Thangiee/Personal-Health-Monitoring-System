@@ -84,6 +84,9 @@ public class DietScreenFragment extends SherlockFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Diet");
         // add together nutrition of all the food cards
         dietHeaderFragment.calculateTotal(cardList);
     }
