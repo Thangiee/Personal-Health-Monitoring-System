@@ -16,6 +16,7 @@
 
 package com.cse3310.phms.model;
 
+import co.juliansuarez.libwizardpager.R;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -29,12 +30,14 @@ public class Vitals extends Model {
     @Column private double cholesterol;
     @Column private double bodyTemp;
     @Column private double pulse;
+    @Column private String Date;
 
 
     @Column private User user; // used as a foreign key
 
     public Vitals(Vitals vitals) {
         this.user = UserSingleton.INSTANCE.getCurrentUser();
+        Date=vitals.getDate();
         bloodPressure = vitals.getBloodPressure();
         glucoseLevel = vitals.getGlucoseLevel();
         cholesterol = vitals.getCholesterol();
@@ -47,6 +50,13 @@ public class Vitals extends Model {
         this.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
 
     public void setUser(User user) {
         this.user = user;

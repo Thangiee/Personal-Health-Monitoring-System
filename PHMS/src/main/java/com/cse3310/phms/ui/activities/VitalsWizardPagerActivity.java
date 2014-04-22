@@ -30,6 +30,7 @@ public class VitalsWizardPagerActivity extends BaseWizardPagerActivity {
     public void onSubmit() {
         // extract all the information from the process and
         // use it to create a new vitals object.
+
         double bloodPressure  = Double.parseDouble(onGetPage(BLOOD_KEY).getData().getString(SIMPLE_DATA_KEY));
         double glucoseLevel  = Double.parseDouble(onGetPage(GLUCOSE_KEY).getData().getString(SIMPLE_DATA_KEY));
         double cholesterol  = Double.parseDouble(onGetPage(CHOLESTEROL_KEY).getData().getString(SIMPLE_DATA_KEY));

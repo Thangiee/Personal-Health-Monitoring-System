@@ -1,6 +1,7 @@
 package com.cse3310.phms.ui.views;
 
 import android.content.Context;
+import android.text.InputType;
 import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;
 import co.juliansuarez.libwizardpager.wizard.model.PageList;
 import com.cse3310.phms.model.Vitals;
@@ -15,7 +16,7 @@ import static android.text.InputType.TYPE_CLASS_TEXT;
  */
 public class VitalsWizardModel extends AbstractWizardModel{
     private VitalsCard vitalsCard;
-    public static final String CHOLESTEROL_KEY = "Cholesterol Level", GLUCOSE_KEY = "Glucose Level";
+    public static final String CHOLESTEROL_KEY = "Cholesterol Level", GLUCOSE_KEY = "Glucose Level", DATE_KEY = "Date" ;
     public static final String BLOOD_KEY = "Blood Pressure", BODY_KEY="Body Temperature", PULSE_KEY = "Pulse Rate";
     public VitalsWizardModel(Context context) {
         super(context);
@@ -28,6 +29,7 @@ public class VitalsWizardModel extends AbstractWizardModel{
             Vitals vitals = vitalsCard.getVitals();
 
             return new PageList(
+                    new EditTextPage(this, DATE_KEY).setValue(vitals.getDate()).setInputType(InputType.TYPE_CLASS_TEXT),
                     new EditTextPage(this, BLOOD_KEY).setValue(String.valueOf(vitals.getBloodPressure())).setRequired(true),
                     new EditTextPage(this, GLUCOSE_KEY).setValue(String.valueOf(vitals.getCholesterol())).setRequired(true),
                     new EditTextPage(this, CHOLESTEROL_KEY).setValue(String.valueOf(vitals.getCholesterol())).setRequired(true),
@@ -38,6 +40,7 @@ public class VitalsWizardModel extends AbstractWizardModel{
         }
         else{
             return new PageList(
+                    new EditTextPage(this, DATE_KEY).setInputType(InputType.TYPE_CLASS_TEXT),
                     new EditTextPage(this, BLOOD_KEY).setRequired(true),
                     new EditTextPage(this, GLUCOSE_KEY).setRequired(true),
                     new EditTextPage(this, CHOLESTEROL_KEY).setRequired(true),
