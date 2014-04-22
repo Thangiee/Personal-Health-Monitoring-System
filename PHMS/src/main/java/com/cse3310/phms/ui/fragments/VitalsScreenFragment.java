@@ -94,7 +94,7 @@ public class VitalsScreenFragment extends SherlockFragment{
         final VitalsCard vitalsCard = new VitalsCard(getActivity(), vitals);
         vitalsCard.setTitle("vitals");
         vitalsCard.setButtonTitle("Edit");
-        vitalsCard.setSwipeable(true);
+        vitalsCard.setSwipeable(false);
 
         // setup what to do when edit button is clicked on the card
         vitalsCard.setBtnClickListener(new View.OnClickListener() {

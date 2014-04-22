@@ -50,7 +50,7 @@ public class VitalsWizardPagerActivity extends BaseWizardPagerActivity {
             EventBus.getDefault().post(new Events.RemoveVitalsCardEvent(oldVitals));
         }
 
-        // post an event to DietScreenFragment to add a new card
+        // post an event to VitalScreenFragment to add a new card
         EventBus.getDefault().post(new Events.AddVitalsCardEvent(new VitalsCard(this, vitals)));
         finish();
     }
