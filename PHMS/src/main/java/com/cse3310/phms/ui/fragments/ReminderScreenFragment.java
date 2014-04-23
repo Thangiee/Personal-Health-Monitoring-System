@@ -88,7 +88,7 @@ public class ReminderScreenFragment extends SherlockFragment {
         Calendar now = Calendar.getInstance();
         for (Reminder reminder : user.getReminders()) {
             // if reminder has not pass and has not been cancel
-            if (now.getTimeInMillis() < reminder.getReminderTime() && reminder.isActive()) {
+            if (now.getTimeInMillis() < reminder.getAbsTime() && reminder.isActive()) {
                 mCardList.add(new ReminderCard(getActivity(), reminder));
             }
         }

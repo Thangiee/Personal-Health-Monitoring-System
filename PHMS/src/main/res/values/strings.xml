@@ -35,6 +35,19 @@
         <item>10</item>
         <item>11</item>
     </string-array>
+    
+    <string-array name="early_reminder_chose">
+        <item>0 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>12 hours</item>
+        <item>24 hours</item>
+        <item>2 days</item>
+        <item>1 week</item>
+    </string-array>
 
     <string name="title_activity_web_view">WebViewActivity</string>
     <string name="web_view_tab1">Tab1</string>

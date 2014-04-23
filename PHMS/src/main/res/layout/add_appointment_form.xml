@@ -62,6 +62,20 @@
             android:id="@+id/add_appointment_time_btn"
             android:layout_gravity="center_horizontal"/>
 
+    <TextView
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Early Reminder"
+            android:paddingLeft="8dp"
+            android:id="@+id/textView"/>
+
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reminder_spinner"/>
+
     <EditText
             android:id="@+id/add_appointment_purpose"
             android:descendantFocusability="beforeDescendants"

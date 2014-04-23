@@ -21,9 +21,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.cse3310.phms.R;
@@ -48,11 +46,13 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
     @ViewById(R.id.add_appointment_select_btn)  TextView mDoctorButtonTextView;
     @ViewById(R.id.add_appointment_time_btn)    TextView mTimeButtonTextView;
     @ViewById(R.id.add_appointment_purpose)     EditText mPurposeEditText;
+    @ViewById(R.id.reminder_spinner)            Spinner mReminderSpinner;
     @ViewById(R.id.appointment_view)            AppointmentView mAppointmentView;
 
     private DoctorInfo mSelectedDoctor;
     private Date mSelectedDate;
     private long appointmentTime;
+    private long earlyMillis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,55 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
         if (mSelectedDate != null) {
             appointmentTime = mSelectedDate.getTime();
         }
+
+        // set spinner to get early reminder time
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.early_reminder_chose,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mReminderSpinner.setAdapter(adapter);
+        mReminderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        earlyMillis = 0;
+                        break;
+                    case 1:
+                        earlyMillis = TimeUnit.MINUTES.toMillis(5);
+                        break;
+                    case 2:
+                        earlyMillis = TimeUnit.MINUTES.toMillis(10);
+                        break;
+                    case 3:
+                        earlyMillis = TimeUnit.MINUTES.toMillis(30);
+                        break;
+                    case 4:
+                        earlyMillis = TimeUnit.HOURS.toMillis(1);
+                        break;
+                    case 5:
+                        earlyMillis = TimeUnit.HOURS.toMillis(2);
+                        break;
+                    case 6:
+                        earlyMillis = TimeUnit.HOURS.toMillis(12);
+                        break;
+                    case 7:
+                        earlyMillis = TimeUnit.HOURS.toMillis(24);
+                        break;
+                    case 8:
+                        earlyMillis = TimeUnit.DAYS.toMillis(2);
+                        break;
+                    case 9:
+                        earlyMillis = TimeUnit.DAYS.toMillis(7);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         mAppointmentView.setVisibility(View.GONE);
         mTimeButtonTextView.setText(MyDateFormatter.formatTime(mSelectedDate.getTime()));
     }
@@ -134,7 +183,7 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
             }
 
             appointment.save(); // save to DB
-            Reminder reminder = new Reminder(appointment, TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES));
+            Reminder reminder = new Reminder(appointment, earlyMillis);
             reminder.save();
             new ReminderAlarm(this, reminder, R.drawable.ic_action_calendar_day); // set alarm for this appointment
 
