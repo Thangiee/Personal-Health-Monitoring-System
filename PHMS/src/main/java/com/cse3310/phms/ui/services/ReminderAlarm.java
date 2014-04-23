@@ -27,7 +27,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Remindable;
+import com.cse3310.phms.model.Reminder;
 
 public class ReminderAlarm extends BroadcastReceiver {
     private final String REMINDER_BUNDLE = "MyReminderBundle";
@@ -35,12 +35,12 @@ public class ReminderAlarm extends BroadcastReceiver {
     public ReminderAlarm() {
     }
 
-    public ReminderAlarm(Context context, Remindable remindable, int icon) {
-        final int id = (int) remindable.reminderTime();
+    public ReminderAlarm(Context context, Reminder reminder, int icon) {
+        final int id = (int) reminder.getAbsTime();
 
         Bundle bundle = new Bundle();
-        bundle.putString("title", remindable.reminderTitle());
-        bundle.putString("message", remindable.reminderMessage());
+        bundle.putString("title", reminder.getTitle());
+        bundle.putString("message", reminder.getMessage());
         bundle.putInt("icon", icon);
 
         Intent intent = new Intent(context, ReminderAlarm.class);
@@ -48,12 +48,15 @@ public class ReminderAlarm extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, remindable.reminderTime(), pendingIntent);    // set the alarm
+        alarmManager.set(AlarmManager.RTC_WAKEUP, reminder.getReminderTime(), pendingIntent);    // set the alarm
     }
 
-    public static void cancelReminder(Context context, Remindable remindable) {
+    public static void cancelReminder(Context context, Reminder reminder) {
+        reminder.cancel();
+        reminder.save();
+
         Intent intent = new Intent(context, ReminderAlarm.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) remindable.reminderTime(),
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) reminder.getAbsTime(),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -62,15 +65,18 @@ public class ReminderAlarm extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        int id = (int) (Math.random()*10);
         //Create an Intent for the BroadcastReceiver
-        Intent buttonIntent = new Intent(context, AlarmButtonReceiver.class);
+        Intent dismissIntent = new Intent(context, DismissButtonReceiver.class);
+        dismissIntent.putExtra("id", id);
 
         //Create the PendingIntent
-        PendingIntent btnPendingIntent = PendingIntent.getBroadcast(context, 1, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // get sound for notification
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
+        // get info that was pass when alarm was set
         Bundle bundle = intent.getBundleExtra(REMINDER_BUNDLE);
         String title = bundle.getString("title");
         String message = bundle.getString("message");
@@ -81,7 +87,7 @@ public class ReminderAlarm extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .setSound(alarmSound)
                 .setContentTitle(title)
-                .addAction(R.drawable.ic_check_light, "Dismiss", btnPendingIntent); //Pass this PendingIntent to addAction method of Intent Builder//
+                .addAction(R.drawable.ic_check_light, "Dismiss", dismissPendingIntent); //Pass this PendingIntent to addAction method of Intent Builder//
 
         Notification notification = new Notification.BigTextStyle(builder)
                 .bigText(message)
@@ -91,6 +97,6 @@ public class ReminderAlarm extends BroadcastReceiver {
         notification.flags |= Notification.FLAG_INSISTENT;  // repeat sound?
 
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify(1 , notification);    // fire the notification
+        nm.notify(id , notification);    // fire the notification
     }
 }

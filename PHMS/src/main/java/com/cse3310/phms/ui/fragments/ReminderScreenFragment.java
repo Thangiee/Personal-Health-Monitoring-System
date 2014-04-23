@@ -25,7 +25,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Remindable;
+import com.cse3310.phms.model.Reminder;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.cards.ReminderCard;
 import com.cse3310.phms.ui.utils.Events;
@@ -86,9 +86,10 @@ public class ReminderScreenFragment extends SherlockFragment {
         mCardList.clear();
 
         Calendar now = Calendar.getInstance();
-        for (Remindable remindable : user.getReminders()) {
-            if (now.getTimeInMillis() < remindable.reminderTime()) {
-                mCardList.add(new ReminderCard(getActivity(), remindable));
+        for (Reminder reminder : user.getReminders()) {
+            // if reminder has not pass and has not been cancel
+            if (now.getTimeInMillis() < reminder.getReminderTime() && reminder.isActive()) {
+                mCardList.add(new ReminderCard(getActivity(), reminder));
             }
         }
     }

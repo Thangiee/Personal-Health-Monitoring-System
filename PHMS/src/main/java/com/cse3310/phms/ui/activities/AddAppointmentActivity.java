@@ -29,6 +29,7 @@ import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.DoctorInfo;
+import com.cse3310.phms.model.Reminder;
 import com.cse3310.phms.model.utils.MyDateFormatter;
 import com.cse3310.phms.ui.services.ReminderAlarm;
 import com.cse3310.phms.ui.utils.UserSingleton;
@@ -38,6 +39,7 @@ import org.androidannotations.annotations.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @EActivity(R.layout.add_appointment_form)
 public class AddAppointmentActivity extends SherlockFragmentActivity
@@ -52,8 +54,6 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
 
     private DoctorInfo mSelectedDoctor;
     private Date mSelectedDate;
-    private static long MILLS_PER_HOUR = 3600000;
-    private static long MILLS_PER_MIN = 60000;
     private long appointmentTime;
 
     @Override
@@ -131,9 +131,11 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
             }
 
             appointment.save(); // save to DB
-            Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
+            Reminder reminder = new Reminder(appointment, TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES));
+            reminder.save();
+            new ReminderAlarm(this, reminder, R.drawable.ic_action_calendar_day); // set alarm for this appointment
 
-            new ReminderAlarm(this, appointment, R.drawable.ic_action_calendar_day); // set alarm for this appointment
+            Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
             finish(); // close the activity
         }
     }
@@ -148,7 +150,7 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
 
     @Override
     public void onDialogTimeSet(int reference, int hourOfDay, int minute) {
-        long mills = hourOfDay * MILLS_PER_HOUR + minute * MILLS_PER_MIN;
+        long mills = TimeUnit.HOURS.toMillis(hourOfDay) + TimeUnit.MINUTES.toMillis(minute);
         appointmentTime = mSelectedDate.getTime() + mills;
         mTimeButtonTextView.setText(MyDateFormatter.formatTime(appointmentTime));
     }

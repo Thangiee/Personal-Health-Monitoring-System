@@ -133,6 +133,6 @@
                     android:value=".ui.activities.SlidingMenuActivity"/>
         </activity>
         <receiver android:name=".ui.services.ReminderAlarm" />
-        <receiver android:name=".ui.services.AlarmButtonReceiver" />
+        <receiver android:name=".ui.services.DismissButtonReceiver" />
     </application>
 </manifest>

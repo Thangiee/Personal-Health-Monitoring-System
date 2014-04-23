@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Remindable;
+import com.cse3310.phms.model.Reminder;
 import com.cse3310.phms.model.utils.MyDateFormatter;
 import com.cse3310.phms.ui.services.ReminderAlarm;
 import com.cse3310.phms.ui.utils.Events;
@@ -31,31 +31,31 @@ import it.gmariotti.cardslib.library.internal.Card;
 
 public class ReminderCard extends Card{
 
-    private Remindable mRemindable;
+    private Reminder mReminder;
 
-    public ReminderCard(Context context, Remindable remindable) {
+    public ReminderCard(Context context, Reminder reminder) {
         super(context, R.layout.card_inner_reminder);
-        mRemindable = remindable;
+        mReminder = reminder;
     }
 
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
-        String formattedTime = MyDateFormatter.formatTime(mRemindable.reminderTime())
-                + " | " + MyDateFormatter.formatDate(mRemindable.reminderTime());
+        String formattedTime = MyDateFormatter.formatTime(mReminder.getAbsTime())
+                + " | " + MyDateFormatter.formatDate(mReminder.getAbsTime());
 
         TextView titleTextView = (TextView) view.findViewById(R.id.inner_card_reminder_title);
         TextView timeTextView = (TextView) view.findViewById(R.id.inner_card_reminder_time);
         TextView messageTextView = (TextView) view.findViewById(R.id.inner_card_reminder_msg);
         ImageView imageButton = (ImageView) view.findViewById(R.id.inner_card_reminder_btn);
 
-        titleTextView.setText(mRemindable.reminderTitle());
+        titleTextView.setText(mReminder.getTitle());
         timeTextView.setText(formattedTime);
-        messageTextView.setText(mRemindable.reminderMessage());
+        messageTextView.setText(mReminder.getMessage());
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReminderAlarm.cancelReminder(getContext(), mRemindable);
+                ReminderAlarm.cancelReminder(getContext(), mReminder);
                 EventBus.getDefault().post(new Events.RemoveReminderCardEvent(ReminderCard.this));
             }
         });
