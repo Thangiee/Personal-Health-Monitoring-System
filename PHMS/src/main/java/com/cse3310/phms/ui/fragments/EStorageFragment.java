@@ -85,6 +85,8 @@ public class EStorageFragment extends SherlockFragment {
     public void onResume() {
         localBus.register(this);
         super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("EStorage");
     }
 
     @Override

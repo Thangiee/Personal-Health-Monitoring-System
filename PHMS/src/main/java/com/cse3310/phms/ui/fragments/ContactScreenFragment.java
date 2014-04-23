@@ -86,6 +86,9 @@ public class ContactScreenFragment extends SherlockFragment {
     public void onResume() {
         localBus.register(this);
         super.onResume();
+
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Contacts");
     }
 
     @Override

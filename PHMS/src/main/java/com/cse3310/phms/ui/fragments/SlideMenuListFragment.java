@@ -43,7 +43,7 @@ import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // list of items to be display in the sliding menu
-        add(new DrawerItem(R.layout.home_screen, "PHMS", R.drawable.ic_action_home));
+        add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
         add(new DrawerItem(R.layout.weight_log_screen, "Weight Logs", R.drawable.ic_action_line_chart));
         add(new DrawerItem(R.layout.medication_screen, "Medication", R.drawable.ic_action_pill));
@@ -144,9 +144,6 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 fragment = new VitalsScreenFragment_();
                 break;
         }
-
-        // post an event to change the title according to the screen
-        EventBus.getDefault().post(new Events.SlidingMenuItemSelectedEvent(drawerItems.get(position).title));
 
         // if the screen to switch to is the same as the current screen,
         // do nothing/don't recreate that screen.

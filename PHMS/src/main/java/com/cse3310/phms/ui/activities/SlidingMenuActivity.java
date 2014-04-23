@@ -68,12 +68,11 @@ public class SlidingMenuActivity extends BaseActivity {
         sm.setFadeDegree(1.0f);
         setSlidingActionBarEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSlidingMenu().setActionBarSlideIcon(new ActionBarSlideIcon(
-                this, R.drawable.ic_navigation_drawer, R.string.open_content_desc, R.string.close_content_desc));
-        getSlidingMenu().setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
+        getSlidingMenu().setActionBarSlideIcon(new ActionBarSlideIcon(this, R.drawable.ic_navigation_drawer, R.string.open_content_desc, R.string.close_content_desc));
+        getSlidingMenu().setOnOpenListener(new SlidingMenu.OnOpenListener() {
             @Override
-            public void onOpened() {
-                setTitle("PHMS");
+            public void onOpen() {
+                getSupportActionBar().setTitle("PHMS");
             }
         });
     }
@@ -116,14 +115,5 @@ public class SlidingMenuActivity extends BaseActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-    }
-
-    //===========================================
-    //              EventBus Listener
-    //===========================================
-    // change the title in the action bar after selecting an item
-    // in the sliding menu.
-    public void onEvent(Events.SlidingMenuItemSelectedEvent event) {
-        setTitle(event.newTitle);
     }
 }

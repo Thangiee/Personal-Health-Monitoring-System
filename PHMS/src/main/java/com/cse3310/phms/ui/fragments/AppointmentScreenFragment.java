@@ -61,6 +61,8 @@ public class AppointmentScreenFragment extends SherlockFragment implements Calen
     public void onResume() {
         updateCalendarPickerView();
         super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Appointments");
     }
 
     @Override

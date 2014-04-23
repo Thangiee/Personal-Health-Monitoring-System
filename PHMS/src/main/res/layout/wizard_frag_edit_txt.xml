@@ -33,7 +33,6 @@
                     android:id="@+id/frag_edit_txt_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="25"
                     android:saveEnabled="false"
                     android:inputType="numberDecimal"
                     android:layout_marginBottom="16dp"/>

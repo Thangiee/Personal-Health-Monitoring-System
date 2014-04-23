@@ -46,8 +46,15 @@ public class HomeScreenFragment extends SherlockFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         date = new Date();
-        //dateView.setText("Todays Date is:/n " + MyDateFormatter.formatDate(date.getTime()));
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Home");
     }
 
     @Override
