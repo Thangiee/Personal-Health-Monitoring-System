@@ -16,6 +16,8 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -46,10 +48,10 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
         add(new DrawerItem(R.layout.weight_log_screen, "Weight Logs", R.drawable.ic_action_line_chart));
-        add(new DrawerItem(R.layout.medication_screen, "Medication", R.drawable.ic_action_pill));
         add(new DrawerItem(R.layout.appointment_screen, "Appointment", R.drawable.ic_action_calendar_day));
-        add(new DrawerItem(R.layout.vitals_screen, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
+        add(new DrawerItem(R.layout.medication_screen, "Medication", R.drawable.ic_action_pill));
+        add(new DrawerItem(R.layout.vitals_screen, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.estorage_screen, "eStorage", R.drawable.ic_action_database));
         add(new DrawerItem(R.layout.reminder_screen, "Reminders", R.drawable.ic_action_alarm));
         add(new DrawerItem(LOG_OUT, "Log out", R.drawable.ic_action_key));
@@ -145,8 +147,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 fragment = new VitalsScreenFragment_();
                 break;
             case LOG_OUT:
-                LoginActivity_.intent(this).start();
-                getActivity().finish();
+                openLogOutDialog();
                 break;
         }
 
@@ -161,5 +162,24 @@ public class SlideMenuListFragment extends SherlockListFragment {
             fragTran.replace(R.id.frag_front_container, fragment);
             fragTran.commit();
         }
+    }
+
+    private void openLogOutDialog() {
+        new AlertDialog.Builder(getActivity()).setTitle("Log out?")
+                .setMessage("Are you sure you want to log out?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoginActivity_.intent(SlideMenuListFragment.this).start();
+                        getActivity().finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 }
