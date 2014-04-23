@@ -27,11 +27,11 @@ public class VitalsCardExpand extends CardExpand{
         TextView pulseTextView = (TextView) view.findViewById(R.id.frag_vital_expand_txt_p);
         TextView bodyTextView = (TextView) view.findViewById(R.id.frag_vital_expand_txt_bt);
 
-        cholesterolTextView.setText(String.valueOf(vitals.getCholesterol()));
-        bloodTextView.setText(String.valueOf(vitals.getBloodPressure()));
-        glucoseTextView.setText(String.valueOf(vitals.getGlucoseLevel()));
-        pulseTextView.setText(String.valueOf(vitals.getPulse()));
-        bodyTextView.setText(String.valueOf(vitals.getBodyTemp()));
+        cholesterolTextView.setText(String.valueOf(vitals.getCholesterol())+"mg/dL");
+        bloodTextView.setText(String.valueOf(vitals.getBloodPressure())+"mmHg");
+        glucoseTextView.setText(String.valueOf(vitals.getGlucoseLevel())+"mg/dL");
+        pulseTextView.setText(String.valueOf(vitals.getPulse())+"bpm");
+        bodyTextView.setText(String.valueOf(vitals.getBodyTemp())+"∘F");
 
     }
 }

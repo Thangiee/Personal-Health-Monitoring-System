@@ -24,10 +24,8 @@ import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Zach on 4/13/14.
@@ -92,7 +90,10 @@ public class VitalsScreenFragment extends SherlockFragment{
     // helper method to create and set up a vitals card
     private VitalsCard createVitalsCard(final Vitals vitals) {
         final VitalsCard vitalsCard = new VitalsCard(getActivity(), vitals);
-        vitalsCard.setTitle("vitals");
+        Calendar currDate = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
+        String formattedDate=df.format(currDate.getTime());
+        vitalsCard.setTitle("Date: "+formattedDate);
         vitalsCard.setButtonTitle("Edit");
         vitalsCard.setSwipeable(false);
 
