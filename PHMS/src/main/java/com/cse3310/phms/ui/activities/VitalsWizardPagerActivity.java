@@ -8,8 +8,7 @@ import com.cse3310.phms.ui.views.VitalsWizardModel;
 import de.greenrobot.event.EventBus;
 
 import static co.juliansuarez.libwizardpager.wizard.model.Page.SIMPLE_DATA_KEY;
-import static com.cse3310.phms.ui.views.VitalsWizardModel.DOSAGE_KEY;
-import static com.cse3310.phms.ui.views.VitalsWizardModel.NAME_KEY;
+import static com.cse3310.phms.ui.views.VitalsWizardModel.*;
 
 /**
  * Created by E&N on 4/20/2014.
@@ -31,21 +30,28 @@ public class VitalsWizardPagerActivity extends BaseWizardPagerActivity {
     public void onSubmit() {
         // extract all the information from the process and
         // use it to create a new vitals object.
-        String name = onGetPage(NAME_KEY).getData().getString(SIMPLE_DATA_KEY);
-        double information  = Double.parseDouble(onGetPage(DOSAGE_KEY).getData().getString(SIMPLE_DATA_KEY));
+
+        double bloodPressure  = Double.parseDouble(onGetPage(BLOOD_KEY).getData().getString(SIMPLE_DATA_KEY));
+        double glucoseLevel  = Double.parseDouble(onGetPage(GLUCOSE_KEY).getData().getString(SIMPLE_DATA_KEY));
+        double cholesterol  = Double.parseDouble(onGetPage(CHOLESTEROL_KEY).getData().getString(SIMPLE_DATA_KEY));
+        double bodyTemp  = Double.parseDouble(onGetPage(BODY_KEY).getData().getString(SIMPLE_DATA_KEY));
+        double pulse  = Double.parseDouble(onGetPage(PULSE_KEY).getData().getString(SIMPLE_DATA_KEY));
 
         // create the vitals object
         Vitals vitals = new Vitals();
-        //vitals.setVitalsName(information);
+        vitals.setBloodPressure(bloodPressure);
+        vitals.setGlucoseLevel(glucoseLevel);
+        vitals.setBodyTemp(bodyTemp);
+        vitals.setCholesterol(cholesterol);
+        vitals.setPulse(pulse);
 
         // if editing, remove the old card and add the new edited card
         if (super.editMode) {
             VitalsCard oldVitals = ((VitalsWizardModel) mWizardModel).getVitalsCard();
-            // post an event to DietScreenFragment to remove the old card
             EventBus.getDefault().post(new Events.RemoveVitalsCardEvent(oldVitals));
         }
 
-        // post an event to DietScreenFragment to add a new card
+        // post an event to VitalScreenFragment to add a new card
         EventBus.getDefault().post(new Events.AddVitalsCardEvent(new VitalsCard(this, vitals)));
         finish();
     }

@@ -35,11 +35,11 @@ public class AddVitalsActivity extends BaseActivity{
 
         List<Vitals> vitalsList = DatabaseHandler.getAllRows(Vitals.class); // get all the food in the DB
 
-        Set<String> nameSet = new HashSet<String>(vitalsList.size());
+        Set<Double> nameSet = new HashSet<Double>(vitalsList.size());
         List<Card> cardList = new ArrayList<Card>(nameSet.size());
         // create a vitalCard for each of the food.
         for (final Vitals vitals : vitalsList) {
-            if (nameSet.add(vitals.getVitalsName())) {
+            if (nameSet.add(vitals.getBloodPressure())) {
                 cardList.add(createVitalsCard(vitals));
             }
         }
@@ -73,16 +73,16 @@ public class AddVitalsActivity extends BaseActivity{
 
     private VitalsCard createVitalsCard(final Vitals vitals) {
         final VitalsCard vitalsCard = new VitalsCard(this, vitals);
-        vitalsCard.setTitle(vitals.getVitalsName());
+        vitalsCard.setTitle("Vitals");
         vitalsCard.setButtonTitle("Add");
-        vitalsCard.setSwipeable(false);
+        vitalsCard.setSwipeable(true);
 
         // setup what to do when the add button is clicked on the card
         vitalsCard.setBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AddVitalsActivity.this,
-                        "Added " + vitals.getVitalsName() + " to the list of vitals.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddVitalsActivity.this,
+                       // "Added " + vitals.getVitalsName() + " to the list of vitals.", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(new Events.AddVitalsCardEvent(vitalsCard));
             }
         });

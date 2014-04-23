@@ -16,6 +16,7 @@
 
 package com.cse3310.phms.model;
 
+import co.juliansuarez.libwizardpager.R;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -29,28 +30,32 @@ public class Vitals extends Model {
     @Column private double cholesterol;
     @Column private double bodyTemp;
     @Column private double pulse;
-    @Column private double respiratory;
-    @Column private double glucose;
-    @Column private String VitalsName;
+    @Column private String Date;
+
+
     @Column private User user; // used as a foreign key
 
     public Vitals(Vitals vitals) {
         this.user = UserSingleton.INSTANCE.getCurrentUser();
-        VitalsName = vitals.getVitalsName();
+        Date=vitals.getDate();
         bloodPressure = vitals.getBloodPressure();
-        glucose = vitals.getGlucose();
+        glucoseLevel = vitals.getGlucoseLevel();
+        cholesterol = vitals.getCholesterol();
+        bodyTemp = vitals.getBodyTemp();
+        pulse = vitals.getPulse();
+
     }
 
     public Vitals(){
         this.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
-    public String getVitalsName() {
-        return VitalsName;
+    public String getDate() {
+        return Date;
     }
 
-    public void setVitalsName(String vitalsName) {
-        VitalsName = vitalsName;
+    public void setDate(String date) {
+        Date = date;
     }
 
     public void setUser(User user) {
@@ -77,21 +82,6 @@ public class Vitals extends Model {
         this.pulse = pulse;
     }
 
-    public double getRespiratory() {
-        return respiratory;
-    }
-
-    public void setRespiratory(double respiratory) {
-        this.respiratory = respiratory;
-    }
-
-    public double getGlucose() {
-        return glucose;
-    }
-
-    public void setGlucose(double glucose) {
-        this.glucose = glucose;
-    }
 
     /**
      * Gets cholesterol.
