@@ -28,7 +28,7 @@
             android:id="@+id/medication_inner_txt_title"
             style="@style/inner_title"
             android:text="Title"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="24dp"
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -37,14 +37,15 @@
             android:id="@+id/medication_inner_txt_btn"
             style="@style/inner_title"
             android:textSize="14sp"
-            android:layout_marginRight="30dp"
             android:textColor="#FFF"
-            android:layout_alignParentRight="true"
             android:gravity="center"
             android:background="@drawable/blue_btn_bg"
             android:text="Edit"
-            android:layout_centerInParent="true"
             android:layout_width="48dp"
-            android:layout_height="32dp"/>
+            android:layout_height="32dp"
+            android:layout_alignTop="@+id/medication_inner_txt_title"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="false"
+            android:layout_marginRight="30dp"/>
 
 </RelativeLayout>

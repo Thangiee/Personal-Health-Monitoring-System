@@ -10,10 +10,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Vitals;
 import com.cse3310.phms.model.User;
-//import com.cse3310.phms.ui.activities.AddVitalsActivity_;
-import com.cse3310.phms.ui.activities.AddVitalsActivity_;
+import com.cse3310.phms.model.Vitals;
 import com.cse3310.phms.ui.activities.VitalsWizardPagerActivity;
 import com.cse3310.phms.ui.cards.VitalsCard;
 import com.cse3310.phms.ui.utils.Comparators.CardComparator;
@@ -26,6 +24,8 @@ import org.androidannotations.annotations.OptionsItem;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+//import com.cse3310.phms.ui.activities.AddVitalsActivity_;
 
 /**
  * Created by Zach on 4/13/14.
@@ -47,7 +47,7 @@ public class VitalsScreenFragment extends SherlockFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        cardListFragment = CardListFragment.newInstance(cardList, true);
+        cardListFragment = CardListFragment.newInstance(cardList, true, true, true);
         transaction.add(R.id.vitals_screen_vitals_list_container, cardListFragment);
 
         transaction.commit();
@@ -63,8 +63,9 @@ public class VitalsScreenFragment extends SherlockFragment{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.overflow_menu, menu);
         inflater.inflate(R.menu.add_menu, menu);    // add the add icon to the action bar menu
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -76,11 +77,8 @@ public class VitalsScreenFragment extends SherlockFragment{
 
     @OptionsItem(R.id.add_icon)
     void menuAddVitals() {
-        // called activity must use Android annotation to use this format
-        // otherwise do it the normal way:
-        //Intent intent = new Intent(this, AddVitalsActivity.);
-        // startActivity(intent);
-        AddVitalsActivity_.intent(this).start();
+        Intent intent = new Intent(getActivity(), VitalsWizardPagerActivity.class);
+        startActivity(intent);
     }
 
 
