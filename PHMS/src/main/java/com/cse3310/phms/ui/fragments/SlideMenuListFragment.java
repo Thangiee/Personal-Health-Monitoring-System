@@ -32,16 +32,16 @@ import com.ami.fundapter.extractors.StringExtractor;
 import com.ami.fundapter.interfaces.StaticImageLoader;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.User;
+import com.cse3310.phms.ui.activities.LoginActivity_;
 import com.cse3310.phms.ui.utils.DrawerItem;
-import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import de.greenrobot.event.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
+    private static final int LOG_OUT = 0;
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // list of items to be display in the sliding menu
         add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
@@ -52,6 +52,7 @@ public class SlideMenuListFragment extends SherlockListFragment {
         add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
         add(new DrawerItem(R.layout.estorage_screen, "eStorage", R.drawable.ic_action_database));
         add(new DrawerItem(R.layout.reminder_screen, "Reminders", R.drawable.ic_action_alarm));
+        add(new DrawerItem(LOG_OUT, "Log out", R.drawable.ic_action_key));
     }};
 
     private int lastPosition = 0;
@@ -142,6 +143,10 @@ public class SlideMenuListFragment extends SherlockListFragment {
                 break;
             case R.layout.vitals_screen:
                 fragment = new VitalsScreenFragment_();
+                break;
+            case LOG_OUT:
+                LoginActivity_.intent(this).start();
+                getActivity().finish();
                 break;
         }
 
