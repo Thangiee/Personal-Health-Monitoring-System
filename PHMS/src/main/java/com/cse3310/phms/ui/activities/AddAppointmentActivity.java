@@ -20,12 +20,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
-import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.DoctorInfo;
@@ -33,6 +33,7 @@ import com.cse3310.phms.model.Reminder;
 import com.cse3310.phms.model.utils.MyDateFormatter;
 import com.cse3310.phms.ui.services.ReminderAlarm;
 import com.cse3310.phms.ui.utils.UserSingleton;
+import com.cse3310.phms.ui.views.AppointmentView;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import org.androidannotations.annotations.*;
@@ -46,11 +47,8 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
         implements TimePickerDialogFragment.TimePickerDialogHandler {
     @ViewById(R.id.add_appointment_select_btn)  TextView mDoctorButtonTextView;
     @ViewById(R.id.add_appointment_time_btn)    TextView mTimeButtonTextView;
-    @ViewById(R.id.add_appointment_doc_name)    FormEditText mNameEditText;
-    @ViewById(R.id.add_appointment_doc_Phone)   FormEditText mPhoneEditText;
-    @ViewById(R.id.add_appointment_location)    FormEditText mLocationEditText;
-    @ViewById(R.id.add_appointment_date)        FormEditText mDateEditText;
     @ViewById(R.id.add_appointment_purpose)     EditText mPurposeEditText;
+    @ViewById(R.id.appointment_view)            AppointmentView mAppointmentView;
 
     private DoctorInfo mSelectedDoctor;
     private Date mSelectedDate;
@@ -70,9 +68,8 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
     void onSetupViews() {
         if (mSelectedDate != null) {
             appointmentTime = mSelectedDate.getTime();
-            mDateEditText.setText( MyDateFormatter.formatDate(appointmentTime));
         }
-
+        mAppointmentView.setVisibility(View.GONE);
         mTimeButtonTextView.setText(MyDateFormatter.formatTime(mSelectedDate.getTime()));
     }
 
@@ -100,7 +97,13 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
             public void onClick(DialogInterface dialog, int item) {
                 // update the views with the info from the selected doctor from the dialog
                 mSelectedDoctor = doctorInfoList.get(item);
-                updateAppointmentViews(mSelectedDoctor);
+                mAppointmentView.setVisibility(View.VISIBLE);
+                mAppointmentView.setText(
+                        mSelectedDoctor.getFullName(),
+                        mSelectedDoctor.getPhone(),
+                        MyDateFormatter.formatDate(appointmentTime),
+                        mSelectedDoctor.getHospital() + " - " + mSelectedDoctor.getAddress()
+                );
             }
         });
         AlertDialog alert = builder.create();
@@ -138,14 +141,6 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
             Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
             finish(); // close the activity
         }
-    }
-
-    private void updateAppointmentViews(DoctorInfo doctorInfo) {
-        mNameEditText.setText(doctorInfo.getFullName());
-        mPhoneEditText.setText(doctorInfo.getPhone());
-
-        String location = doctorInfo.getHospital() + " - " + doctorInfo.getAddress();
-        mLocationEditText.setText(location);
     }
 
     @Override
