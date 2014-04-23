@@ -60,4 +60,8 @@ public class ReminderCard extends Card{
             }
         });
     }
+
+    public Reminder getReminder() {
+        return mReminder;
+    }
 }

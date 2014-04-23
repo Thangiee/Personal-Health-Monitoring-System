@@ -28,6 +28,7 @@ import com.cse3310.phms.R;
 import com.cse3310.phms.model.Reminder;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.cards.ReminderCard;
+import com.cse3310.phms.ui.utils.Comparators.ReminderCardComparator;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
@@ -36,6 +37,7 @@ import org.androidannotations.annotations.EFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 @EFragment(R.layout.reminder_screen)
@@ -92,6 +94,8 @@ public class ReminderScreenFragment extends SherlockFragment {
                 mCardList.add(new ReminderCard(getActivity(), reminder));
             }
         }
+
+        Collections.sort(mCardList, ReminderCardComparator.BY_TIME);
     }
 
     public void onEvent(Events.RemoveReminderCardEvent event) {
