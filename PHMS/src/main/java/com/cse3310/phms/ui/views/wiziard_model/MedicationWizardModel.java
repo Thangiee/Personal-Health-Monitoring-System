@@ -1,4 +1,4 @@
-package com.cse3310.phms.ui.views;
+package com.cse3310.phms.ui.views.wiziard_model;
 
 import android.content.Context;
 import co.juliansuarez.libwizardpager.wizard.model.AbstractWizardModel;

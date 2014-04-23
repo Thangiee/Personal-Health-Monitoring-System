@@ -21,7 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.model.PersonalInfo;
-import com.cse3310.phms.ui.views.RegistrationWizardModel;
+import com.cse3310.phms.ui.views.wiziard_model.RegistrationWizardModel;
 import com.cse3310.phms.ui.views.pager.AccountInfoPage;
 import com.cse3310.phms.ui.views.pager.ContactInfoPage;
 import com.cse3310.phms.ui.views.pager.PersonalInfoPage;

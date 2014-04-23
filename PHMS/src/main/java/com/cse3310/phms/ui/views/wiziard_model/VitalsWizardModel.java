@@ -1,5 +1,5 @@
 
-package com.cse3310.phms.ui.views;
+package com.cse3310.phms.ui.views.wiziard_model;
 
 
 import android.content.Context;
@@ -10,15 +10,10 @@ import com.andreabaccega.formedittextvalidator.DateValidator;
 import com.cse3310.phms.model.Vitals;
 import com.cse3310.phms.ui.cards.VitalsCard;
 import com.cse3310.phms.ui.views.pager.EditTextPage;
-import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
 import de.greenrobot.event.EventBus;
-
-import javax.xml.validation.Validator;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static android.text.InputType.TYPE_CLASS_TEXT;
 
 /**
  * Created by Zach on 4/17/2014.

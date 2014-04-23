@@ -30,7 +30,7 @@ import com.cse3310.phms.model.LoginManager;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
 import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
-import com.cse3310.phms.ui.views.RoundCornerImageView;
+import com.cse3310.phms.ui.views.wiziard_model.RoundCornerImageView;
 import org.androidannotations.annotations.*;
 
 /**

@@ -21,12 +21,12 @@ import android.os.Bundle;
 import com.cse3310.phms.model.EStorage;
 import com.cse3310.phms.ui.cards.UrlCard;
 import com.cse3310.phms.ui.utils.Events;
-import com.cse3310.phms.ui.views.UrlWizardModel;
+import com.cse3310.phms.ui.views.wiziard_model.UrlWizardModel;
 import de.greenrobot.event.EventBus;
 
 import static co.juliansuarez.libwizardpager.wizard.model.Page.SIMPLE_DATA_KEY;
-import static com.cse3310.phms.ui.views.UrlWizardModel.URL_LINK;
-import static com.cse3310.phms.ui.views.UrlWizardModel.URL_TITLE;
+import static com.cse3310.phms.ui.views.wiziard_model.UrlWizardModel.URL_LINK;
+import static com.cse3310.phms.ui.views.wiziard_model.UrlWizardModel.URL_TITLE;
 
 /**
  * Created by Owner on 4/15/14.
