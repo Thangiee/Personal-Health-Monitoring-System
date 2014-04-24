@@ -38,8 +38,8 @@ public class DatabaseHandler {
         return new Select().all().from(table).where(columnTitle + " = ?", id).execute();
     }
 
-    public static <T extends Model> T getById(Class<T> table, long id) {
-        return new Select().all().from(table).where("Id = ?", id).executeSingle();
+    public static <T extends Model> T getById(Class<T> table, String columnTitle, long id) {
+        return new Select().all().from(table).where(columnTitle + " = ?", id).executeSingle();
     }
 
     public static User getUserByUserName(final String userName) {

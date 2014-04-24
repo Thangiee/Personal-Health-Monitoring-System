@@ -16,6 +16,8 @@
 
 package com.cse3310.phms.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -32,26 +34,27 @@ import com.ami.fundapter.extractors.StringExtractor;
 import com.ami.fundapter.interfaces.StaticImageLoader;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.User;
+import com.cse3310.phms.ui.activities.LoginActivity_;
 import com.cse3310.phms.ui.utils.DrawerItem;
-import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import de.greenrobot.event.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SlideMenuListFragment extends SherlockListFragment {
+    private static final int LOG_OUT = 0;
     private List<DrawerItem> drawerItems = new ArrayList<DrawerItem>() {{ // list of items to be display in the sliding menu
         add(new DrawerItem(R.layout.home_screen, "Home", R.drawable.ic_action_home));
         add(new DrawerItem(R.layout.diet_screen, "Diet", R.drawable.ic_action_restaurant));
         add(new DrawerItem(R.layout.weight_log_screen, "Weight Logs", R.drawable.ic_action_line_chart));
-        add(new DrawerItem(R.layout.medication_screen, "Medication", R.drawable.ic_action_pill));
         add(new DrawerItem(R.layout.appointment_screen, "Appointment", R.drawable.ic_action_calendar_day));
-        add(new DrawerItem(R.layout.vitals_screen, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.contact_screen, "Contacts", R.drawable.ic_action_users));
+        add(new DrawerItem(R.layout.medication_screen, "Medication", R.drawable.ic_action_pill));
+        add(new DrawerItem(R.layout.vitals_screen, "Vital Signs", R.drawable.ic_action_warning));
         add(new DrawerItem(R.layout.estorage_screen, "eStorage", R.drawable.ic_action_database));
         add(new DrawerItem(R.layout.reminder_screen, "Reminders", R.drawable.ic_action_alarm));
+        add(new DrawerItem(LOG_OUT, "Log out", R.drawable.ic_action_key));
     }};
 
     private int lastPosition = 0;
@@ -143,6 +146,9 @@ public class SlideMenuListFragment extends SherlockListFragment {
             case R.layout.vitals_screen:
                 fragment = new VitalsScreenFragment_();
                 break;
+            case LOG_OUT:
+                openLogOutDialog();
+                break;
         }
 
         // if the screen to switch to is the same as the current screen,
@@ -156,5 +162,24 @@ public class SlideMenuListFragment extends SherlockListFragment {
             fragTran.replace(R.id.frag_front_container, fragment);
             fragTran.commit();
         }
+    }
+
+    private void openLogOutDialog() {
+        new AlertDialog.Builder(getActivity()).setTitle("Log out?")
+                .setMessage("Are you sure you want to log out?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoginActivity_.intent(SlideMenuListFragment.this).start();
+                        getActivity().finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 }

@@ -17,16 +17,12 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import com.activeandroid.ActiveAndroid;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.*;
 import com.cse3310.phms.model.utils.MyDateFormatter;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -67,63 +63,5 @@ public class HomeScreenFragment extends SherlockFragment{
     void OnAfterViews() {
         dateView.setText(String.valueOf("Todays is:\n " + MyDateFormatter.formatDate(date.getTime())));
     }
-
-    @AfterViews
-    void setClickListener() {
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initializeTestData();
-            }
-        });
-    }
-
-
-    private void initializeTestData() {
-        //User user = UserSingleton.INSTANCE.getCurrentUser();
-        ActiveAndroid.beginTransaction();
-        try {
-            Food food = new Food("Applesauce");
-            food.save();
-            food = new Food("Apple juice");
-            food.save();
-            food = new Food("Apple");
-            food.save();
-            food = new Food("Beer");
-            food.save();
-            food = new Food("Bread");
-            food.save();
-            food = new Food("Bacon");
-            food.save();
-            food = new Food("corn");
-            food.save();
-            food = new Food("cheese");
-            food.save();
-            food = new Food("cake");
-            food.save();
-            food = new Food("cookies");
-            food.save();
-            food = new Food("chicken");
-            food.save();
-            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "fake");
-            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("Shit@google.com");
-            doctorInfo.save();
-            Health urlInfo1 = new Health();
-            urlInfo1.setUrl("http://www.nhl.com").setTitle("Hockey Chizz");
-            urlInfo1.save();
-            Recipe urlInfo2 = new Recipe();
-            urlInfo2.setUrl("http://www.google.com").setTitle("Search Mode");
-            urlInfo2.save();
-            DietDesc urlInfo3 = new DietDesc();
-            urlInfo3.setUrl("http://www.espn.com").setTitle("Sports Stuff and things");
-            urlInfo3.save();
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
-
-        Toast.makeText(getActivity(), "DONE", Toast.LENGTH_SHORT).show();
-    }
-
 
 }

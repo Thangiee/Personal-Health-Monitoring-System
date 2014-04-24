@@ -20,41 +20,39 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
-import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Appointment;
 import com.cse3310.phms.model.DoctorInfo;
+import com.cse3310.phms.model.Reminder;
 import com.cse3310.phms.model.utils.MyDateFormatter;
 import com.cse3310.phms.ui.services.ReminderAlarm;
 import com.cse3310.phms.ui.utils.UserSingleton;
+import com.cse3310.phms.ui.views.AppointmentView;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import org.androidannotations.annotations.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @EActivity(R.layout.add_appointment_form)
 public class AddAppointmentActivity extends SherlockFragmentActivity
         implements TimePickerDialogFragment.TimePickerDialogHandler {
     @ViewById(R.id.add_appointment_select_btn)  TextView mDoctorButtonTextView;
     @ViewById(R.id.add_appointment_time_btn)    TextView mTimeButtonTextView;
-    @ViewById(R.id.add_appointment_doc_name)    FormEditText mNameEditText;
-    @ViewById(R.id.add_appointment_doc_Phone)   FormEditText mPhoneEditText;
-    @ViewById(R.id.add_appointment_location)    FormEditText mLocationEditText;
-    @ViewById(R.id.add_appointment_date)        FormEditText mDateEditText;
     @ViewById(R.id.add_appointment_purpose)     EditText mPurposeEditText;
+    @ViewById(R.id.reminder_spinner)            Spinner mReminderSpinner;
+    @ViewById(R.id.appointment_view)            AppointmentView mAppointmentView;
 
     private DoctorInfo mSelectedDoctor;
     private Date mSelectedDate;
-    private static long MILLS_PER_HOUR = 3600000;
-    private static long MILLS_PER_MIN = 60000;
     private long appointmentTime;
+    private long earlyMillis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +68,57 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
     void onSetupViews() {
         if (mSelectedDate != null) {
             appointmentTime = mSelectedDate.getTime();
-            mDateEditText.setText( MyDateFormatter.formatDate(appointmentTime));
         }
 
+        // set spinner to get early reminder time
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.early_reminder_chose,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mReminderSpinner.setAdapter(adapter);
+        mReminderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        earlyMillis = 0;
+                        break;
+                    case 1:
+                        earlyMillis = TimeUnit.MINUTES.toMillis(5);
+                        break;
+                    case 2:
+                        earlyMillis = TimeUnit.MINUTES.toMillis(10);
+                        break;
+                    case 3:
+                        earlyMillis = TimeUnit.MINUTES.toMillis(30);
+                        break;
+                    case 4:
+                        earlyMillis = TimeUnit.HOURS.toMillis(1);
+                        break;
+                    case 5:
+                        earlyMillis = TimeUnit.HOURS.toMillis(2);
+                        break;
+                    case 6:
+                        earlyMillis = TimeUnit.HOURS.toMillis(12);
+                        break;
+                    case 7:
+                        earlyMillis = TimeUnit.HOURS.toMillis(24);
+                        break;
+                    case 8:
+                        earlyMillis = TimeUnit.DAYS.toMillis(2);
+                        break;
+                    case 9:
+                        earlyMillis = TimeUnit.DAYS.toMillis(7);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mAppointmentView.setVisibility(View.GONE);
         mTimeButtonTextView.setText(MyDateFormatter.formatTime(mSelectedDate.getTime()));
     }
 
@@ -100,7 +146,13 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
             public void onClick(DialogInterface dialog, int item) {
                 // update the views with the info from the selected doctor from the dialog
                 mSelectedDoctor = doctorInfoList.get(item);
-                updateAppointmentViews(mSelectedDoctor);
+                mAppointmentView.setVisibility(View.VISIBLE);
+                mAppointmentView.setText(
+                        mSelectedDoctor.getFullName(),
+                        mSelectedDoctor.getPhone(),
+                        MyDateFormatter.formatDate(appointmentTime),
+                        mSelectedDoctor.getHospital() + " - " + mSelectedDoctor.getAddress()
+                );
             }
         });
         AlertDialog alert = builder.create();
@@ -131,24 +183,18 @@ public class AddAppointmentActivity extends SherlockFragmentActivity
             }
 
             appointment.save(); // save to DB
-            Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
+            Reminder reminder = new Reminder(appointment, earlyMillis);
+            reminder.save();
+            new ReminderAlarm(this, reminder, R.drawable.ic_action_calendar_day); // set alarm for this appointment
 
-            new ReminderAlarm(this, appointment, R.drawable.ic_action_calendar_day); // set alarm for this appointment
+            Toast.makeText(this, "Appointment saved", Toast.LENGTH_SHORT).show();
             finish(); // close the activity
         }
     }
 
-    private void updateAppointmentViews(DoctorInfo doctorInfo) {
-        mNameEditText.setText(doctorInfo.getFullName());
-        mPhoneEditText.setText(doctorInfo.getPhone());
-
-        String location = doctorInfo.getHospital() + " - " + doctorInfo.getAddress();
-        mLocationEditText.setText(location);
-    }
-
     @Override
     public void onDialogTimeSet(int reference, int hourOfDay, int minute) {
-        long mills = hourOfDay * MILLS_PER_HOUR + minute * MILLS_PER_MIN;
+        long mills = TimeUnit.HOURS.toMillis(hourOfDay) + TimeUnit.MINUTES.toMillis(minute);
         appointmentTime = mSelectedDate.getTime() + mills;
         mTimeButtonTextView.setText(MyDateFormatter.formatTime(appointmentTime));
     }

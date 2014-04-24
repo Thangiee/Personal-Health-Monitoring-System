@@ -25,9 +25,10 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.Remindable;
+import com.cse3310.phms.model.Reminder;
 import com.cse3310.phms.model.User;
 import com.cse3310.phms.ui.cards.ReminderCard;
+import com.cse3310.phms.ui.utils.Comparators.ReminderCardComparator;
 import com.cse3310.phms.ui.utils.Events;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import de.greenrobot.event.EventBus;
@@ -36,6 +37,7 @@ import org.androidannotations.annotations.EFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 @EFragment(R.layout.reminder_screen)
@@ -86,11 +88,14 @@ public class ReminderScreenFragment extends SherlockFragment {
         mCardList.clear();
 
         Calendar now = Calendar.getInstance();
-        for (Remindable remindable : user.getReminders()) {
-            if (now.getTimeInMillis() < remindable.reminderTime()) {
-                mCardList.add(new ReminderCard(getActivity(), remindable));
+        for (Reminder reminder : user.getReminders()) {
+            // if reminder has not pass and has not been cancel
+            if (now.getTimeInMillis() < reminder.getAbsTime() && reminder.isActive()) {
+                mCardList.add(new ReminderCard(getActivity(), reminder));
             }
         }
+
+        Collections.sort(mCardList, ReminderCardComparator.BY_TIME);
     }
 
     public void onEvent(Events.RemoveReminderCardEvent event) {

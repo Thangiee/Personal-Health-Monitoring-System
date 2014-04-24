@@ -19,12 +19,12 @@ package com.cse3310.phms.ui.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import com.cse3310.phms.model.LoginManager;
-import com.cse3310.phms.model.PersonalInfo;
-import com.cse3310.phms.ui.views.RegistrationWizardModel;
+import com.activeandroid.ActiveAndroid;
+import com.cse3310.phms.model.*;
 import com.cse3310.phms.ui.views.pager.AccountInfoPage;
 import com.cse3310.phms.ui.views.pager.ContactInfoPage;
 import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
+import com.cse3310.phms.ui.views.wiziard_model.RegistrationWizardModel;
 
 public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
     @Override
@@ -56,7 +56,7 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
                 .setPhone(onGetPage("Contact Info").getData().getString(ContactInfoPage.PHONE_KEY));
 
         LoginManager.register(username, password, info);    // add the new user to the DB
-
+        initializeDemoData();
         Intent intent = new Intent(this, SlidingMenuActivity.class);
         startActivity(intent);
         finish();
@@ -74,5 +74,52 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+
+    private void initializeDemoData() {
+        //User user = UserSingleton.INSTANCE.getCurrentUser();
+        ActiveAndroid.beginTransaction();
+        try {
+            Food food = new Food("Applesauce");
+            food.save();
+            food = new Food("Apple juice");
+            food.save();
+            food = new Food("Apple");
+            food.save();
+            food = new Food("Beer");
+            food.save();
+            food = new Food("Bread");
+            food.save();
+            food = new Food("Bacon");
+            food.save();
+            food = new Food("corn");
+            food.save();
+            food = new Food("cheese");
+            food.save();
+            food = new Food("cake");
+            food.save();
+            food = new Food("cookies");
+            food.save();
+            food = new Food("chicken");
+            food.save();
+            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "fake");
+            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("Shit@google.com");
+            doctorInfo.save();
+            Health urlInfo1 = new Health();
+            urlInfo1.setUrl("http://www.nhl.com").setTitle("Hockey Chizz");
+            urlInfo1.save();
+            Recipe urlInfo2 = new Recipe();
+            urlInfo2.setUrl("http://www.google.com").setTitle("Search Mode");
+            urlInfo2.save();
+            DietDesc urlInfo3 = new DietDesc();
+            urlInfo3.setUrl("http://www.espn.com").setTitle("Sports Stuff and things");
+            urlInfo3.save();
+
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 }

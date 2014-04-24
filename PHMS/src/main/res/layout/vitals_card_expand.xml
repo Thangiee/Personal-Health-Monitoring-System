@@ -40,12 +40,11 @@
             style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
             android:text="Resting Pulse:"
             android:id="@+id/frag_Vital_expand_P"
-            android:paddingLeft="10dp"
-            android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textSize="11dp"
-            android:gravity="right"/>
+            android:gravity="right"
+            android:paddingRight="5dp"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,14 +85,13 @@
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
-              android:text="Body Temprature:"
+              android:text="Body Temp:"
               android:id="@+id/frag_Vital_expand_BT"
-              android:paddingLeft="10dp"
-              android:paddingRight="5dp"
               android:paddingTop="5dp"
               android:paddingBottom="5dp"
               android:textSize="11dp"
-              android:gravity="right"/>
+              android:gravity="right"
+              android:paddingRight="5dp"/>
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               style="@style/Now_extras.card_expand_inner_layout.white"

@@ -5,11 +5,11 @@ import android.util.Log;
 import com.cse3310.phms.model.Medication;
 import com.cse3310.phms.ui.cards.MedicationCard;
 import com.cse3310.phms.ui.utils.Events;
-import com.cse3310.phms.ui.views.MedicationWizardModel;
+import com.cse3310.phms.ui.views.wiziard_model.MedicationWizardModel;
 import de.greenrobot.event.EventBus;
 
 import static co.juliansuarez.libwizardpager.wizard.model.Page.SIMPLE_DATA_KEY;
-import static com.cse3310.phms.ui.views.MedicationWizardModel.*;
+import static com.cse3310.phms.ui.views.wiziard_model.MedicationWizardModel.*;
 
 /**
  * Created by Zach on 4/17/2014.

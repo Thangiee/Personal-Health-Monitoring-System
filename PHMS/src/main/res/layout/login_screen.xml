@@ -51,7 +51,7 @@
             android:layout_marginRight="32dp"
         >
 
-        <com.cse3310.phms.ui.views.RoundCornerImageView
+        <com.cse3310.phms.ui.views.wiziard_model.RoundCornerImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_centerInParent="true"

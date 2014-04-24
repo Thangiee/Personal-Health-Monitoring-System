@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cse3310.phms.ui.views;
+package com.cse3310.phms.ui.views.wiziard_model;
 
 import android.content.Context;
 import android.graphics.Canvas;

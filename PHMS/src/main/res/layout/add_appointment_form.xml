@@ -42,37 +42,14 @@
             android:editable="false"
             android:enabled="false"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:visibility="gone"/>
 
-    <com.andreabaccega.widget.FormEditText
-            android:id="@+id/add_appointment_doc_Phone"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Contact Number"
-            android:editable="false"
-            android:enabled="false"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"/>
 
-    <com.andreabaccega.widget.FormEditText
-            android:id="@+id/add_appointment_location"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Appointment Location"
-            android:editable="false"
-            android:enabled="false"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"/>
-
-    <com.andreabaccega.widget.FormEditText
-            android:id="@+id/add_appointment_date"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Appointment Date"
-            android:editable="false"
-            android:enabled="false"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"/>
+    <com.cse3310.phms.ui.views.AppointmentView_
+            android:id="@+id/appointment_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     <TextView
             style="@style/text_view_btn"
@@ -84,6 +61,20 @@
             android:padding="12dp"
             android:id="@+id/add_appointment_time_btn"
             android:layout_gravity="center_horizontal"/>
+
+    <TextView
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Early Reminder"
+            android:paddingLeft="8dp"
+            android:id="@+id/textView"/>
+
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reminder_spinner"/>
 
     <EditText
             android:id="@+id/add_appointment_purpose"

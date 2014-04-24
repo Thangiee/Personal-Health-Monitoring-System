@@ -20,11 +20,11 @@ import android.os.Bundle;
 import com.cse3310.phms.model.Info;
 import com.cse3310.phms.ui.cards.ContactCard;
 import com.cse3310.phms.ui.utils.Events;
-import com.cse3310.phms.ui.views.ContactWizardModel;
+import com.cse3310.phms.ui.views.wiziard_model.ContactWizardModel;
 import de.greenrobot.event.EventBus;
 
 import static co.juliansuarez.libwizardpager.wizard.model.Page.SIMPLE_DATA_KEY;
-import static com.cse3310.phms.ui.views.ContactWizardModel.*;
+import static com.cse3310.phms.ui.views.wiziard_model.ContactWizardModel.*;
 
 public class ContactWizardPagerActivity extends BaseWizardPagerActivity{
 

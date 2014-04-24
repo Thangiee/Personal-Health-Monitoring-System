@@ -19,11 +19,9 @@ package com.cse3310.phms.ui.cards;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.Appointment;
-import com.cse3310.phms.model.DoctorInfo;
-import com.cse3310.phms.model.utils.MyDateFormatter;
+import com.cse3310.phms.ui.views.AppointmentView_;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 
@@ -40,25 +38,8 @@ public class AppointmentCard extends Card{
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         super.setupInnerViewElements(parent, view);
-        DoctorInfo doctorInfo = mAppointment.getDoctorInfo();
-        String name = doctorInfo.getFirstName() + " " + doctorInfo.getLastName();
-        String phone = doctorInfo.getPhone();
-        String time = MyDateFormatter.formatDate(mAppointment.getTime())
-                + " " + MyDateFormatter.formatTime(mAppointment.getTime());
-        String location = doctorInfo.getHospital() + " at " + doctorInfo.getAddress();
-
-
-        TextView nameTextView = (TextView) view.findViewById(R.id.appointment_card_name);
-        nameTextView.setText(name);
-
-        TextView phoneTextView = (TextView) view.findViewById(R.id.appointment_card_phone);
-        phoneTextView.setText(phone);
-
-        TextView timeTextView = (TextView) view.findViewById(R.id.appointment_card_time);
-        timeTextView.setText(time);
-
-        TextView locationTextView = (TextView) view.findViewById(R.id.appointment_card_location);
-        locationTextView.setText(location);
+        AppointmentView_ appointmentView = (AppointmentView_) view.findViewById(R.id.appointment_view);
+        appointmentView.setAppointment(mAppointment);
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);    // click anywhere on the card to expand
