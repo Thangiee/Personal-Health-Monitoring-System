@@ -21,7 +21,7 @@ import java.util.Calendar;
 public class VitalsWizardModel extends AbstractWizardModel{
     private VitalsCard vitalsCard;
     public static final String CHOLESTEROL_KEY = "Cholesterol Level", GLUCOSE_KEY = "Glucose Level", DATE_KEY = "Date" ;
-    public static final String BLOOD_KEY = "Blood Pressure", BODY_KEY="Body Temperature", PULSE_KEY = "Pulse Rate";
+    public static final String BLOOD_KEY = "Blood Pressure", BODY_KEY="Body Temperature", PULSE_KEY = "Resting Pulse Rate";
     Calendar currDate;
     public VitalsWizardModel(Context context) {
         super(context);
