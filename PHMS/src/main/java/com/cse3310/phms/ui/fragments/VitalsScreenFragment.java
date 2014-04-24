@@ -38,12 +38,14 @@ public class VitalsScreenFragment extends SherlockFragment{
     private CardListFragment cardListFragment;
     private List<Card> cardList = new ArrayList<Card>();
     TextView t2;
+    private EventBus localBus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().register(this);
+        localBus = new EventBus();
         populateCardList(new Date());
     }
 
@@ -71,7 +73,13 @@ public class VitalsScreenFragment extends SherlockFragment{
         super.onDestroy();
     }
 
-
+    @Override
+    public void onResume() {
+        localBus.register(this);
+        super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Vital Signs");
+    }
 
     @OptionsItem(R.id.add_icon)
     void menuAddVitals() {
