@@ -100,6 +100,15 @@
         <item name="android:background">#82a19c9a</item>
     </style>
 
+    <style name="horizontal_bar_divider">
+        <item name="android:background">@color/my_app_green</item>
+        <item name="android:textColor">@color/default_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingLeft">12dp</item>
+    </style>
+
     <!-- Tab page indicators -->
     <style name="StyledIndicators" parent="@android:style/Theme.Light">
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
@@ -121,4 +130,10 @@
         <item name="android:typeface">monospace</item>
     </style>
     <!---->
+    
+    <style name="blue_title">
+        <item name="android:textColor">@color/card_title</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">24sp</item>
+    </style>
 </resources>

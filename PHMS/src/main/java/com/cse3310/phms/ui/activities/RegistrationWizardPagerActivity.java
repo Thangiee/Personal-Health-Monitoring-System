@@ -103,9 +103,11 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
             food.save();
             food = new Food("chicken");
             food.save();
+
             DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "fake");
             doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("Shit@google.com");
             doctorInfo.save();
+
             Health urlInfo1 = new Health();
             urlInfo1.setUrl("http://www.nhl.com").setTitle("Hockey Chizz");
             urlInfo1.save();
@@ -116,6 +118,24 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
             urlInfo3.setUrl("http://www.espn.com").setTitle("Sports Stuff and things");
             urlInfo3.save();
 
+
+            // source: http://crazyhealthfacts.com/interesting-fun-facts/physical-health/
+            new HealthFact("Walking at a fast pace for three or more hours a week can reduce your risk of heart disease by 65%, studies suggest.");
+            new HealthFact("Sleep is more important than eating. A person will actually die from lack of sleep before they will die from starvation.");
+            new HealthFact("Playing board games and reading is good for you. They help preserve your memory and improve brain functions.");
+            new HealthFact("Playing with puppies and kittens has been scientifically proven to reduce stress and improve test scores.");
+            new HealthFact("People that have any form of gum disease are put at twice the risk to have a stroke or heart attack.");
+            new HealthFact("1/3 of all cancers are preventable.");
+            new HealthFact("Smokers can lose 1/3 of their everyday memory.");
+            new HealthFact("33% of those who drink four or more caffeinated beverages, such as soda or coffee, daily are put at a higher risk for sleep apnea");
+            new HealthFact("Stress causes or complicates 90% of all diseases.");
+            new HealthFact("Just adding movement into your daily routine can increase your level of fitness. Being sedentary is dangerous!");
+            new HealthFact("On average, right-handed people live 9 years longer than left-handed people.");
+            new HealthFact("Eating a meal with strong aromas will cause you to get fuller faster.");
+            new HealthFact("Every single muscle fiber is thinner than a human hair strand, and can hold up to 1,000 times its own weight.");
+            new HealthFact("The brain operates on about the same amount of power needed to light a 10-watt light bulb");
+            new HealthFact("The kidneys filter over 400 gallons of blood each day.");
+            new HealthFact("Every year, the human heart will beat approximately 35 million times.");
 
             ActiveAndroid.setTransactionSuccessful();
         } finally {

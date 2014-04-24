@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+            android:layout_marginTop="2dp"
+            android:id="@+id/colorBorder"
+            android:background="@drawable/rectangle"
+            android:layout_width="10dp"
+            android:layout_height="@dimen/card_base_empty_height"/>
+
+    <TextView
+            android:layout_toRightOf="@id/colorBorder"
+            android:id="@+id/card_inner_did_you_know_text"
+            android:layout_marginLeft="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+</RelativeLayout>
