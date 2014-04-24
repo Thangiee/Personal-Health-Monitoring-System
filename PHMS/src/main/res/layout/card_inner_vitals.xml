@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+
     <TextView
             android:id="@+id/vitals_inner_txt_btn"
             style="@style/inner_title"

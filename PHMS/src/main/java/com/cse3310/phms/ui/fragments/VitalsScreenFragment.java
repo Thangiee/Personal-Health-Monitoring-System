@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -23,6 +24,7 @@ import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -35,6 +37,7 @@ import java.util.*;
 public class VitalsScreenFragment extends SherlockFragment{
     private CardListFragment cardListFragment;
     private List<Card> cardList = new ArrayList<Card>();
+    TextView t2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +57,6 @@ public class VitalsScreenFragment extends SherlockFragment{
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // set title
-        getSherlockActivity().getSupportActionBar().setTitle("Vital Signs");
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -72,6 +69,7 @@ public class VitalsScreenFragment extends SherlockFragment{
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
+
 
 
     @OptionsItem(R.id.add_icon)

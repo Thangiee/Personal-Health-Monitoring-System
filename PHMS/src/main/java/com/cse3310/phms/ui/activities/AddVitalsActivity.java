@@ -16,6 +16,8 @@ import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
+import java.io.StringBufferInputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
@@ -35,11 +37,12 @@ public class AddVitalsActivity extends BaseActivity{
 
         List<Vitals> vitalsList = DatabaseHandler.getAllRows(Vitals.class); // get all the food in the DB
 
-        Set<Double> nameSet = new HashSet<Double>(vitalsList.size());
+        Set<String> nameSet = new HashSet<String>(vitalsList.size());
         List<Card> cardList = new ArrayList<Card>(nameSet.size());
-        // create a vitalCard for each of the food.
+        // create a vitalCard for each of the vitals
+        // .
         for (final Vitals vitals : vitalsList) {
-            if (nameSet.add(vitals.getBloodPressure())) {
+            if (nameSet.add(vitals.getDate())) {
                 cardList.add(createVitalsCard(vitals));
             }
         }
@@ -73,16 +76,20 @@ public class AddVitalsActivity extends BaseActivity{
 
     private VitalsCard createVitalsCard(final Vitals vitals) {
         final VitalsCard vitalsCard = new VitalsCard(this, vitals);
-        vitalsCard.setTitle("Vitals");
+        Calendar currDate = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
+        String formattedDate=df.format(currDate.getTime());
+        vitalsCard.setTitle("Past Entry: " + formattedDate);
         vitalsCard.setButtonTitle("Add");
+        vitalsCard.setSubTitle("Tap the '+' to add new vital");
         vitalsCard.setSwipeable(true);
 
         // setup what to do when the add button is clicked on the card
         vitalsCard.setBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(AddVitalsActivity.this,
-                       // "Added " + vitals.getVitalsName() + " to the list of vitals.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddVitalsActivity.this,
+                        "Added Selected Vital Card .", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(new Events.AddVitalsCardEvent(vitalsCard));
             }
         });
