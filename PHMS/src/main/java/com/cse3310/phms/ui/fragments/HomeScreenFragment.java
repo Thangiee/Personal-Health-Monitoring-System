@@ -17,31 +17,37 @@
 package com.cse3310.phms.ui.fragments;
 
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.cse3310.phms.R;
-import com.cse3310.phms.model.utils.MyDateFormatter;
+import com.cse3310.phms.model.HealthFact;
+import com.cse3310.phms.ui.cards.DIdYouKnowCard;
+import com.cse3310.phms.ui.utils.DatabaseHandler;
+import com.cse3310.phms.ui.utils.UserSingleton;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.view.CardView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 @EFragment(R.layout.home_screen)
 public class HomeScreenFragment extends SherlockFragment{
-    @ViewById(R.id.frag_enterDateHere_lbl)
-    TextView dateView;
-    @ViewById(R.id.initialize_test_data)
-    Button testButton;
-    Date date;
+    @ViewById(R.id.home_title)              TextView mTitleTextView;
+    @ViewById(R.id.card_home_image_view)    CardView mHomeImageCardView;
+    @ViewById(R.id.home_screen_layout)      LinearLayout mLinearLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        date = new Date();
         setHasOptionsMenu(true);
     }
 
@@ -61,7 +67,30 @@ public class HomeScreenFragment extends SherlockFragment{
 
     @AfterViews
     void OnAfterViews() {
-        dateView.setText(String.valueOf("Todays is:\n " + MyDateFormatter.formatDate(date.getTime())));
+        mTitleTextView.setText("Welcome, " + UserSingleton.INSTANCE.getCurrentUser().getPersonalInfo().getFirstName() + "!");
+        mHomeImageCardView.setCard(new Card(getActivity(), R.layout.home_feed_image));
+
+        List<HealthFact> healthFactList = DatabaseHandler.getAllRows(HealthFact.class);
+        int size = (int) (healthFactList.size() * .50);
+
+        Random random = new Random();
+        Set<Integer> integerSet = new LinkedHashSet<Integer>(size);
+        while (integerSet.size() < size) {
+            integerSet.add(random.nextInt(healthFactList.size()));
+        }
+
+        for (int i : integerSet) {
+            Card card = new DIdYouKnowCard(getActivity(), healthFactList.get(i).getFact());
+            CardView cardView = new CardView(getActivity());
+            cardView.setCard(card);
+            ViewGroup.LayoutParams layoutParams = cardView.getInternalMainCardLayout().getLayoutParams();
+
+            if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+                ((ViewGroup.MarginLayoutParams) layoutParams).setMargins(24, 24, 24, 24);
+            }
+            mLinearLayout.addView(cardView);
+        }
+
     }
 
 }

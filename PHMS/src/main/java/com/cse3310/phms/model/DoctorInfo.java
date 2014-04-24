@@ -18,12 +18,14 @@ package com.cse3310.phms.model;
 
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.cse3310.phms.R;
 import com.cse3310.phms.ui.utils.UserSingleton;
 
 @Table(name = "DoctorInfo")
 public class DoctorInfo extends Info {
     @Column private String hospital;
     @Column private String address;
+    @Column private int photoId;
 
     /**
      * Default constructor is required for ActiveAndroid
@@ -41,6 +43,7 @@ public class DoctorInfo extends Info {
     public DoctorInfo(String hospital, String address) {
         this.hospital = hospital;
         this.address = address;
+        photoId = R.drawable.ic_action_user;
         super.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
@@ -82,5 +85,14 @@ public class DoctorInfo extends Info {
     public DoctorInfo setAddress(String address) {
         this.address = address;
         return this;
+    }
+
+    public DoctorInfo setPhotoId(int photoId) {
+        this.photoId = photoId;
+        return this;
+    }
+
+    public int getPhotoId() {
+        return photoId;
     }
 }

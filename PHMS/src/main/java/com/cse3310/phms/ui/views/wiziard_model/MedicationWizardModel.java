@@ -34,7 +34,7 @@ public class MedicationWizardModel extends AbstractWizardModel{
                     new EditTextPage(this, DOSAGE_KEY).setValue(String.valueOf(medication.getDosage())).setRequired(true),
                     new SingleFixedChoicePage(this, DOSAGE_TYPE_KEY).setValue(medication.getDosageType()).setChoices("(Pills)", "(oz)").setRequired(true),
                     new EditTextPage(this, FREQUENCY_KEY).setValue(String.valueOf(medication.getFrequency())).setRequired(true),
-                    new SingleFixedChoicePage(this, FREQUENCY_TYPE_KEY).setValue(medication.getFrequencyType()).setChoices("(Per Day)", "(Per Week)", "(Per Month)").setRequired(true)
+                    new SingleFixedChoicePage(this, FREQUENCY_TYPE_KEY).setValue(medication.getFrequencyType()).setChoices("Times(Per Day)", "Times(Per Week)", "Times(Per Month)").setRequired(true)
             );
         }
         else{
@@ -43,7 +43,7 @@ public class MedicationWizardModel extends AbstractWizardModel{
                     new EditTextPage(this, DOSAGE_KEY).setRequired(true),
                     new SingleFixedChoicePage(this, DOSAGE_TYPE_KEY).setChoices("(Pills)", "(oz)").setRequired(true),
                     new EditTextPage(this, FREQUENCY_KEY).setRequired(true),
-                    new SingleFixedChoicePage(this, FREQUENCY_TYPE_KEY).setChoices("(Per Day)", "(Per Week)", "(Per Month)").setRequired(true)
+                    new SingleFixedChoicePage(this, FREQUENCY_TYPE_KEY).setChoices("Times(Per Day)", "Times(Per Week)", "Times(Per Month)").setRequired(true)
             );
         }
     }

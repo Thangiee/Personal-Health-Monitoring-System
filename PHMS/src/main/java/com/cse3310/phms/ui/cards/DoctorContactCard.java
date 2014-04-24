@@ -19,6 +19,7 @@ package com.cse3310.phms.ui.cards;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.DoctorInfo;
@@ -38,7 +39,10 @@ public class DoctorContactCard extends Card{
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
         TextView name = (TextView) view.findViewById(R.id.card_inner_name_tv);
+        ImageView photoImageView = (ImageView) view.findViewById(R.id.card_inner_contact_img);
+
         name.setText(mDoctorInfo.getFullName());
+        photoImageView.setImageResource(mDoctorInfo.getPhotoId());
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(getCardView());
         setViewToClickToExpand(viewToClickToExpand);    // click anywhere on the card to expand

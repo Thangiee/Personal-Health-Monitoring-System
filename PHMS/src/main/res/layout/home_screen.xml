@@ -13,98 +13,40 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+<ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
+        xmlns:card="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" >
-
-    <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="HOME"-->
-            <!--android:id="@+id/textView"-->
-            <!--android:layout_gravity="center"/>-->
-
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:orientation="vertical"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:stretchColumns="1"
-                 android:layout_column="1"
-                 android:background="@drawable/gray_stripe_pattern">
-
-        <TableRow
-                android:layout_width="fill_parent"
-                android:gravity="center"
-                android:layout_height="fill_parent">
-            style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
-                    android:text="News Feed"
-                    android:id="@+id/frag_newsFeed_expand_lbl"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:gravity="center"/>
-
-        </TableRow>
-        <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-        </TableRow>
-        <TableRow
-                android:layout_width="fill_parent"
-                android:paddingLeft="5dp"
-                android:layout_height="fill_parent">
-            <TextView
-
-                    android:background="@drawable/feed"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
-
-                    android:id="@+id/frag_frequency_type_expand_lbl"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:gravity="left" android:layout_column="0"/>
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
-                    android:text="Enter date here"
-                    android:id="@+id/frag_enterDateHere_lbl"
-                    android:paddingLeft="2dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:gravity="center"
-                    />
-        </TableRow>
-        <TableRow>
+    <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            style="@style/Now_extras.card_expand_inner_layout.light_gray.bold"
-            <TextView
-                    android:paddingBottom="1000dp"
-                    android:background="@drawable/gray_stripe_pattern"
-                    />
-        </TableRow>
+            android:layout_height="fill_parent"
+            android:id="@+id/home_screen_layout"
+            android:orientation="vertical">
 
+        <TextView
+                style="@style/blue_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome"
+                android:id="@+id/home_title"
+                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"/>
 
-    </TableLayout>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="initialize test data"
-            android:id="@+id/initialize_test_data"
-            android:layout_gravity="center_horizontal|bottom"/>
-</FrameLayout>
+        <it.gmariotti.cardslib.library.view.CardView
+                android:id="@+id/card_home_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                card:card_layout_resourceID="@layout/card_thumbnail_layout"/>
+
+        <TextView
+                style="@style/horizontal_bar_divider"
+                android:text="Health Facts"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</ScrollView>

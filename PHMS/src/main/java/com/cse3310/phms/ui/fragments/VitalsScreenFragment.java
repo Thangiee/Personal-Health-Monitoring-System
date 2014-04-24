@@ -22,7 +22,6 @@ import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -71,7 +70,12 @@ public class VitalsScreenFragment extends SherlockFragment{
         super.onDestroy();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Vital Signs");
+    }
 
     @OptionsItem(R.id.add_icon)
     void menuAddVitals() {

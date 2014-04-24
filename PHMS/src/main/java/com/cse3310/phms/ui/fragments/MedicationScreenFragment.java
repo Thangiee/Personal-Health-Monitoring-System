@@ -120,7 +120,13 @@ public class MedicationScreenFragment extends SherlockFragment{
             }
         });
 
-
+        // add the deleted medication back to the user's diet when the undo button is clicked.
+        medicationCard.setOnUndoSwipeListListener(new Card.OnUndoSwipeListListener() {
+            @Override
+            public void onUndoSwipe(Card card) {
+                UserSingleton.INSTANCE.getCurrentUser().getDiet().addMedication(new Medication(medication));
+            }
+        });
         return medicationCard;
     }
 
