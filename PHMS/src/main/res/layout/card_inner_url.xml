@@ -40,8 +40,10 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/card_inner_txt_title"
             android:layout_marginBottom="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
 
     <ImageButton

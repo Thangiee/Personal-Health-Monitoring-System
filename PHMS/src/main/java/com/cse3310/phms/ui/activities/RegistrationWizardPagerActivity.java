@@ -114,13 +114,13 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
 
             //test electronic information
             Health urlInfo1 = new Health();
-            urlInfo1.setUrl("http://www.nhl.com").setTitle("Hockey Chizz");
+            urlInfo1.setUrl("http://www.health.com/health").setTitle("Health Website");
             urlInfo1.save();
             Recipe urlInfo2 = new Recipe();
-            urlInfo2.setUrl("http://www.google.com").setTitle("Search Mode");
+            urlInfo2.setUrl("http://www.health.com/health/food-recipes/").setTitle("Recipe Website");
             urlInfo2.save();
             DietDesc urlInfo3 = new DietDesc();
-            urlInfo3.setUrl("http://www.espn.com").setTitle("Sports Stuff and things");
+            urlInfo3.setUrl("http://www.health.com/health/diet-fitness/").setTitle("Diet Website");
             urlInfo3.save();
 
             //Test Medications
