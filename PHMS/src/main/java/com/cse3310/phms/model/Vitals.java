@@ -30,14 +30,22 @@ public class Vitals extends Model {
     @Column private double cholesterol;
     @Column private double bodyTemp;
     @Column private double pulse;
-    @Column private String Date;
+    @Column private String Dates;
 
 
     @Column private User user; // used as a foreign key
 
+    /*public Vitals(double bloodPressure, double glucoseLevel, double cholesterol, double bodyTemp, double pulse) {
+        this.bloodPressure = bloodPressure;
+        this.glucoseLevel = glucoseLevel;
+        this.cholesterol = cholesterol;
+        this.bodyTemp = bodyTemp;
+        this.pulse = pulse;
+    }*/
+
     public Vitals(Vitals vitals) {
         this.user = UserSingleton.INSTANCE.getCurrentUser();
-        Date=vitals.getDate();
+        Dates=vitals.getDate();
         bloodPressure = vitals.getBloodPressure();
         glucoseLevel = vitals.getGlucoseLevel();
         cholesterol = vitals.getCholesterol();
@@ -50,12 +58,10 @@ public class Vitals extends Model {
         this.user = UserSingleton.INSTANCE.getCurrentUser();
     }
 
-    public String getDate() {
-        return Date;
-    }
+    public String getDate() {return Dates;}
 
     public void setDate(String date) {
-        Date = date;
+        Dates = date;
     }
 
     public void setUser(User user) {

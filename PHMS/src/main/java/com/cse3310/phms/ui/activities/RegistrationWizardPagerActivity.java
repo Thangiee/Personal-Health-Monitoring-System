@@ -81,6 +81,33 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
         //User user = UserSingleton.INSTANCE.getCurrentUser();
         ActiveAndroid.beginTransaction();
         try {
+            Vitals v=new Vitals();
+            v.setPulse(101.4);//yellow
+            v.setCholesterol(65.4);//green
+            v.setBodyTemp(98.7);//green
+            v.setGlucoseLevel(98.3);//red
+            v.setBloodPressure(120.2);//yellow
+            v.setDate("Jan-01-2014");
+            v.save();
+
+            v=new Vitals();
+            v.setPulse(97.3);//green
+            v.setCholesterol(150.4);//green
+            v.setBodyTemp(101.7);//yellow
+            v.setGlucoseLevel(65.8);//green
+            v.setBloodPressure(150.2);//red
+            v.setDate("Feb-20-2014");
+            v.save();
+
+            v=new Vitals();
+            v.setPulse(102.3);//green
+            v.setCholesterol(142.7);//green
+            v.setBodyTemp(97.6);//yellow
+            v.setGlucoseLevel(66.9);//green
+            v.setBloodPressure(148.6);//red
+            v.setDate("Mar-13-2014");
+            v.save();
+
             Food food = new Food("Applesauce");
             food.save();
             food = new Food("Apple juice");

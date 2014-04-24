@@ -37,7 +37,7 @@ import java.util.*;
 public class VitalsScreenFragment extends SherlockFragment{
     private CardListFragment cardListFragment;
     private List<Card> cardList = new ArrayList<Card>();
-    TextView t2;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class VitalsScreenFragment extends SherlockFragment{
         Calendar currDate = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
         String formattedDate=df.format(currDate.getTime());
-        vitalsCard.setTitle("Date: "+formattedDate);
+        vitalsCard.setTitle("Date: "+vitals.getDate());
         vitalsCard.setButtonTitle("Edit");
         vitalsCard.setSwipeable(false);
 

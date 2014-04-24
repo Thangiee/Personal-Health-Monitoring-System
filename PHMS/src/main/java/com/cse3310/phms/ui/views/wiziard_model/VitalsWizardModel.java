@@ -22,7 +22,9 @@ public class VitalsWizardModel extends AbstractWizardModel{
     private VitalsCard vitalsCard;
     public static final String CHOLESTEROL_KEY = "Cholesterol Level", GLUCOSE_KEY = "Glucose Level", DATE_KEY = "Date" ;
     public static final String BLOOD_KEY = "Blood Pressure", BODY_KEY="Body Temperature", PULSE_KEY = "Resting Pulse Rate";
-    Calendar currDate;
+    Calendar currDate = Calendar.getInstance();
+    SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
+    String formattedDate=df.format(currDate.getTime());
     public VitalsWizardModel(Context context) {
         super(context);
     }
@@ -31,11 +33,9 @@ public class VitalsWizardModel extends AbstractWizardModel{
     @Override
     protected PageList onNewRootPageList() {
         vitalsCard = EventBus.getDefault().removeStickyEvent(VitalsCard.class);
-        if (vitalsCard != null) {     // a foodCard was passed; therefore the user pressed the edit button.
+        if (vitalsCard != null) {     // a vitalCard was passed; therefore the user pressed the edit button.
             Vitals vitals = vitalsCard.getVitals();
-            currDate = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
-            String formattedDate=df.format(currDate.getTime());
+
             return new PageList(
 
                     new EditTextPage(this, DATE_KEY, dateValidator).setValue(formattedDate).setInputType(InputType.TYPE_CLASS_DATETIME),
