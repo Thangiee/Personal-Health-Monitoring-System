@@ -103,8 +103,8 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
             food.save();
             food = new Food("chicken");
             food.save();
-            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "fake");
-            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("Shit@google.com");
+            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "Dallas");
+            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("JohnD@google.com");
             doctorInfo.save();
             Health urlInfo1 = new Health();
             urlInfo1.setUrl("http://www.nhl.com").setTitle("Hockey Chizz");
@@ -115,6 +115,18 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
             DietDesc urlInfo3 = new DietDesc();
             urlInfo3.setUrl("http://www.espn.com").setTitle("Sports Stuff and things");
             urlInfo3.save();
+
+            //Test Medications
+            Medication medication = new Medication("Tylenol", 2, 2, "Times(Per Day)","(Pills)");
+            medication.save();
+            medication = new Medication("Asprin", 1, 3, "Times(Per Day)","(Pills)");
+            medication.save();
+            medication = new Medication("Zetia", 1, 1, "Times(Per Day)","(Pills)");
+            medication.save();
+            medication = new Medication("Prozac", 1, 1, "Times(Per Week)","(Pills)");
+            medication.save();
+            medication = new Medication("Mucinex", 2, 2, "Times(Per Day)","(oz)");
+            medication.save();
 
 
             ActiveAndroid.setTransactionSuccessful();
