@@ -39,6 +39,7 @@
                 android:id="@+id/card_home_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 card:card_layout_resourceID="@layout/card_thumbnail_layout"/>
 
         <TextView

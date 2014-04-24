@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import com.activeandroid.ActiveAndroid;
+import com.cse3310.phms.R;
 import com.cse3310.phms.model.*;
 import com.cse3310.phms.ui.utils.UserSingleton;
 import com.cse3310.phms.ui.views.pager.AccountInfoPage;
@@ -87,7 +88,7 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
             food.save();
             food = new Food("Apple juice",60, 1, 7, 12, 34, 15, "Motts", diet);
             food.save();
-            food = new Food("Apple",50, 1, 2, 4, 12, 23, "", diet);
+            food = new Food("Apple",50, 1, 2, 4, 12, 23, "Gala", diet);
             food.save();
             food = new Food("Beer",120, 4, 1, 9, 2, 90, "Bud Light", diet);
             food.save();
@@ -95,21 +96,46 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
             food.save();
             food = new Food("Bacon",600, 6, 2, 25, 6, 11, "Oscar Mayer", diet);
             food.save();
-            food = new Food("Corn",92, 2, 2, 6, 5, 18, "", diet);
-            food.save();
             food = new Food("Cheese",82, 1, 2, 4, 5, 10, "Kraft", diet);
             food.save();
-            food = new Food("Cake",420, 1, 2, 26, 5, 100, "", diet);
+            food = new Food("Cheerios",107, 1, 3.2, 2.1, 3.2, 1.1, "General Mills", diet);
             food.save();
-            food = new Food("Cookies",100, 2, 5, 4, 5, 35, "", diet);
+            food = new Food("Cookies",100, 2, 5, 4, 5, 35, "Chips Ahoy", diet);
             food.save();
             food = new Food("Chicken",600, 2, 18, 26, 5, 6, "KFC", diet);
             food.save();
+            food = new Food("Crust Pizza with Cheese",306, 1, 11.6, 10.6, 2.1, 4.2, "Papa John's", diet);
+            food.save();
 
             //Test contact information
-            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "Dallas");
-            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("JohnD@google.com");
-            doctorInfo.save();
+            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "12629 Riverside");
+            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("7517953248").setEmail(" VanillaBear@google.com");
+            doctorInfo.setPhotoId(R.drawable.john_dorian).save();
+
+            doctorInfo = new DoctorInfo("Sacred Heart Hospital", "123 fake");
+            doctorInfo.setFirstName("Christopher").setLastName("Turk").setPhone("7516428749").setEmail("ChocolateBear@google.com");
+            doctorInfo.setPhotoId(R.drawable.turk).save();
+
+            doctorInfo = new DoctorInfo("Sacred Heart Hospital", "123 fake");
+            doctorInfo.setFirstName("Elliot").setLastName("Reid").setPhone("7511358413").setEmail("Reid@google.com");
+            doctorInfo.setPhotoId(R.drawable.elliot).save();
+
+            doctorInfo = new DoctorInfo("Sacred Heart Hospital", "123 fake");
+            doctorInfo.setFirstName("Perry").setLastName("Cox").setPhone("7516842018").setEmail("Cox@google.com");
+            doctorInfo.setPhotoId(R.drawable.cox).save();
+
+            doctorInfo = new DoctorInfo("Sacred Heart Hospital", "123 fake");
+            doctorInfo.setFirstName("Robert").setLastName("Kelso").setPhone("7518723604").setEmail("Kelso@google.com");
+            doctorInfo.setPhotoId(R.drawable.kelso).save();
+
+            Info emergency = new Info("Zach", "Hasbrouck").setEmail("1111@google.com").setPhone("1111111111");
+            emergency.save();
+            emergency = new Info("Emery", "Barnes").setEmail("2222@google.com").setPhone("2222222222");
+            emergency.save();
+            emergency = new Info("Kevin", "Morgan").setEmail("3333@google.com").setPhone("3333333333");
+            emergency.save();
+            emergency = new Info("Thang", "Le").setEmail("4444@google.com").setPhone("4444444444");
+            emergency.save();
 
             //test electronic information
             Health urlInfo1 = new Health();
