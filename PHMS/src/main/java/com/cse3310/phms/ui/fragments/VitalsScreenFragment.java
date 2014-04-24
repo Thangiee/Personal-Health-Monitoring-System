@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -21,6 +22,7 @@ import de.greenrobot.event.EventBus;
 import it.gmariotti.cardslib.library.internal.Card;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -35,12 +37,15 @@ import java.util.*;
 public class VitalsScreenFragment extends SherlockFragment{
     private CardListFragment cardListFragment;
     private List<Card> cardList = new ArrayList<Card>();
+    TextView t2;
+    private EventBus localBus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);    // add this to be able to add other icon to the action bar menu
         EventBus.getDefault().register(this);
+        localBus = new EventBus();
         populateCardList(new Date());
     }
 
@@ -54,12 +59,6 @@ public class VitalsScreenFragment extends SherlockFragment{
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // set title
-        getSherlockActivity().getSupportActionBar().setTitle("Vital Signs");
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -74,6 +73,13 @@ public class VitalsScreenFragment extends SherlockFragment{
         super.onDestroy();
     }
 
+    @Override
+    public void onResume() {
+        localBus.register(this);
+        super.onResume();
+        // set title
+        getSherlockActivity().getSupportActionBar().setTitle("Vital Signs");
+    }
 
     @OptionsItem(R.id.add_icon)
     void menuAddVitals() {

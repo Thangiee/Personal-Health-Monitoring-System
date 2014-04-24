@@ -44,6 +44,13 @@ public class Medication extends Model implements Remindable, Notifiable{
         frequencyType = medication.getFrequencyType();
         frequency = medication.getFrequency();
     }
+    public Medication(String medicationName, double dosage, double frequency, String frequencyType, String dosageType){
+        this.medicationName = medicationName;
+        this.dosage = dosage;
+        this.frequency = frequency;
+        this.frequencyType = frequencyType;
+        this.dosageType = dosageType;
+    }
 
     public Medication(){
         this.user = UserSingleton.INSTANCE.getCurrentUser();

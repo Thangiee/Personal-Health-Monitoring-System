@@ -21,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import com.activeandroid.ActiveAndroid;
 import com.cse3310.phms.model.*;
+import com.cse3310.phms.ui.utils.UserSingleton;
 import com.cse3310.phms.ui.views.pager.AccountInfoPage;
 import com.cse3310.phms.ui.views.pager.ContactInfoPage;
 import com.cse3310.phms.ui.views.pager.PersonalInfoPage;
@@ -78,45 +79,60 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
 
 
     private void initializeDemoData() {
-        //User user = UserSingleton.INSTANCE.getCurrentUser();
         ActiveAndroid.beginTransaction();
         try {
-            Food food = new Food("Applesauce");
+            //test diet information
+            Diet diet = UserSingleton.INSTANCE.getCurrentUser().getDiet();
+            Food food = new Food("Applesauce", 100, 2, 5, 4, 5, 25, "Motts", diet);
             food.save();
-            food = new Food("Apple juice");
+            food = new Food("Apple juice",60, 1, 7, 12, 34, 15, "Motts", diet);
             food.save();
-            food = new Food("Apple");
+            food = new Food("Apple",50, 1, 2, 4, 12, 23, "", diet);
             food.save();
-            food = new Food("Beer");
+            food = new Food("Beer",120, 4, 1, 9, 2, 90, "Bud Light", diet);
             food.save();
-            food = new Food("Bread");
+            food = new Food("Bread",20, 1, 1, 6, 5, 25, "MB", diet);
             food.save();
-            food = new Food("Bacon");
+            food = new Food("Bacon",600, 6, 2, 25, 6, 11, "Oscar Mayer", diet);
             food.save();
-            food = new Food("corn");
+            food = new Food("Corn",92, 2, 2, 6, 5, 18, "", diet);
             food.save();
-            food = new Food("cheese");
+            food = new Food("Cheese",82, 1, 2, 4, 5, 10, "Kraft", diet);
             food.save();
-            food = new Food("cake");
+            food = new Food("Cake",420, 1, 2, 26, 5, 100, "", diet);
             food.save();
-            food = new Food("cookies");
+            food = new Food("Cookies",100, 2, 5, 4, 5, 35, "", diet);
             food.save();
-            food = new Food("chicken");
+            food = new Food("Chicken",600, 2, 18, 26, 5, 6, "KFC", diet);
             food.save();
 
-            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "fake");
-            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("Shit@google.com");
+            //Test contact information
+            DoctorInfo doctorInfo = new DoctorInfo("Sacred Heart Hospital", "Dallas");
+            doctorInfo.setFirstName("John").setLastName("Dorian").setPhone("123456789").setEmail("JohnD@google.com");
             doctorInfo.save();
 
+            //test electronic information
             Health urlInfo1 = new Health();
-            urlInfo1.setUrl("http://www.nhl.com").setTitle("Hockey Chizz");
+            urlInfo1.setUrl("http://www.health.com/health").setTitle("Health Website");
             urlInfo1.save();
             Recipe urlInfo2 = new Recipe();
-            urlInfo2.setUrl("http://www.google.com").setTitle("Search Mode");
+            urlInfo2.setUrl("http://www.health.com/health/food-recipes/").setTitle("Recipe Website");
             urlInfo2.save();
             DietDesc urlInfo3 = new DietDesc();
-            urlInfo3.setUrl("http://www.espn.com").setTitle("Sports Stuff and things");
+            urlInfo3.setUrl("http://www.health.com/health/diet-fitness/").setTitle("Diet Website");
             urlInfo3.save();
+
+            //Test Medications
+            Medication medication = new Medication("Tylenol", 2, 2, "Times(Per Day)","(Pills)");
+            medication.save();
+            medication = new Medication("Asprin", 1, 3, "Times(Per Day)","(Pills)");
+            medication.save();
+            medication = new Medication("Zetia", 1, 1, "Times(Per Day)","(Pills)");
+            medication.save();
+            medication = new Medication("Prozac", 1, 1, "Times(Per Week)","(Pills)");
+            medication.save();
+            medication = new Medication("Mucinex", 2, 2, "Times(Per Day)","(oz)");
+            medication.save();
 
 
             // source: http://crazyhealthfacts.com/interesting-fun-facts/physical-health/

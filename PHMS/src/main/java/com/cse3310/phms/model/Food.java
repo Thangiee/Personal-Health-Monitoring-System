@@ -73,6 +73,18 @@ public class Food extends Model{
         time = thatFood.getTime();
     }
 
+    public Food(String name, double calories, double numOfServings, double protein, double fat, double fiber, double sugars, String brand, Diet diet) {
+        this.name = name;
+        this.calories = calories;
+        this.numOfServings = numOfServings;
+        this.protein = protein;
+        this.fat = fat;
+        this.fiber = fiber;
+        this.sugars = sugars;
+        this.brand = brand;
+        this.diet = diet;
+    }
+
     /**
      * Gets name.
      *
