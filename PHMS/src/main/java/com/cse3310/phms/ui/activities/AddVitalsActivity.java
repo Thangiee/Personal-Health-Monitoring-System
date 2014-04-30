@@ -17,7 +17,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
 import java.io.StringBufferInputStream;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.cse3310.phms.ui.utils.Comparators.FoodCardComparator.*;
@@ -76,12 +75,8 @@ public class AddVitalsActivity extends BaseActivity{
 
     private VitalsCard createVitalsCard(final Vitals vitals) {
         final VitalsCard vitalsCard = new VitalsCard(this, vitals);
-        Calendar currDate = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("MMM-dd-yyyy");
-        String formattedDate=df.format(currDate.getTime());
-        vitalsCard.setTitle("Past Entry: " + formattedDate);
+        vitalsCard.setTitle("Past Entry: " + vitals.getDate());
         vitalsCard.setButtonTitle("Add");
-        vitalsCard.setSubTitle("Tap the '+' to add new vital");
         vitalsCard.setSwipeable(true);
 
         // setup what to do when the add button is clicked on the card
