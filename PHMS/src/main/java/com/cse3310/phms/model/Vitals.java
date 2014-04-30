@@ -16,13 +16,12 @@
 
 package com.cse3310.phms.model;
 
-import co.juliansuarez.libwizardpager.R;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.cse3310.phms.ui.utils.UserSingleton;
 
-@Table(name = "VitalSign")
+@Table(name = "Vitals")
 public class Vitals extends Model {
 
     @Column private double bloodPressure;

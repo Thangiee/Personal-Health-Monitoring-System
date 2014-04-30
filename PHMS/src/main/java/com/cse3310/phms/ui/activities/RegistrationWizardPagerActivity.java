@@ -79,7 +79,7 @@ public class RegistrationWizardPagerActivity extends BaseWizardPagerActivity{
     }
 
 
-    private void initializeDemoData() {
+    static void initializeDemoData() {
         ActiveAndroid.beginTransaction();
         try {
             //test diet information

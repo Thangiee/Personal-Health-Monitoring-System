@@ -27,6 +27,7 @@ import android.widget.Button;
 import com.andreabaccega.widget.FormEditText;
 import com.cse3310.phms.R;
 import com.cse3310.phms.model.LoginManager;
+import com.cse3310.phms.model.PersonalInfo;
 import com.cse3310.phms.ui.adapters.TextWatcherAdapter;
 import com.cse3310.phms.ui.utils.validators.MinimumLengthValidator;
 import com.cse3310.phms.ui.utils.validators.NoSpaceValidator;
@@ -64,6 +65,17 @@ public class LoginActivity extends Activity {
         mUsernameEditText.addValidator(new MinimumLengthValidator(3));
         mPasswordEditText.addValidator(new NoSpaceValidator());
         mRoundCornerImageView.setImageResource(R.drawable.linen_white);
+
+        // register a user for demo purpose
+        if (!LoginManager.isUserNameExists("group11")) {
+            PersonalInfo info = new PersonalInfo("thang", "le")
+                    .setHeight(160)
+                    .setWeight(140);
+            info.setEmail("fake@gmail.com");
+
+            LoginManager.register("group11", "123456", info);
+            RegistrationWizardPagerActivity.initializeDemoData();
+        }
     }
 
     @Click(R.id.act_login_screen_btn_login)
