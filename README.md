@@ -1,4 +1,4 @@
-Personal-Health-Monitoring-System
+PHMS
 =================================
 Android application to help users maintain various personal health-related data. 
 
